@@ -2,7 +2,7 @@ import { setUserToken } from './actionTypes';
 import { fetchUserData } from './user';
 
 export const googleCallBack = (authorizationCode) => async (dispatch) => {
-	const URL = `http://localhost:3001/google/callback?code=${authorizationCode}`;
+	const URL = import.meta.env.REACT_APP_BE_URL + `/google/callback?code=${authorizationCode}`;
 	const response = await fetch(URL, {
 		method: 'GET',
 	});
