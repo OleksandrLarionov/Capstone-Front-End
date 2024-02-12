@@ -1,5 +1,5 @@
 import { Col, Container, Form, InputGroup, Row } from 'react-bootstrap';
-import { fetchUserData, getTokenFromLogin } from '../action';
+import { fetchUserData, getTokenFromLogin } from '../action/user';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

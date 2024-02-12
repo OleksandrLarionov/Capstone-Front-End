@@ -1,7 +1,7 @@
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../action';
+import { logoutUser } from '../action/actionTypes';
 
 const Home = () => {
 	const dispatch = useDispatch();
