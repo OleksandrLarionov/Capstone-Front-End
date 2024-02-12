@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { setUserData, setUserToken } from './actionTypes';
 
 export const getTokenFromLogin = (email, password) => async (dispatch) => {
-	const URL = 'http://localhost:3001/auth/login';
+	const URL = import.meta.env.VITE_LOGIN;
 	const response = await fetch(URL, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
@@ -22,7 +22,7 @@ export const getTokenFromLogin = (email, password) => async (dispatch) => {
 };
 
 export const fetchUserData = (token) => async (dispatch) => {
-	const URL = 'http://localhost:3001/users/me';
+	const URL = import.meta.env.VITE_ME;
 	const response = await fetch(URL, {
 		method: 'GET',
 		headers: {

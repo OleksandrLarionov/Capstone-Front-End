@@ -2,7 +2,7 @@ import { setUserToken } from './actionTypes';
 import { fetchUserData } from './user';
 
 export const googleCallBack = (authorizationCode) => async (dispatch) => {
-	const URL = import.meta.env.REACT_APP_BE_URL + `/google/callback?code=${authorizationCode}`;
+	const URL = import.meta.env.VITE_GOOGLE_CALLBACK + `${authorizationCode}`;
 	const response = await fetch(URL, {
 		method: 'GET',
 	});
@@ -16,7 +16,7 @@ export const googleCallBack = (authorizationCode) => async (dispatch) => {
 	}
 };
 export const getGoogleLoginUrl = () => async (dispatch) => {
-	const URL = 'http://localhost:3001/google/authorization-url';
+	const URL = import.meta.env.VITE_GOOGLE_AUTH;
 	const response = await fetch(URL, {
 		method: 'GET',
 	});
