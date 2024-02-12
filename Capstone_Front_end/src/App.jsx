@@ -1,6 +1,4 @@
-import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import LoginPage from './Components/LoginPage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './Components/Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,6 +8,7 @@ import { fetchUserData } from './action/user';
 import { setLoading } from './action/actionTypes';
 import { useEffect } from 'react';
 import GoogleCallBack from './Components/GoogleCallback';
+import LoginForm from './Components/LoginForm';
 
 function App() {
 	const token = useSelector((state) => state.user.token);
@@ -29,7 +28,7 @@ function App() {
 		<Container fluid>
 			<BrowserRouter>
 				<Routes>
-					<Route path='/login' element={<LoginPage />} />
+					<Route path='/login' element={<LoginForm />} />
 					<Route path='/home' element={<Home />} />
 					<Route path='/google/callback' element={<GoogleCallBack />} />
 				</Routes>
