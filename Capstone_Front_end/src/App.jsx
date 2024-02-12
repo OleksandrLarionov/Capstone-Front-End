@@ -9,6 +9,7 @@ import { setLoading } from './action/actionTypes';
 import { useEffect } from 'react';
 import GoogleCallBack from './Components/GoogleCallback';
 import LoginForm from './Components/LoginForm';
+import Google from './Components/Google';
 
 function App() {
 	const token = useSelector((state) => state.user.token);

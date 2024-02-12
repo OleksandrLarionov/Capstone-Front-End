@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { FcGoogle } from 'react-icons/fc';
 import { useDispatch } from 'react-redux';
 import { getGoogleLoginUrl } from '../action/google';
 
@@ -19,15 +19,7 @@ const Google = () => {
 			setLoading(false);
 		}
 	};
-	return (
-		<Container>
-			<div className='App'>
-				<Button onClick={handleGoogleLogin} disabled={loading}>
-					{loading ? 'Caricamento...' : 'Accedi con Google'}
-				</Button>
-			</div>
-		</Container>
-	);
+	return <FcGoogle onClick={handleGoogleLogin} />;
 };
 
 export default Google;

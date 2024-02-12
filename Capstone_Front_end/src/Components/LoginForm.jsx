@@ -9,6 +9,7 @@ import '../css/LoginForm.css';
 import { fetchUserData, getTokenFromLogin } from '../action/user';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import Google from './Google';
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [email, setEmail] = useState('');
@@ -19,10 +20,6 @@ const LoginForm = () => {
 	};
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
-	const handleNavigateGoogleLogin = (e) => {
-		e.preventDefault();
-	};
 
 	const login = async (e) => {
 		e.preventDefault();
@@ -46,7 +43,7 @@ const LoginForm = () => {
 
 						<div className='d-flex justify-content-end social_icon'>
 							<span>
-								<FcGoogle />
+								<Google />
 							</span>
 							<span>
 								<FaFacebook />
