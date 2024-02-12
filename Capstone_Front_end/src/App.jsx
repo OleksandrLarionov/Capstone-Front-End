@@ -6,8 +6,10 @@ import Home from './Components/Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserData, setLoading } from './action';
+import { fetchUserData } from './action/user';
+import { setLoading } from './action/actionTypes';
 import { useEffect } from 'react';
+import GoogleCallBack from './Components/GoogleCallback';
 
 function App() {
 	const token = useSelector((state) => state.user.token);
@@ -29,6 +31,7 @@ function App() {
 				<Routes>
 					<Route path='/login' element={<LoginPage />} />
 					<Route path='/home' element={<Home />} />
+					<Route path='/google/callback' element={<GoogleCallBack />} />
 				</Routes>
 			</BrowserRouter>
 		</Container>
