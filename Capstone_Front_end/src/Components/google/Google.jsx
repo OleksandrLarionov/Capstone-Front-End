@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { useDispatch } from 'react-redux';
-import { getGoogleLoginUrl } from '../action/google';
+import { getGoogleLoginUrl } from '../../action/google';
 
 const Google = () => {
 	const dispatch = useDispatch();

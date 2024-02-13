@@ -7,9 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserData } from './action/user';
 import { setLoading } from './action/actionTypes';
 import { useEffect } from 'react';
-import GoogleCallBack from './Components/GoogleCallback';
+import GoogleCallBack from './Components/google/GoogleCallback';
 import LoginForm from './Components/LoginForm';
-import Google from './Components/Google';
 
 function App() {
 	const token = useSelector((state) => state.user.token);

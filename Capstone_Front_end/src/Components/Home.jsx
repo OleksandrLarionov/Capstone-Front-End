@@ -2,6 +2,8 @@ import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logoutUser } from '../action/actionTypes';
+import NavBar from './NavBar';
+import UserNavCard from './UserNavCard';
 
 const Home = () => {
 	const dispatch = useDispatch();
@@ -14,7 +16,8 @@ const Home = () => {
 	};
 
 	return (
-		<Container>
+		<Container fluid>
+			<NavBar />
 			<Row>
 				<Col>{token !== null && <Button onClick={handleLogout}>Logout</Button>}</Col>
 			</Row>

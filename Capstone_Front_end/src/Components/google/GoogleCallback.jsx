@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { googleCallBack } from '../action/google';
+import { googleCallBack } from '../../action/google';
 
 const GoogleCallBack = () => {
 	const dispatch = useDispatch();
