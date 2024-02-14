@@ -23,14 +23,18 @@
 	}
 
 	.card {
-		height: 370px;
+		height: 410px;
 		margin-top: auto;
 		margin-bottom: auto;
-		width: 400px;
+		width: 380px;
 		background-color: rgba(0, 0, 0, 0.5) !important;
 	}
 	.card-body {
 		color: #eefffb;
+		height: -5%;
+	}
+	.card-footer {
+		height: auto;
 	}
 
 	.social_icon span {

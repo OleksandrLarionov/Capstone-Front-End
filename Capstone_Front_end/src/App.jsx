@@ -9,6 +9,7 @@ import { setLoading } from './action/actionTypes';
 import { useEffect } from 'react';
 import GoogleCallBack from './Components/google/GoogleCallback';
 import LoginForm from './Components/LoginForm';
+import RegistrationPage from './Components/RegistrationPage';
 
 function App() {
 	const token = useSelector((state) => state.user.token);
@@ -31,6 +32,7 @@ function App() {
 					<Route path='/login' element={<LoginForm />} />
 					<Route path='/home' element={<Home />} />
 					<Route path='/google/callback' element={<GoogleCallBack />} />
+					<Route path='/register' element={<RegistrationPage />} />
 				</Routes>
 			</BrowserRouter>
 		</Container>
