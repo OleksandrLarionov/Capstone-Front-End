@@ -1,10 +1,8 @@
-import Cookies from 'js-cookie';
 import { ActionTypes } from '../action/actionTypes';
-const tokenFromCookie = Cookies.get('token');
 const initialState = {
 	userData: [],
 	loading: true,
-	token: tokenFromCookie ? tokenFromCookie : null,
+	token: null,
 	image: null,
 };
 

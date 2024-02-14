@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import { setUserData, setUserToken } from './actionTypes';
 
 export const getTokenFromLogin = (email, password) => async (dispatch) => {
@@ -14,7 +13,6 @@ export const getTokenFromLogin = (email, password) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setUserToken(data.token));
-		Cookies.set('token', data.token);
 		return data.token;
 	} else {
 		throw new Error('errore');

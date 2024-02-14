@@ -29,7 +29,7 @@ export const setLoading = (bool) => ({
 	payload: bool,
 });
 export const logoutUser = () => {
-	Cookies.remove('token');
+	// Cookies.remove('token');
 
 	return {
 		type: ActionTypes.LOGOUT_USER,

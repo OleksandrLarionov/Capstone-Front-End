@@ -9,7 +9,9 @@ export const googleCallBack = (authorizationCode) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setUserToken(data.accessToken));
-		dispatch(fetchUserData(data.accessToken));
+		setTimeout(() => {
+			dispatch(fetchUserData(data.accessToken));
+		}, 200);
 		return data;
 	} else {
 		throw new Error('errore');
