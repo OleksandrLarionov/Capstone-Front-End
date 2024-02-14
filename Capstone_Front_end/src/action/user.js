@@ -39,3 +39,26 @@ export const fetchUserData = (token) => async (dispatch) => {
 		throw new Error('errore');
 	}
 };
+export const postImageAction = (token, formImg) => {
+	return async (dispatch) => {
+		const userUploadUrl = import.meta.env.VITE_ME + '/uploadImage';
+
+		try {
+			const response = await fetch(userUploadUrl, {
+				method: 'POST',
+				body: formImg,
+				headers: {
+					Authorization: 'Bearer ' + token,
+				},
+			});
+			if (response.ok) {
+				formImg &&
+					setTimeout(() => {
+						dispatch(fetchUserData(token));
+					}, 500);
+			}
+		} catch (error) {
+			console.log('Errore', error);
+		}
+	};
+};

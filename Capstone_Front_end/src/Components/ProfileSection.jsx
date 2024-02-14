@@ -1,13 +1,17 @@
 import { useEffect } from 'react';
-import { Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image, Button, Form } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaInstagram, FaEdit } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { getImageAction } from '../action/actionTypes';
+import { postImageAction } from '../action/user';
 
 const ProfileSection = () => {
 	const navigate = useNavigate();
 	const token = useSelector((state) => state.user.token);
 	const userData = useSelector((state) => state.user.userData[0]);
+	const formImg = useSelector((state) => state.user.image);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (token == null) {
@@ -43,6 +47,33 @@ const ProfileSection = () => {
 											</h5>
 											<p>Modify Profile</p>
 											<FaEdit className='mb-5' />
+											<Row>
+												<Col>
+													<Form>
+														<Form.Group className='mb-3'>
+															<Form.Label>Seleziona immagine</Form.Label>
+															<Form.Control
+																type='file'
+																onChange={(e) => {
+																	const file = e.target.files[0];
+																	if (file) {
+																		const formData = new FormData();
+																		formData.append('profileImg', file);
+																		dispatch(getImageAction(formData));
+																	}
+																}}
+															/>
+														</Form.Group>
+														<Button
+															onClick={(e) => {
+																e.preventDefault;
+																dispatch(postImageAction(token, formImg));
+															}}>
+															invia
+														</Button>
+													</Form>
+												</Col>
+											</Row>
 										</Col>
 										<Col md={8}>
 											<Card.Body className='p-4'>
