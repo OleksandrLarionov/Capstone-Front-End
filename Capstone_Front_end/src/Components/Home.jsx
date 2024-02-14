@@ -1,18 +1,28 @@
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import NavBar from './NavBar';
 import { useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { setUserToken } from '../action/actionTypes';
+import { fetchUserData } from '../action/user';
 
 const Home = () => {
 	const navigate = useNavigate();
 	const token = useSelector((state) => state.user.token);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		const storedToken = Cookies.get('token');
+		if (!token && storedToken) {
+			dispatch(setUserToken(storedToken));
+		}
+	}, [token, dispatch]);
 
 	useEffect(() => {
-		if (token == null) {
+		if (!token) {
 			navigate('/login');
 		}
-	}, [token]);
+	}, [token, navigate]);
 	return (
 		<Container fluid>
 			<NavBar />

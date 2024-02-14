@@ -55,7 +55,7 @@ export const postImageAction = (token, formImg) => {
 				formImg &&
 					setTimeout(() => {
 						dispatch(fetchUserData(token));
-					}, 500);
+					}, 200);
 			}
 		} catch (error) {
 			console.log('Errore', error);

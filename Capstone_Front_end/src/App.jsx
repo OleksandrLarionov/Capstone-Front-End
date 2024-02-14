@@ -13,15 +13,16 @@ import RegistrationPage from './Components/RegistrationPage';
 import ProfileSection from './Components/ProfileSection';
 
 function App() {
+	const token = useSelector((state) => state.user.token);
 	return (
 		<Container fluid>
 			<BrowserRouter>
 				<Routes>
 					<Route path='/login' element={<LoginForm />} />
-					<Route path='/home' element={<Home />} />
 					<Route path='/google/callback' element={<GoogleCallBack />} />
+					{token && <Route path='/home' element={<Home />} />}
+					{token && <Route path='/home/profile' element={<ProfileSection />} />}
 					<Route path='/register' element={<RegistrationPage />} />
-					<Route path='/home/profile' element={<ProfileSection />} />
 				</Routes>
 			</BrowserRouter>
 		</Container>
