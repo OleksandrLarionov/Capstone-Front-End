@@ -49,9 +49,10 @@ const RegistrationPage = () => {
 		if (form.checkValidity() === false) {
 			e.preventDefault();
 			e.stopPropagation();
+		} else if (checkIfPassAreEquals()) {
+			dispatch(registration(formData));
+			navigate('/login');
 		}
-		dispatch(registration(formData));
-		navigate('/login');
 		setValidated(true);
 	};
 	return (

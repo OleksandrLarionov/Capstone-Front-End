@@ -1,30 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import Home from './Components/Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserData } from './action/user';
 import { setLoading } from './action/actionTypes';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import GoogleCallBack from './Components/google/GoogleCallback';
 import LoginForm from './Components/LoginForm';
 import RegistrationPage from './Components/RegistrationPage';
+import ProfileSection from './Components/ProfileSection';
 
 function App() {
-	const token = useSelector((state) => state.user.token);
-	const dispatch = useDispatch();
-	useEffect(() => {
-		if (token !== null) {
-			dispatch(fetchUserData(token)).then((data) => {
-				if (data) {
-					dispatch(setLoading(false));
-				}
-			});
-		} else {
-			dispatch(setLoading(false));
-		}
-	}, []);
 	return (
 		<Container fluid>
 			<BrowserRouter>
@@ -33,6 +21,7 @@ function App() {
 					<Route path='/home' element={<Home />} />
 					<Route path='/google/callback' element={<GoogleCallBack />} />
 					<Route path='/register' element={<RegistrationPage />} />
+					<Route path='/home/profile' element={<ProfileSection />} />
 				</Routes>
 			</BrowserRouter>
 		</Container>
