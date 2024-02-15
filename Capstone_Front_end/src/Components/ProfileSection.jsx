@@ -1,17 +1,16 @@
-import { useEffect } from 'react';
-import { Container, Row, Col, Card, Image, Button, Form } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
+import { Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaInstagram, FaEdit } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getImageAction } from '../action/actionTypes';
-import { postImageAction } from '../action/user';
+
+import ProfileModal from './modals/ProfileModal';
 
 const ProfileSection = () => {
 	const navigate = useNavigate();
 	const token = useSelector((state) => state.user.token);
 	const userData = useSelector((state) => state.user.userData[0]);
-	const formImg = useSelector((state) => state.user.image);
-	const dispatch = useDispatch();
+	const [modalShow, setModalShow] = useState(false);
 
 	useEffect(() => {
 		if (token == null) {
@@ -24,6 +23,7 @@ const ProfileSection = () => {
 				'non sei autorizzato'
 			) : (
 				<section className='vh-100' style={{ backgroundColor: '#f4f5f7' }}>
+					<ProfileModal show={modalShow} onHide={() => setModalShow(false)} />
 					<Container className='py-5 h-100'>
 						<Row className='d-flex justify-content-center align-items-center h-100'>
 							<Col lg={6} className='mb-4 mb-lg-0'>
@@ -46,34 +46,7 @@ const ProfileSection = () => {
 												{userData.name} {userData.surname}
 											</h5>
 											<p>Modify Profile</p>
-											<FaEdit className='mb-5' />
-											<Row>
-												<Col>
-													<Form>
-														<Form.Group className='mb-3'>
-															<Form.Label>Seleziona immagine</Form.Label>
-															<Form.Control
-																type='file'
-																onChange={(e) => {
-																	const file = e.target.files[0];
-																	if (file) {
-																		const formData = new FormData();
-																		formData.append('profileImg', file);
-																		dispatch(getImageAction(formData));
-																	}
-																}}
-															/>
-														</Form.Group>
-														<Button
-															onClick={(e) => {
-																e.preventDefault;
-																dispatch(postImageAction(token, formImg));
-															}}>
-															invia
-														</Button>
-													</Form>
-												</Col>
-											</Row>
+											<FaEdit onClick={() => setModalShow(true)} className='mb-5' />
 										</Col>
 										<Col md={8}>
 											<Card.Body className='p-4'>
