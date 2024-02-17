@@ -12,6 +12,7 @@ const RegistrationPage = () => {
 	const [validated, setValidated] = useState(false);
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [error, setError] = useState(null);
+
 	const [formData, setFormData] = useState({
 		username: '',
 		name: '',

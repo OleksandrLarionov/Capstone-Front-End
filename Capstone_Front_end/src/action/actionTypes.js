@@ -7,6 +7,7 @@ export const ActionTypes = {
 	LOGOUT_USER: 'LOGOUT_USER',
 	SET_USER_GOOGLE_TOKEN: 'SET_USER_GOOGLE_TOKEN',
 	GET_IMAGE: 'GET_IMAGE',
+	GET_HOME: 'GET_HOME',
 };
 
 export const setUserToken = (token) => ({
@@ -33,10 +34,14 @@ export const logoutUser = () => {
 
 	return {
 		type: ActionTypes.LOGOUT_USER,
-		payload: [],
 	};
 };
 export const getImageAction = (image) => ({
 	type: ActionTypes.GET_IMAGE,
 	payload: image,
+});
+
+export const getHome = (data) => ({
+	type: ActionTypes.GET_HOME,
+	payload: data,
 });

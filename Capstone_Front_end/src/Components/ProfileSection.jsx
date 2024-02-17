@@ -26,16 +26,10 @@ const ProfileSection = () => {
 					<ProfileModal show={modalShow} onHide={() => setModalShow(false)} />
 					<Container className='py-5 h-100'>
 						<Row className='d-flex justify-content-center align-items-center h-100'>
-							<Col lg={6} className='mb-4 mb-lg-0'>
+							<Col lg={8} className='mb-4 mb-lg-0'>
 								<Card className='mb-3'>
 									<Row className='g-0'>
-										<Col
-											md={4}
-											className='gradient-custom text-center'
-											style={{
-												borderTopLeftRadius: '.5rem',
-												borderBottomLeftRadius: '.5rem',
-											}}>
+										<Col md={4} className='gradient-custom text-center'>
 											<Image
 												src={userData.profileImage}
 												alt='Avatar'
@@ -58,12 +52,18 @@ const ProfileSection = () => {
 														<p className='text-muted'>{userData.username}</p>
 													</Col>
 												</Row>
+												<Row className='pt-1'>
+													<Col xs={12} className='mb-3'>
+														<h6>Email</h6>
+														<p className='text-muted'>{userData.email}</p>
+													</Col>
+												</Row>
 												<h6>Other</h6>
 												<hr className='mt-0 mb-4' />
 												<Row className='pt-1'>
 													<Col xs={6} className='mb-3'>
-														<h6>Recent Post</h6>
-														<p className='text-muted'>Lorem ipsum</p>
+														<h6>B-Day</h6>
+														<p className='text-muted'>{userData.userBirthday}</p>
 													</Col>
 													<Col xs={6} className='mb-3'>
 														<h6>Join date</h6>

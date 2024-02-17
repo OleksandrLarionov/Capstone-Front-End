@@ -15,7 +15,7 @@ const userDataReducer = (state = initialState, action) => {
 		case ActionTypes.SET_LOADING:
 			return { ...state, loading: action.payload };
 		case ActionTypes.LOGOUT_USER:
-			return { ...state, token: null, userData: [action.payload] };
+			return initialState;
 		case ActionTypes.GET_IMAGE:
 			return { ...state, image: action.payload };
 

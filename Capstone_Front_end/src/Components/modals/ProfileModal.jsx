@@ -1,53 +1,41 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button, Form, InputGroup, Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { getImageAction } from '../../action/actionTypes';
 import { format, parseISO } from 'date-fns';
 import '../../css/profile.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { postImageAction } from '../../action/user';
+import { postImageAction, updateProfile } from '../../action/user';
 
-const ProfileModal = (props) => {
+const ProfileModal = ({ show, onHide }) => {
 	const userData = useSelector((state) => state.user.userData[0]);
+	const token = useSelector((state) => state.user.token);
 	const [showPassword, setShowPassword] = useState(false);
 	const [confirmPassword, setConfirmPassword] = useState('');
+	const profileImage = useSelector((state) => state.user.image);
 	const dispatch = useDispatch();
+
+	const [formData, setFormData] = useState({
+		username: userData.username || '',
+		name: userData.name || '',
+		surname: userData.surname || '',
+		email: userData.email || '',
+		password: userData.password || '',
+		userBirthday: userData.userBirthday
+			? `${format(parseISO(userData.userBirthday), 'yyyy-MM-dd')}`
+			: '',
+	});
 
 	const handleShowPassword = (e) => {
 		e.preventDefault();
 		setShowPassword(!showPassword);
 	};
 
-	const handreSubmit = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
+		dispatch(updateProfile(token, formData));
+		onHide();
 	};
-	const [formData, setFormData] = useState({
-		username: '',
-		name: '',
-		surname: '',
-		email: '',
-		password: '',
-		secretAnswer: '',
-		profileImg: '',
-		userBirthday: userData.userBirthday
-			? `${format(parseISO(userData.userBirthday), 'yyyy-MM-dd')}`
-			: '',
-	});
-
-	useEffect(() => {
-		if (userData) {
-			setFormData({
-				...formData,
-				username: userData.username || '',
-				name: userData.name || '',
-				surname: userData.surname || '',
-				email: userData.email || '',
-				password: userData.password || '',
-				userBirthday: userData.userBirthday || '',
-			});
-		}
-	}, [userData]);
-
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData((prevState) => ({
@@ -60,7 +48,8 @@ const ProfileModal = (props) => {
 		<Modal
 			className='modal-container-profile'
 			id='modalBodyChange'
-			{...props}
+			show={show}
+			onHide={onHide}
 			size='md'
 			aria-labelledby='contained-modal-title-vcenter'
 			scrollable='true'>
@@ -68,16 +57,15 @@ const ProfileModal = (props) => {
 				<Modal.Title>Editor</Modal.Title>
 			</Modal.Header>
 			<Modal.Body className='p-4'>
-				<Form onSubmit={handreSubmit}>
+				<Form onSubmit={handleSubmit}>
 					<Form.Label>Username</Form.Label>
-
 					<Form.Group md='12' className='my-1'>
 						<Form.Control
 							required
 							type='text'
 							name='username'
 							placeholder='username'
-							value={userData.username}
+							value={formData.username}
 							onChange={handleChange}
 						/>
 					</Form.Group>
@@ -89,7 +77,7 @@ const ProfileModal = (props) => {
 							type='text'
 							name='name'
 							placeholder='name'
-							value={userData.name}
+							value={formData.name}
 							onChange={handleChange}
 						/>
 					</Form.Group>
@@ -101,7 +89,7 @@ const ProfileModal = (props) => {
 							type='text'
 							name='surname'
 							placeholder='surname'
-							value={userData.surname}
+							value={formData.surname}
 							onChange={handleChange}
 						/>
 					</Form.Group>
@@ -113,7 +101,7 @@ const ProfileModal = (props) => {
 							type='email'
 							name='email'
 							placeholder='email'
-							value={userData.email}
+							value={formData.email}
 							onChange={handleChange}
 						/>
 					</Form.Group>
@@ -125,7 +113,7 @@ const ProfileModal = (props) => {
 								type={showPassword ? 'text' : 'password'}
 								name='password'
 								placeholder='password'
-								value={userData.password}
+								value={formData.password}
 								onChange={handleChange}
 							/>
 							<InputGroup.Text onClick={handleShowPassword} type='button'>
@@ -154,7 +142,7 @@ const ProfileModal = (props) => {
 							<Form.Control
 								type='date'
 								name='userBirthday'
-								value={userData.userBirthday}
+								value={formData.userBirthday}
 								onChange={handleChange}
 							/>
 						</InputGroup>
@@ -168,16 +156,16 @@ const ProfileModal = (props) => {
 								onChange={(e) => {
 									const file = e.target.files[0];
 									if (file) {
-										const formData = new FormData();
-										formData.append('profileImg', file);
-										dispatch(getImageAction(formData));
+										const data = new FormData();
+										data.append('profileImg', file);
+										dispatch(getImageAction(data));
 									}
 								}}
 							/>
 							<InputGroup.Text
 								onClick={(e) => {
 									e.preventDefault;
-									dispatch(postImageAction());
+									dispatch(postImageAction(token, profileImage));
 								}}
 								type='button'>
 								Change
@@ -187,10 +175,10 @@ const ProfileModal = (props) => {
 				</Form>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button variant='secondary' onClick={() => {}}>
+				<Button variant='secondary' onClick={onHide}>
 					Close
 				</Button>
-				<Button variant='primary' onClick={() => {}}>
+				<Button variant='primary' onClick={handleSubmit}>
 					Save Changes
 				</Button>
 			</Modal.Footer>

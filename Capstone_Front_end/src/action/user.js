@@ -60,3 +60,28 @@ export const postImageAction = (token, formImg) => {
 		}
 	};
 };
+
+export const updateProfile = (token, newData) => {
+	return async (dispatch) => {
+		const URL = import.meta.env.VITE_ME + '/updateProfile';
+
+		try {
+			const response = await fetch(URL, {
+				method: 'PUT',
+				headers: {
+					Authorization: 'Bearer ' + token,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(newData),
+			});
+			if (response.ok) {
+				newData &&
+					setTimeout(() => {
+						dispatch(fetchUserData(token));
+					}, 200);
+			}
+		} catch (error) {
+			console.log('Errore', error);
+		}
+	};
+};
