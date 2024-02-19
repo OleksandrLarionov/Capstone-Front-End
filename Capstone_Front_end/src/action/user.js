@@ -85,3 +85,21 @@ export const updateProfile = (token, newData) => {
 		}
 	};
 };
+
+export const tokenValidation = (token) => async (dispatch) => {
+	const URL = import.meta.env.VITE_URL + '/auth/verify-token';
+	const response = await fetch(URL, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({
+			token,
+		}),
+	});
+	if (response.ok) {
+		const data = await response.json();
+		console.log('questo viene dalla chiamata al per la verifica del token:' + data);
+		return data.token;
+	} else {
+		throw new Error('errore');
+	}
+};
