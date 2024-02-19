@@ -9,6 +9,9 @@ export const ActionTypes = {
 	GET_IMAGE: 'GET_IMAGE',
 	GET_HOME: 'GET_HOME',
 	GET_TOPIC_LIST: 'GET_TOPIC_LIST',
+	GET_BLOG_POST_DATA: 'GET_BLOG_POST_DATA',
+	GET_BLOG_POST_COMMENTS_DATA: 'GET_BLOG_POST_COMMENTS_DATA',
+	SET_BLOG_TOPIC_NUMBER: 'SET_BLOG_TOPIC_NUMBER',
 };
 
 export const setUserToken = (token) => ({
@@ -49,5 +52,19 @@ export const getHome = (data) => ({
 
 export const getTopicList = (data) => ({
 	type: ActionTypes.GET_TOPIC_LIST,
+	payload: data,
+});
+
+export const getBlogPostData = (data) => ({
+	type: ActionTypes.GET_BLOG_POST_DATA,
+	payload: data,
+});
+export const getBlogCommets = (data) => ({
+	type: ActionTypes.GET_BLOG_POST_COMMENTS_DATA,
+	payload: data,
+});
+
+export const setTopicsNumber = (data) => ({
+	type: ActionTypes.SET_BLOG_TOPIC_NUMBER,
 	payload: data,
 });

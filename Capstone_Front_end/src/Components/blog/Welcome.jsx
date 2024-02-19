@@ -15,7 +15,7 @@ const Welcome = ({ data }) => {
 								<Col className='d-flex justify-content-between'>
 									<div className='list-name d-flex align-items-center justify-content-start '>
 										<span
-											className=' text-white rounded-2 pb-1 px-1 '
+											className=' text-white rounded-2 pb-1 px-1'
 											style={{ backgroundColor: '#8abeff' }}>
 											{data.name}
 										</span>

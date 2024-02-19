@@ -44,7 +44,7 @@ function UserNavCard() {
 									Profile
 								</NavDropdown.Item>
 								<NavDropdown.Divider />
-								<NavDropdown.Item href='#action/3.4' className='d-flex justify-content-end'>
+								<NavDropdown.Item className='d-flex justify-content-end'>
 									<LogoutButton />
 								</NavDropdown.Item>
 							</NavDropdown>
