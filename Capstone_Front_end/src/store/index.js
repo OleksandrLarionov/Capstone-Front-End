@@ -4,6 +4,7 @@ import { encryptTransform } from 'redux-persist-transform-encrypt';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import homeDataReducer from '../reducers/home';
+import topicDataReducer from '../reducers/topic';
 
 const persistConfig = {
 	key: 'root',
@@ -21,6 +22,7 @@ const persistConfig = {
 const allReducers = combineReducers({
 	user: userDataReducer,
 	home: homeDataReducer,
+	topic: topicDataReducer,
 });
 const persistedReducer = persistReducer(persistConfig, allReducers);
 

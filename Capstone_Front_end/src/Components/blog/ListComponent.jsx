@@ -21,7 +21,7 @@ const ListComponent = ({ dataTopic }) => {
 										style={{ backgroundColor: '#8abeff' }}
 										onClick={(e) => {
 											e.preventDefault();
-											navigate('/home/topic');
+											navigate(`/home/topic/${dataTopic.name}/${dataTopic.id}`);
 										}}>
 										{dataTopic.name}
 									</span>

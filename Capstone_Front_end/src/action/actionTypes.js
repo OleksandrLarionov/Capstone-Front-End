@@ -8,6 +8,7 @@ export const ActionTypes = {
 	SET_USER_GOOGLE_TOKEN: 'SET_USER_GOOGLE_TOKEN',
 	GET_IMAGE: 'GET_IMAGE',
 	GET_HOME: 'GET_HOME',
+	GET_TOPIC_LIST: 'GET_TOPIC_LIST',
 };
 
 export const setUserToken = (token) => ({
@@ -43,5 +44,10 @@ export const getImageAction = (image) => ({
 
 export const getHome = (data) => ({
 	type: ActionTypes.GET_HOME,
+	payload: data,
+});
+
+export const getTopicList = (data) => ({
+	type: ActionTypes.GET_TOPIC_LIST,
 	payload: data,
 });

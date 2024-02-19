@@ -2,11 +2,9 @@ import { Col, ListGroup, Row } from 'react-bootstrap';
 import ListComponent from './ListComponent';
 import { TbEyeOff, TbEye } from 'react-icons/tb';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 
 const Welcome = ({ data }) => {
 	const [isListVisible, setListVisibility] = useState(true);
-
 	return (
 		<ListGroup>
 			<ListGroup.Item className='p-0 align-items-center border-0 my-2'>

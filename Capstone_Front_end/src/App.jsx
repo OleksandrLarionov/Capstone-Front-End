@@ -20,7 +20,7 @@ function App() {
 				<Route path='/google/callback' element={<GoogleCallBack />} />
 				{token && <Route path='/home' element={<Home />} />}
 				{token && <Route path='/home/profile' element={<ProfileSection />} />}
-				{token && <Route path='/home/topic/:topicId' element={<TopicPage />} />}
+				{token && <Route path='/home/topic/:zoneName/:topicId' element={<TopicPage />} />}
 				<Route path='/register' element={<RegistrationPage />} />
 			</Routes>
 		</Container>
