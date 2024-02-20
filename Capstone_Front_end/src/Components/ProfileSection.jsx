@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaInstagram, FaEdit } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import ProfileModal from './modals/ProfileModal';
+import { deleteCurretUser } from '../action/user';
 
 const ProfileSection = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const token = useSelector((state) => state.user.token);
 	const userData = useSelector((state) => state.user.userData[0]);
 	const [modalShow, setModalShow] = useState(false);
@@ -82,6 +84,12 @@ const ProfileSection = () => {
 															<FaInstagram className='fa-lg' />
 														</a>
 													</div>
+													<Button
+														onClick={(e) => {
+															dispatch(deleteCurretUser(token));
+														}}>
+														Cancellami
+													</Button>
 													<Button
 														className='btn btn-sm'
 														onClick={() => {

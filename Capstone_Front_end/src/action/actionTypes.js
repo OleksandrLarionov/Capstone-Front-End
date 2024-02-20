@@ -1,5 +1,3 @@
-import Cookies from 'js-cookie';
-
 export const ActionTypes = {
 	SET_USER_DATA: 'SET_USER_DATA',
 	SET_USER_TOKEN: 'SET_USER_TOKEN',
@@ -12,6 +10,7 @@ export const ActionTypes = {
 	GET_BLOG_POST_DATA: 'GET_BLOG_POST_DATA',
 	GET_BLOG_POST_COMMENTS_DATA: 'GET_BLOG_POST_COMMENTS_DATA',
 	SET_BLOG_TOPIC_NUMBER: 'SET_BLOG_TOPIC_NUMBER',
+	GET_LIKES: 'GET_LIKES',
 };
 
 export const setUserToken = (token) => ({
@@ -34,8 +33,6 @@ export const setLoading = (bool) => ({
 	payload: bool,
 });
 export const logoutUser = () => {
-	// Cookies.remove('token');
-
 	return {
 		type: ActionTypes.LOGOUT_USER,
 	};
@@ -66,5 +63,9 @@ export const getBlogCommets = (data) => ({
 
 export const setTopicsNumber = (data) => ({
 	type: ActionTypes.SET_BLOG_TOPIC_NUMBER,
+	payload: data,
+});
+export const getLikes = (data) => ({
+	type: ActionTypes.GET_LIKES,
 	payload: data,
 });

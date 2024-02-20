@@ -4,6 +4,7 @@ const initialState = {
 	blogpostData: null,
 	blogCommentsData: null,
 	topicNumber: null,
+	like: null,
 };
 
 const topicDataReducer = (state = initialState, action) => {
@@ -16,6 +17,8 @@ const topicDataReducer = (state = initialState, action) => {
 			return { ...state, blogCommentsData: [action.payload] };
 		case ActionTypes.SET_BLOG_TOPIC_NUMBER:
 			return { ...state, topicNumber: [action.payload] };
+		case ActionTypes.GET_LIKES:
+			return { ...state, like: [action.payload] };
 		default:
 			return state;
 	}

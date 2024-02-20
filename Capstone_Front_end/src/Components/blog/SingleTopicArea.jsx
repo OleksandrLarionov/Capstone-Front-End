@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Col, Container, Image, Pagination, Row } from 'react-bootstrap';
+import { Col, Container, Image, Pagination, Row, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import NavBar from '../NavBar';
 import backgroundImage from '../../assets/img/concept-cutted.jpg';
-import { blogCommentsData, blogPostData } from '../../action/Topic';
+import {
+	addLike,
+	blogCommentsData,
+	blogPostData,
+	getLikesNumber,
+	removeLike,
+} from '../../action/Topic';
 import { FcLike } from 'react-icons/fc';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 import CommentArea from './CommentArea';
+import NewCommentArea from './NewCommentArea';
 
 const SingleTopicArea = (props) => {
 	const { blogPostId } = useParams();
@@ -17,12 +24,17 @@ const SingleTopicArea = (props) => {
 	const token = useSelector((state) => state.user.token);
 	const blogData = useSelector((state) => state.topic.blogpostData[0]);
 	const commentsData = useSelector((state) => state.topic.blogCommentsData[0]);
+	const [hide, setHide] = useState(false);
 	const dispatch = useDispatch();
-	console.log(commentsData);
 
+	const handlerHideCommentArea = (e) => {
+		e.preventDefault();
+		setHide(!hide);
+	};
 	useEffect(() => {
 		dispatch(blogPostData(token, blogPostId));
 		dispatch(blogCommentsData(token, blogPostId, currentPage));
+		dispatch(getLikesNumber(token, blogPostId));
 	}, [blogPostId, currentPage]);
 
 	useEffect(() => {
@@ -99,6 +111,7 @@ const SingleTopicArea = (props) => {
 										className='mx-3'
 										onClick={(e) => {
 											e.preventDefault();
+											dispatch(addLike(token, blogPostId));
 										}}>
 										<AiOutlineLike />
 									</div>
@@ -106,10 +119,14 @@ const SingleTopicArea = (props) => {
 										style={{ cursor: 'pointer' }}
 										onClick={(e) => {
 											e.preventDefault();
+											dispatch(removeLike(token, blogPostId));
 										}}>
 										<AiOutlineDislike />
 									</div>
 								</span>
+							</Col>
+							<Col className='d-flex justify-content-end'>
+								<Button onClick={handlerHideCommentArea}>Commenta</Button>
 							</Col>
 						</Row>
 						<Row>
@@ -122,10 +139,17 @@ const SingleTopicArea = (props) => {
 						</Row>
 					</Col>
 				</Row>
-				{commentsData?.content.map((comment, index) => {
-					return <CommentArea key={index} commentsData={comment} userData={comment.user} />;
-				})}
-				<Row></Row>
+				{hide && <NewCommentArea page={currentPage} />}
+				<Row>
+					{commentsData?.content
+						.slice()
+						.reverse()
+						.map((comment, index) => {
+							return (
+								<CommentArea key={index} commentsData={comment} userData={comment.user} />
+							);
+						})}
+				</Row>
 				<Pagination>
 					<Pagination.Prev
 						onClick={() => handlePageChange(currentPage - 1)}

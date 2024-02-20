@@ -1,4 +1,5 @@
-import { setUserData, setUserToken } from './actionTypes';
+import { Navigate } from 'react-router-dom';
+import { logoutUser, setUserData, setUserToken } from './actionTypes';
 
 export const getTokenFromLogin = (email, password) => async (dispatch) => {
 	const URL = import.meta.env.VITE_LOGIN;
@@ -97,9 +98,29 @@ export const tokenValidation = (token) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		console.log('questo viene dalla chiamata al per la verifica del token:' + data);
 		return data.token;
 	} else {
 		throw new Error('errore');
 	}
+};
+
+export const deleteCurretUser = (token) => {
+	return async (dispatch) => {
+		const URL = import.meta.env.VITE_ME + '/delete';
+
+		try {
+			const response = await fetch(URL, {
+				method: 'DELETE',
+				headers: {
+					Authorization: 'Bearer ' + token,
+				},
+			});
+			if (response.ok) {
+				console.log('hola');
+				dispatch(logoutUser());
+			}
+		} catch (error) {
+			console.log('Errore', error);
+		}
+	};
 };
