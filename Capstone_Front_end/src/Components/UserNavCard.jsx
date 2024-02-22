@@ -5,7 +5,7 @@ import LogoutButton from './LogoutButton';
 import { useEffect } from 'react';
 
 function UserNavCard() {
-	const { isAuthenticated, user, token } = useSelector((state) => state.auth);
+	const { user, token } = useSelector((state) => state.auth);
 	const navigate = useNavigate();
 	useEffect(() => {
 		if (token == null) {
@@ -14,7 +14,7 @@ function UserNavCard() {
 	}, [token]);
 	return (
 		<>
-			{!isAuthenticated ? (
+			{!user ? (
 				'Effetua il LogIn'
 			) : (
 				<Nav>
@@ -22,14 +22,16 @@ function UserNavCard() {
 						<Col className='d-flex justify-content-center align-items-center'>
 							<Image
 								variant='top'
-								src={user.profileImage}
+								src={user && user.profileImage ? user.profileImage : 'fallback_image_url'}
 								alt='profileImage'
 								style={{ width: '35px', height: '35px' }}
 								className='mr-3 rounded-circle'
 							/>
 							<NavDropdown
 								id='nav-dropdown-dark-example'
-								title={user.username ? user.username : user.name + ' ' + user.surname}
+								title={
+									user && user.username ? user.username : user.name + ' ' + user.surname
+								}
 								menuVariant='dark'
 								className='mx-2 pe-2'
 								align='end'>

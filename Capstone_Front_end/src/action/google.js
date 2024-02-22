@@ -1,4 +1,4 @@
-import { login } from '../reducers/authSlice';
+import { login, setToken } from '../reducers/authSlice';
 import { fetchUserData } from './user';
 
 export const googleCallBack = (authorizationCode) => async (dispatch) => {
@@ -8,9 +8,10 @@ export const googleCallBack = (authorizationCode) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(login(data.accessToken));
+		dispatch(login({ token: data.accessToken }));
 		setTimeout(() => {
 			dispatch(fetchUserData(data.accessToken));
+			dispatch(setToken({ token: data.accessToken }));
 		}, 200);
 		return data;
 	} else {

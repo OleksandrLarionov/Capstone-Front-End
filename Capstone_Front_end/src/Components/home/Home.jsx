@@ -6,14 +6,12 @@ import { useEffect } from 'react';
 
 const Home = () => {
 	const isLoading = useSelector((state) => state.home.isLoading);
-	const { isAuthenticated, token } = useSelector((state) => state.auth);
+	const { token } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (isAuthenticated) {
-			dispatch(fetchHomeData(token));
-		}
-	}, [isAuthenticated, token, dispatch]);
+		dispatch(fetchHomeData(token));
+	}, [token, dispatch]);
 
 	return <div>{isLoading ? <SpinnerComponent /> : <HomeComponent />}</div>;
 };

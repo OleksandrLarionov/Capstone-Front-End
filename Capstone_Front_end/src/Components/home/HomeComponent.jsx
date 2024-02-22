@@ -11,15 +11,14 @@ const HomeComponent = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const homeData = useSelector((state) => state.home.homeData);
-	console.log(homeData);
 
 	const { isAuthenticated, token } = useSelector((state) => state.auth);
 
 	useEffect(() => {
-		if (!isAuthenticated) {
-			navigate('/login');
-		} else {
+		if (isAuthenticated) {
 			dispatch(fetchHomeData(token));
+		} else {
+			navigate('/login');
 		}
 	}, [token, navigate, isAuthenticated]);
 
