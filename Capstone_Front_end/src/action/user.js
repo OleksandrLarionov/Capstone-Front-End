@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { login } from '../reducers/authSlice';
 import { logoutUser, setUserData, setUserToken } from './actionTypes';
 
 export const getTokenFromLogin = (email, password) => async (dispatch) => {
@@ -13,7 +13,9 @@ export const getTokenFromLogin = (email, password) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(setUserToken(data.token));
+		setTimeout(() => {
+			dispatch(setUserToken(data.token));
+		}, 500);
 		return data.token;
 	} else {
 		throw new Error('errore');
@@ -31,7 +33,11 @@ export const fetchUserData = (token) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(setUserData(data));
+		setTimeout(() => {
+			dispatch(setUserData(data));
+			dispatch(login(data));
+		}, 500);
+
 		console.log(data);
 		return data;
 	} else {

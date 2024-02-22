@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Google from './google/Google';
 import Cookies from 'js-cookie';
+import { fetchHomeData } from '../action/homeAction';
 
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState(false);

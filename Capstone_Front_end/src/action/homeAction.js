@@ -11,7 +11,9 @@ export const fetchHomeData = (token) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(getHome(data));
+		setTimeout(() => {
+			dispatch(getHome(data));
+		}, 500);
 		return data;
 	} else {
 		throw new Error('errore');

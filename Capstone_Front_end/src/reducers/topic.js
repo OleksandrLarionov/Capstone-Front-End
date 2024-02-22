@@ -19,6 +19,8 @@ const topicDataReducer = (state = initialState, action) => {
 			return { ...state, topicNumber: [action.payload] };
 		case ActionTypes.GET_LIKES:
 			return { ...state, like: [action.payload] };
+		case ActionTypes.LOGOUT_USER:
+			return initialState;
 		default:
 			return state;
 	}

@@ -1,7 +1,7 @@
 import { ActionTypes } from '../action/actionTypes';
 const initialState = {
 	userData: [],
-	loading: true,
+	isLoading: null,
 	token: null,
 	image: null,
 };
@@ -13,7 +13,7 @@ const userDataReducer = (state = initialState, action) => {
 		case ActionTypes.SET_USER_DATA:
 			return { ...state, userData: [action.payload] };
 		case ActionTypes.SET_LOADING:
-			return { ...state, loading: action.payload };
+			return { ...state, isLoading: action.payload };
 		case ActionTypes.LOGOUT_USER:
 			return initialState;
 		case ActionTypes.GET_IMAGE:

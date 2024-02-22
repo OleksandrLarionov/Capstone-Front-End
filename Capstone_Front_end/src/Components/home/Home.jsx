@@ -2,11 +2,10 @@ import { Button, Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../NavBar';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Header from './Header';
 import Welcome from '../blog/Welcome';
 import { fetchHomeData } from '../../action/homeAction';
-import { setTopicsNumber } from '../../action/actionTypes';
 
 const Home = () => {
 	const navigate = useNavigate();

@@ -1,3 +1,5 @@
+import { logout } from '../reducers/authSlice';
+
 export const ActionTypes = {
 	SET_USER_DATA: 'SET_USER_DATA',
 	SET_USER_TOKEN: 'SET_USER_TOKEN',
@@ -33,6 +35,7 @@ export const setLoading = (bool) => ({
 	payload: bool,
 });
 export const logoutUser = () => {
+	logout();
 	return {
 		type: ActionTypes.LOGOUT_USER,
 	};
