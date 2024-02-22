@@ -2,7 +2,6 @@ import { Col, Container, Image, Row } from 'react-bootstrap';
 import { FcLike } from 'react-icons/fc';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 import { format } from 'date-fns';
-import { useState } from 'react';
 
 const CommentArea = ({ commentsData, userData }) => {
 	const formattedDate = format(new Date(commentsData.date), 'HH:mm:ss dd/MM/yyyy');

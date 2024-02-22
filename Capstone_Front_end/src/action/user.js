@@ -1,5 +1,6 @@
-import { login } from '../reducers/authSlice';
-import { logoutUser, setUserData, setUserToken } from './actionTypes';
+import { login, logout, setToken } from '../reducers/authSlice';
+import { setLoading } from './actionTypes';
+import { fetchHomeData } from './homeAction';
 
 export const getTokenFromLogin = (email, password) => async (dispatch) => {
 	const URL = import.meta.env.VITE_LOGIN;
@@ -14,7 +15,7 @@ export const getTokenFromLogin = (email, password) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		setTimeout(() => {
-			dispatch(setUserToken(data.token));
+			dispatch(setToken({ token: data.token }));
 		}, 500);
 		return data.token;
 	} else {
@@ -23,6 +24,7 @@ export const getTokenFromLogin = (email, password) => async (dispatch) => {
 };
 
 export const fetchUserData = (token) => async (dispatch) => {
+	dispatch(setLoading(true));
 	const URL = import.meta.env.VITE_ME;
 	const response = await fetch(URL, {
 		method: 'GET',
@@ -34,11 +36,10 @@ export const fetchUserData = (token) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		setTimeout(() => {
-			dispatch(setUserData(data));
-			dispatch(login(data));
+			dispatch(login({ user: data }));
 		}, 500);
-
-		console.log(data);
+		dispatch(fetchHomeData(token));
+		dispatch(setLoading(false));
 		return data;
 	} else {
 		throw new Error('errore');
@@ -110,7 +111,7 @@ export const tokenValidation = (token) => async (dispatch) => {
 	}
 };
 
-export const deleteCurretUser = (token) => {
+export const deleteCurretUser = (token, navigate) => {
 	return async (dispatch) => {
 		const URL = import.meta.env.VITE_ME + '/delete';
 
@@ -122,8 +123,9 @@ export const deleteCurretUser = (token) => {
 				},
 			});
 			if (response.ok) {
-				console.log('hola');
-				dispatch(logoutUser());
+				setTimeout(() => {
+					dispatch(logout());
+				}, 500);
 			}
 		} catch (error) {
 			console.log('Errore', error);

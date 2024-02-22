@@ -1,11 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import userDataReducer from '../reducers/user';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import homeDataReducer from '../reducers/home';
 import topicDataReducer from '../reducers/topic';
 import authSlice from '../reducers/authSlice';
+import reducer from '../reducers/reducer';
 
 const persistConfig = {
 	key: 'root',
@@ -21,10 +21,10 @@ const persistConfig = {
 };
 
 const allReducers = combineReducers({
-	user: userDataReducer,
 	home: homeDataReducer,
 	topic: topicDataReducer,
 	auth: authSlice,
+	reducer: reducer,
 });
 const persistedReducer = persistReducer(persistConfig, allReducers);
 

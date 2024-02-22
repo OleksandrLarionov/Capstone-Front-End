@@ -8,7 +8,7 @@ import { addANewComment } from '../../action/Topic';
 
 const NewCommentArea = ({ page }) => {
 	const [textArea, SetTextArea] = useState('');
-	const token = useSelector((state) => state.user.token);
+	const { token } = useSelector((state) => state.auth);
 	const { blogPostId } = useParams();
 	const dispatch = useDispatch();
 

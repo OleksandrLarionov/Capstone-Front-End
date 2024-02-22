@@ -8,22 +8,19 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { postImageAction, updateProfile } from '../../action/user';
 
 const ProfileModal = ({ show, onHide }) => {
-	const userData = useSelector((state) => state.user.userData[0]);
-	const token = useSelector((state) => state.user.token);
+	const { user, token } = useSelector((state) => state.auth);
 	const [showPassword, setShowPassword] = useState(false);
 	const [confirmPassword, setConfirmPassword] = useState('');
-	const profileImage = useSelector((state) => state.user.image);
+	const profileImage = useSelector((state) => state.reducer.image);
 	const dispatch = useDispatch();
 
 	const [formData, setFormData] = useState({
-		username: userData.username || '',
-		name: userData.name || '',
-		surname: userData.surname || '',
-		email: userData.email || '',
-		password: userData.password || '',
-		userBirthday: userData.userBirthday
-			? `${format(parseISO(userData.userBirthday), 'yyyy-MM-dd')}`
-			: '',
+		username: user.username || '',
+		name: user.name || '',
+		surname: user.surname || '',
+		email: user.email || '',
+		password: user.password || '',
+		userBirthday: user.userBirthday ? `${format(parseISO(user.userBirthday), 'yyyy-MM-dd')}` : '',
 	});
 
 	const handleShowPassword = (e) => {

@@ -1,6 +1,7 @@
-import { getBlogCommets, getBlogPostData, getLikes, getTopicList } from './actionTypes';
+import { getBlogCommets, getBlogPostData, getLikes, getTopicList, setLoading } from './actionTypes';
 
 export const fetchTopicData = (token, topicId, page) => async (dispatch) => {
+	dispatch(setLoading(true));
 	const URL = import.meta.env.VITE_URL + '/home/topic/' + topicId + '?page=' + page;
 	const response = await fetch(URL, {
 		method: 'GET',
@@ -11,7 +12,10 @@ export const fetchTopicData = (token, topicId, page) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(getTopicList(data));
+		setTimeout(() => {
+			dispatch(getTopicList(data));
+		}, 500);
+		dispatch(setLoading(false));
 		return data;
 	} else {
 		throw new Error('errore');
@@ -29,7 +33,10 @@ export const blogPostData = (token, blogPostId) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(getBlogPostData(data));
+		setTimeout(() => {
+			dispatch(getBlogPostData(data));
+		}, 500);
+		dispatch(setLoading(false));
 		return data;
 	} else {
 		throw new Error('errore');
@@ -47,7 +54,10 @@ export const blogCommentsData = (token, blogPostId, page) => async (dispatch) =>
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(getBlogCommets(data));
+		setTimeout(() => {
+			dispatch(getBlogCommets(data));
+		}, 500);
+
 		return data;
 	} else {
 		throw new Error('errore');
@@ -111,7 +121,6 @@ export const removeLike = (token, blogPostId) => async (dispatch) => {
 
 export const addANewComment = (token, blogPostId, comment, page) => async (dispatch) => {
 	const URL = import.meta.env.VITE_URL + '/comments/blogPost/' + blogPostId;
-	console.log(blogPostId);
 	const response = await fetch(URL, {
 		method: 'POST',
 		headers: {
@@ -128,7 +137,6 @@ export const addANewComment = (token, blogPostId, comment, page) => async (dispa
 			setTimeout(() => {
 				dispatch(blogCommentsData(token, blogPostId, page));
 			}, 200);
-		console.log('like aggiunto');
 	} else {
 		throw new Error('errore');
 	}

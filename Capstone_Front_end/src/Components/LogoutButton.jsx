@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '../action/actionTypes';
 import { Button, Col, Row } from 'react-bootstrap';
+import { logout } from '../reducers/authSlice';
 
 function LogoutButton() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const token = useSelector((state) => state.user.token);
+	const { token } = useSelector((state) => state.auth);
+
 	const handleLogout = () => {
-		dispatch(logoutUser());
+		dispatch(logout());
 		navigate('/login');
 	};
 	return (

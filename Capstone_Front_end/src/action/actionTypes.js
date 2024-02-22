@@ -1,5 +1,3 @@
-import { logout } from '../reducers/authSlice';
-
 export const ActionTypes = {
 	SET_USER_DATA: 'SET_USER_DATA',
 	SET_USER_TOKEN: 'SET_USER_TOKEN',
@@ -15,31 +13,15 @@ export const ActionTypes = {
 	GET_LIKES: 'GET_LIKES',
 };
 
-export const setUserToken = (token) => ({
-	type: ActionTypes.SET_USER_TOKEN,
-	payload: token,
-});
-
 export const setUserGoogleToken = (token) => ({
 	type: ActionTypes.SET_USER_GOOGLE_TOKEN,
 	payload: token,
-});
-
-export const setUserData = (data) => ({
-	type: ActionTypes.SET_USER_DATA,
-	payload: data,
 });
 
 export const setLoading = (bool) => ({
 	type: ActionTypes.SET_LOADING,
 	payload: bool,
 });
-export const logoutUser = () => {
-	logout();
-	return {
-		type: ActionTypes.LOGOUT_USER,
-	};
-};
 export const getImageAction = (image) => ({
 	type: ActionTypes.GET_IMAGE,
 	payload: image,

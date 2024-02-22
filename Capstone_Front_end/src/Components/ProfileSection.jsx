@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaInstagram, FaEdit } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,18 +10,12 @@ import { deleteCurretUser } from '../action/user';
 const ProfileSection = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const token = useSelector((state) => state.user.token);
-	const userData = useSelector((state) => state.user.userData[0]);
 	const [modalShow, setModalShow] = useState(false);
+	const { isAuthenticated, user, token } = useSelector((state) => state.auth);
 
-	useEffect(() => {
-		if (token == null) {
-			navigate('/login');
-		}
-	}, [token]);
 	return (
 		<>
-			{userData === null ? (
+			{!isAuthenticated ? (
 				'non sei autorizzato'
 			) : (
 				<section className='vh-100' style={{ backgroundColor: '#f4f5f7' }}>
@@ -33,13 +27,13 @@ const ProfileSection = () => {
 									<Row className='g-0'>
 										<Col md={4} className='gradient-custom text-center'>
 											<Image
-												src={userData.profileImage}
+												src={user.profileImage}
 												alt='Avatar'
 												className='img-fluid my-4 mr-3 rounded-circle'
 												style={{ width: '100px', height: '100px' }}
 											/>
 											<h5>
-												{userData.name} {userData.surname}
+												{user.name} {user.surname}
 											</h5>
 											<p>Modify Profile</p>
 											<FaEdit onClick={() => setModalShow(true)} className='mb-5' />
@@ -51,13 +45,13 @@ const ProfileSection = () => {
 												<Row className='pt-1'>
 													<Col xs={12} className='mb-3'>
 														<h6>Username</h6>
-														<p className='text-muted'>{userData.username}</p>
+														<p className='text-muted'>{user.username}</p>
 													</Col>
 												</Row>
 												<Row className='pt-1'>
 													<Col xs={12} className='mb-3'>
 														<h6>Email</h6>
-														<p className='text-muted'>{userData.email}</p>
+														<p className='text-muted'>{user.email}</p>
 													</Col>
 												</Row>
 												<h6>Other</h6>
@@ -65,11 +59,11 @@ const ProfileSection = () => {
 												<Row className='pt-1'>
 													<Col xs={6} className='mb-3'>
 														<h6>B-Day</h6>
-														<p className='text-muted'>{userData.userBirthday}</p>
+														<p className='text-muted'>{user.userBirthday}</p>
 													</Col>
 													<Col xs={6} className='mb-3'>
 														<h6>Join date</h6>
-														<p className='text-muted'>{userData.userCreationDate}</p>
+														<p className='text-muted'>{user.userCreationDate}</p>
 													</Col>
 												</Row>
 												<div className='d-flex justify-content-between'>
@@ -86,6 +80,7 @@ const ProfileSection = () => {
 													</div>
 													<Button
 														onClick={(e) => {
+															e.preventDefault();
 															dispatch(deleteCurretUser(token));
 														}}>
 														Cancellami

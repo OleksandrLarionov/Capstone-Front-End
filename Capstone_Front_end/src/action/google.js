@@ -1,4 +1,4 @@
-import { setUserToken } from './actionTypes';
+import { login } from '../reducers/authSlice';
 import { fetchUserData } from './user';
 
 export const googleCallBack = (authorizationCode) => async (dispatch) => {
@@ -8,7 +8,7 @@ export const googleCallBack = (authorizationCode) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(setUserToken(data.accessToken));
+		dispatch(login(data.accessToken));
 		setTimeout(() => {
 			dispatch(fetchUserData(data.accessToken));
 		}, 200);
