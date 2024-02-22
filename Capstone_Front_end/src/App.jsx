@@ -4,7 +4,6 @@ import Home from './Components/home/Home';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
-
 import GoogleCallBack from './Components/google/GoogleCallback';
 import LoginForm from './Components/LoginForm';
 import RegistrationPage from './Components/RegistrationPage';
@@ -12,9 +11,10 @@ import ProfileSection from './Components/ProfileSection';
 import TopicPage from './Components/blog/TopicPage';
 import SingleTopicArea from './Components/blog/SingleTopicArea';
 import NotFoundPage from './Components/NotFoundPage';
+import './App.css';
 
 function App() {
-	const { isAuthenticated, user } = useSelector((state) => state.auth);
+	const { isAuthenticated } = useSelector((state) => state.auth);
 
 	return (
 		<Container fluid>

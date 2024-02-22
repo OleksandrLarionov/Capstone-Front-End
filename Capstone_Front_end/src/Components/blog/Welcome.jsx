@@ -2,6 +2,7 @@ import { Col, ListGroup, Row } from 'react-bootstrap';
 import ListComponent from './ListComponent';
 import { TbEyeOff, TbEye } from 'react-icons/tb';
 import { useState } from 'react';
+import { SiDungeonsanddragons } from 'react-icons/si';
 
 const Welcome = ({ data }) => {
 	const [isListVisible, setListVisibility] = useState(true);
@@ -14,15 +15,19 @@ const Welcome = ({ data }) => {
 							<Row className='d-flex align-items-center justify-content-center'>
 								<Col className='d-flex justify-content-between'>
 									<div className='list-name d-flex align-items-center justify-content-start '>
-										<span
-											className=' text-white rounded-2 pb-1 px-1'
+										<div
+											className=' text-white rounded-2 pb-1 px-1 fw-semibold'
 											style={{ backgroundColor: '#8abeff' }}>
 											{data.name}
-										</span>
-										<span className='ps-2 pe-3' style={{ backgroundColor: '#c0e9f2' }}>
+										</div>
+										<div
+											className='ps-2 pe-3 d-flex align-items-center'
+											style={{ backgroundColor: '#c0e9f2' }}>
 											{' '}
-											D&D
-										</span>
+											<span className='pe-1 fw-semibold'>Dungeons</span>
+											<SiDungeonsanddragons />
+											<span className='ps-1 fw-semibold'> Dragons</span>
+										</div>
 									</div>
 									<div>
 										<span
@@ -42,7 +47,7 @@ const Welcome = ({ data }) => {
 				</Row>
 			</ListGroup.Item>
 			{isListVisible && (
-				<ListGroup.Item className='border-top'>
+				<ListGroup.Item className='border-top p-1'>
 					{data.zoneTopicList?.map((dataTopic, index) => {
 						return <ListComponent key={index} dataTopic={dataTopic} />;
 					})}

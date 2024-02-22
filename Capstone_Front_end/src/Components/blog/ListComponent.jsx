@@ -6,17 +6,14 @@ const ListComponent = ({ dataTopic }) => {
 
 	return (
 		<ListGroup.Item className='p-0 align-items-center my-1 border-0'>
-			<Container style={{ backgroundColor: '#F8F9FA' }}>
+			<Container style={{ backgroundColor: '#F8F8aA' }}>
 				<Row className='d-flex px-2 align-items-center'>
 					<Col className='tag' md={6}>
-						<Row>
-							<Col
-								className=' m-0 rounded-start-3 pe-0'
-								style={{ backgroundColor: '#8abeff' }}></Col>
+						<Row className='d-flex'>
 							<Row className='d-flex flex-column'>
-								<Col className='list-name'>
+								<Col className='list-name p-0 mb-1'>
 									<span
-										className=' text-white rounded-bottom-2'
+										className=' text-white rounded-bottom-2 p-1 fw-bold'
 										style={{ backgroundColor: '#8abeff', cursor: 'pointer' }}
 										onClick={(e) => {
 											e.preventDefault();

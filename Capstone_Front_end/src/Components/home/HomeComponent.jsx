@@ -37,13 +37,17 @@ const HomeComponent = () => {
 							<h1 className='text-truncate text-center pb-3'>Effetua Il LogIn</h1>
 						) : (
 							<Container>
-								<ListGroup>
-									<ListGroup.Item className='border-0'>
-										{homeData?.[0]?.content?.map((data, index) => {
-											return <Welcome key={index} data={data} />;
-										})}
-									</ListGroup.Item>
-								</ListGroup>
+								<Row className='d-flex justify-content-center'>
+									<Col md={9} className='p-0'>
+										<ListGroup>
+											<ListGroup.Item className='border-0 p-0'>
+												{homeData?.[0]?.content?.map((data, index) => {
+													return <Welcome key={index} data={data} />;
+												})}
+											</ListGroup.Item>
+										</ListGroup>
+									</Col>
+								</Row>
 							</Container>
 						)}
 						{isAuthenticated === null && (
