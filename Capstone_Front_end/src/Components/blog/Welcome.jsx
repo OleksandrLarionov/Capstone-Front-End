@@ -49,7 +49,7 @@ const Welcome = ({ data }) => {
 			{isListVisible && (
 				<ListGroup.Item className='border-top p-1'>
 					{data.zoneTopicList?.map((dataTopic, index) => {
-						return <ListComponent key={index} dataTopic={dataTopic} />;
+						return <ListComponent key={index} dataTopic={dataTopic} topicZoneId={data.id} />;
 					})}
 				</ListGroup.Item>
 			)}

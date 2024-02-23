@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 const ListComponent = ({ dataTopic }) => {
 	const navigate = useNavigate();
-
 	return (
 		<ListGroup.Item className='p-0 align-items-center my-1 border-0'>
 			<Container fluid>
@@ -32,15 +31,14 @@ const ListComponent = ({ dataTopic }) => {
 					</Col>
 					<Col md={3}>
 						<Row className='d-flex flex-column text-end '>
-							<Col>blog: {dataTopic.blogPostList.length}</Col>
-							<Col>commenti : non si sa</Col>
+							<Col>Posts: {dataTopic.blogPostList.length}</Col>
 						</Row>
 					</Col>
 					<Col md={3}>
 						<Row className='d-flex flex-column text-end '>
-							<Col>ultima data</Col>
-							<Col>ultimo post nome</Col>
-							<Col>proprietario post</Col>
+							<Col> {dataTopic.blogPostList.slice().reverse()[0].creationBlogDate}</Col>
+							<Col>{dataTopic.blogPostList.slice().reverse()[0].category}</Col>
+							<Col>{dataTopic.blogPostList.slice().reverse()[0].user.username}</Col>
 						</Row>
 					</Col>
 				</Row>

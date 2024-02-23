@@ -17,7 +17,7 @@ import NewCommentArea from './NewCommentArea';
 import NavBar from '../home/NavBar';
 import Logo from '../Logo';
 
-const SingleTopicArea = (props) => {
+const SingleTopicArea = () => {
 	const { blogPostId } = useParams();
 	const { topicName } = useParams();
 	const [currentPage, setCurrentPage] = useState(0);
@@ -64,28 +64,25 @@ const SingleTopicArea = (props) => {
 					</Col>
 				</Row>
 				<Row className='d-flex justify-content-center'>
-					<Col md={7}>
+					<Col md={7} className='border'>
 						<Row className='d-flex px-2 align-items-center'>
-							<Col className='tag' md={6}>
+							<Col className='tag' md={10}>
 								<Row style={{ backgroundColor: '#F8F9FA' }}>
-									<Row className='d-flex align-items-center justify-content-center'>
-										<Col className='d-flex justify-content-between'>
-											<div className='list-name d-flex align-items-center justify-content-start '>
-												<span
-													className='pointer text-white rounded-2 pb-1 px-1 '
-													style={{ backgroundColor: '#8abeff' }}>
-													{topicName}
-												</span>
-												<span
-													className='ps-2 pe-3'
-													style={{ backgroundColor: '#c0e9f2' }}>
-													{' '}
-													<Logo />
-												</span>
-											</div>
-											<div></div>
-										</Col>
-									</Row>
+									<Col className='py-2'>
+										<Row className='px-1'>
+											<Col
+												className='pointer text-white rounded-2 pb-1 px-1'
+												style={{ backgroundColor: '#8abeff' }}>
+												{topicName}
+											</Col>
+											<Col
+												className='d-flex justify-content-center align-items-center'
+												style={{ backgroundColor: '#c0e9f2' }}
+												md={4}>
+												<Logo />
+											</Col>
+										</Row>
+									</Col>
 								</Row>
 							</Col>
 						</Row>
@@ -100,13 +97,15 @@ const SingleTopicArea = (props) => {
 										className='w-100 h-100 py-5'
 									/>
 								</Col>
-								<Col md={10}>
+								<Col md={10} className='mt-2'>
 									<Row className='mb-2 mt-1'>
 										<Col className='d-flex align-items-center'>
 											<span className='bg-black text-white p-1 me-2  '>
 												{blogData.user.username}
 											</span>
-											<span>Postato il: {blogData.creationBlogDate}</span>
+											<span style={{ whiteSpace: 'nowrap' }}>
+												Postato il: {blogData.creationBlogDate}
+											</span>
 											<span className='ms-3 d-flex align-items-center'>
 												<FcLike className='me-2' />
 												{blogData.likes ? blogData.likes.length : 0}
@@ -149,36 +148,42 @@ const SingleTopicArea = (props) => {
 
 						{hide && <NewCommentArea page={currentPage} />}
 						<Row>
-							{commentsData?.content.map((comment, index) => {
-								return (
-									<CommentArea
-										key={index}
-										commentsData={comment}
-										userData={comment.user}
+							<Col className='overflow-y-scroll' style={{ maxHeight: '500px' }}>
+								{commentsData?.content.map((comment, index) => {
+									return (
+										<CommentArea
+											key={index}
+											commentsData={comment}
+											userData={comment.user}
+										/>
+									);
+								})}
+							</Col>
+						</Row>
+						<Row>
+							<Col className='d-flex justify-content-end'>
+								<Pagination>
+									<Pagination.Prev
+										onClick={() => handlePageChange(currentPage - 1)}
+										disabled={currentPage === 0} //
 									/>
-								);
-							})}
+									{[...Array(totalPages).keys()].map((page) => (
+										<Pagination.Item
+											key={page}
+											active={page === currentPage}
+											onClick={() => handlePageChange(page)}>
+											{page + 1}
+										</Pagination.Item>
+									))}
+									<Pagination.Next
+										onClick={() => handlePageChange(currentPage + 1)}
+										disabled={currentPage === totalPages - 1}
+									/>
+								</Pagination>
+							</Col>
 						</Row>
 					</Col>
 				</Row>
-				<Pagination>
-					<Pagination.Prev
-						onClick={() => handlePageChange(currentPage - 1)}
-						disabled={currentPage === 0} //
-					/>
-					{[...Array(totalPages).keys()].map((page) => (
-						<Pagination.Item
-							key={page}
-							active={page === currentPage}
-							onClick={() => handlePageChange(page)}>
-							{page + 1}
-						</Pagination.Item>
-					))}
-					<Pagination.Next
-						onClick={() => handlePageChange(currentPage + 1)}
-						disabled={currentPage === totalPages - 1}
-					/>
-				</Pagination>
 			</Container>
 		</>
 	);

@@ -39,7 +39,7 @@ const TopicPage = (props) => {
 			{isLoading ? (
 				<SpinnerComponent />
 			) : (
-				<Container fluid style={{ marginTop: '12vh' }}>
+				<Container fluid style={{ marginTop: '12vh' }} className='mb-5'>
 					<Row className='d-flex justify-content-center mb-5'>
 						<Col md={7} className='p-0'>
 							{' '}
@@ -53,6 +53,28 @@ const TopicPage = (props) => {
 					</Row>
 					<Row className='d-flex justify-content-center'>
 						<Col md={7} className='p-0'>
+							<Row>
+								<Col className='d-flex justify-content-end'>
+									<Pagination className='my-2'>
+										<Pagination.Prev
+											onClick={() => handlePageChange(currentPage - 1)}
+											disabled={currentPage === 0}
+										/>
+										{[...Array(totalPages).keys()].map((page) => (
+											<Pagination.Item
+												key={page}
+												active={page === currentPage}
+												onClick={() => handlePageChange(page)}>
+												{page + 1}
+											</Pagination.Item>
+										))}
+										<Pagination.Next
+											onClick={() => handlePageChange(currentPage + 1)}
+											disabled={currentPage === totalPages - 1}
+										/>
+									</Pagination>
+								</Col>
+							</Row>
 							<ListGroup>
 								<ListGroup.Item>
 									<Row className='d-flex px-2 align-items-center'>
@@ -81,35 +103,13 @@ const TopicPage = (props) => {
 									</Row>
 								</ListGroup.Item>
 								{topicList && (
-									<ListGroup.Item className='border-top vh-100'>
+									<ListGroup.Item className='border-top'>
 										{topicList?.[0]?.content?.map((dataTopic, index) => {
 											return <TopicSection key={index} dataTopic={dataTopic} />;
 										})}
 									</ListGroup.Item>
 								)}
 							</ListGroup>
-							<Row>
-								<Col className='d-flex justify-content-end'>
-									<Pagination className='my-2'>
-										<Pagination.Prev
-											onClick={() => handlePageChange(currentPage - 1)}
-											disabled={currentPage === 0}
-										/>
-										{[...Array(totalPages).keys()].map((page) => (
-											<Pagination.Item
-												key={page}
-												active={page === currentPage}
-												onClick={() => handlePageChange(page)}>
-												{page + 1}
-											</Pagination.Item>
-										))}
-										<Pagination.Next
-											onClick={() => handlePageChange(currentPage + 1)}
-											disabled={currentPage === totalPages - 1}
-										/>
-									</Pagination>
-								</Col>
-							</Row>
 						</Col>
 					</Row>
 				</Container>

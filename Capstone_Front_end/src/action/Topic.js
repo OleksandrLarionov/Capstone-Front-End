@@ -141,3 +141,20 @@ export const addANewComment = (token, blogPostId, comment, page) => async (dispa
 		throw new Error('errore');
 	}
 };
+
+export const blogCommentsNumber = (token, blogPostId) => async (dispatch) => {
+	const URL = import.meta.env.VITE_URL + '/comments/numberOfComments/' + blogPostId;
+	const response = await fetch(URL, {
+		method: 'GET',
+		headers: {
+			Authorization: 'Bearer ' + token,
+			'Content-Type': 'application/json',
+		},
+	});
+	if (response.ok) {
+		const data = await response.json();
+		return data;
+	} else {
+		throw new Error('errore');
+	}
+};

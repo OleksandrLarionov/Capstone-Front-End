@@ -1,8 +1,17 @@
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { blogCommentsNumber } from '../../action/Topic';
 
 const TopicSection = ({ dataTopic }) => {
+	const { token } = useSelector((state) => state.auth);
+	const [numberOfComments, setNumberOfComments] = useState(null);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(blogCommentsNumber(token, dataTopic.id)).then((data) => setNumberOfComments(data));
+	}, [navigate]);
 	return (
 		<ListGroup.Item className='p-0 align-items-center my-1 border-0'>
 			<Container style={{ backgroundColor: '#F8F9FA' }}>
@@ -15,7 +24,7 @@ const TopicSection = ({ dataTopic }) => {
 							<Row className='d-flex flex-column'>
 								<Col className='list-name pe-0'>
 									<span
-										className=' text-white rounded-bottom-2 pb-1 px-2'
+										className=' text-white rounded-bottom-2 pb-1 px-2 d-flex'
 										style={{ backgroundColor: '#8abeff', cursor: 'pointer' }}
 										onClick={(e) => {
 											e.preventDefault();
@@ -34,8 +43,8 @@ const TopicSection = ({ dataTopic }) => {
 					</Col>
 					<Col md={3}>
 						<Row className='d-flex flex-column text-end '>
-							<Col>numero : discussioni</Col>
-							<Col>numero : risposte</Col>
+							<Col>Likes: {dataTopic.likes.length}</Col>
+							<Col>Commenti : {numberOfComments}</Col>
 						</Row>
 					</Col>
 					<Col md={3}>
