@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Col, Container, Image, Pagination, Row, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -16,6 +16,7 @@ import CommentArea from './CommentArea';
 import NewCommentArea from './NewCommentArea';
 import NavBar from '../home/NavBar';
 import Logo from '../Logo';
+import { start } from '../../action/getColor';
 
 const SingleTopicArea = () => {
 	const { blogPostId } = useParams();
@@ -27,6 +28,28 @@ const SingleTopicArea = () => {
 	const commentsData = useSelector((state) => state.topic.blogCommentsData?.[0]);
 	const [hide, setHide] = useState(false);
 	const dispatch = useDispatch();
+
+	const imageRef = useRef(null);
+	const [averageColor, setAverageColor] = useState(null);
+	console.log('test libreria: ' + averageColor);
+
+	const loadImageAndExtractColor = () => {
+		const img = document.getElementById('image');
+		if (!img.complete) {
+			img.onload = () => {
+				const color = start(img);
+				setAverageColor(color);
+				console.log(color);
+			};
+		} else {
+			const color = start(img);
+			console.log(color);
+		}
+	};
+
+	useEffect(() => {
+		loadImageAndExtractColor();
+	}, []);
 
 	const handlerHideCommentArea = (e) => {
 		e.preventDefault();
@@ -60,6 +83,8 @@ const SingleTopicArea = () => {
 							src={backgroundImage}
 							alt='profileImage'
 							className='w-100 h-100'
+							ref={imageRef}
+							id='image'
 						/>
 					</Col>
 				</Row>

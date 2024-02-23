@@ -2,7 +2,31 @@ import Carousel from 'react-bootstrap/Carousel';
 import { Row, Col, Image } from 'react-bootstrap';
 import '../../css/header.css';
 import backgroundImage from '../../assets/img/pg2.jpg';
-const Header = (props) => {
+import { useEffect, useRef, useState } from 'react';
+import { start } from '../../action/getColor';
+
+const Header = () => {
+	const imageRef = useRef(null);
+	const [averageColor, setAverageColor] = useState(null);
+
+	console.log(averageColor);
+	const loadImageAndExtractColor = () => {
+		const img = document.getElementById('image');
+		if (!img.complete) {
+			img.onload = () => {
+				const color = start(img);
+				setAverageColor(color);
+			};
+		} else {
+			const color = start(img);
+			console.log(color);
+		}
+	};
+
+	useEffect(() => {
+		loadImageAndExtractColor();
+	}, [imageRef]);
+
 	return (
 		<Row className='d-flex justify-content-center mb-5' id='header-container'>
 			<Col md={7} className='p-0'>
@@ -13,7 +37,13 @@ const Header = (props) => {
 					slide={false}
 					indicators={false}>
 					<Carousel.Item>
-						<Image className='d-block w-100 h-100' src={backgroundImage} alt='First slide' />
+						<Image
+							className='d-block w-100 h-100'
+							src={backgroundImage}
+							alt='First slide'
+							id='image'
+							ref={imageRef}
+						/>
 						{/* <Carousel.Caption>
 							<h5>First slide label</h5>
 							<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
