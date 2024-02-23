@@ -97,7 +97,7 @@ const SingleTopicArea = () => {
 										<Row className='px-1'>
 											<Col
 												className='pointer text-white rounded-2 pb-1 px-1'
-												style={{ backgroundColor: '#8abeff' }}>
+												style={{ backgroundColor: `#${averageColor}` }}>
 												{topicName}
 											</Col>
 											<Col

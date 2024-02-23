@@ -1,10 +1,16 @@
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const ListComponent = ({ dataTopic }) => {
 	const navigate = useNavigate();
+	const color = useSelector((state) => state.reducer.homeColor);
 	return (
-		<ListGroup.Item className='p-0 align-items-center my-1 border-0'>
+		<ListGroup.Item
+			className='p-0 align-items-center my-1 border-0'
+			style={{
+				background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
+			}}>
 			<Container fluid>
 				<Row className='d-flex px-2 align-items-center'>
 					<Col className='tag' md={6}>
@@ -13,7 +19,9 @@ const ListComponent = ({ dataTopic }) => {
 								<Col className='list-name p-0 mb-1'>
 									<span
 										className=' text-white rounded-bottom-2 p-1 fw-bold'
-										style={{ backgroundColor: '#8abeff', cursor: 'pointer' }}
+										style={{
+											background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
+										}}
 										onClick={(e) => {
 											e.preventDefault();
 											navigate(`/home/topic/${dataTopic.name}/${dataTopic.id}`);
@@ -23,7 +31,9 @@ const ListComponent = ({ dataTopic }) => {
 								</Col>
 								<Col
 									className='list-description  text-white my-1'
-									style={{ backgroundColor: '#c0e9f2' }}>
+									style={{
+										background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
+									}}>
 									{dataTopic.description}
 								</Col>
 							</Row>

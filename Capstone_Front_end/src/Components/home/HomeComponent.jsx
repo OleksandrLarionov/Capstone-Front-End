@@ -11,9 +11,8 @@ const HomeComponent = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const homeData = useSelector((state) => state.home.homeData);
-
 	const { isAuthenticated, token } = useSelector((state) => state.auth);
-
+	const color = useSelector((state) => state.reducer.homeColor);
 	useEffect(() => {
 		if (isAuthenticated) {
 			dispatch(fetchHomeData(token));
@@ -35,7 +34,13 @@ const HomeComponent = () => {
 							<Row className='d-flex justify-content-center'>
 								<Col md={7} className='p-0'>
 									<ListGroup>
-										<ListGroup.Item className='border-0 p-0'>
+										<ListGroup.Item
+											className='border-0 p-0'
+											style={{
+												background: `linear-gradient(304deg, rgba(${
+													(color, 0.947391456582633)
+												}) 86%)`,
+											}}>
 											{homeData?.[0]?.content?.map((data, index) => {
 												return <Welcome key={index} data={data} />;
 											})}

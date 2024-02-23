@@ -4,18 +4,19 @@ import '../../css/header.css';
 import backgroundImage from '../../assets/img/pg2.jpg';
 import { useEffect, useRef, useState } from 'react';
 import { start } from '../../action/getColor';
+import { useDispatch } from 'react-redux';
+import { SetHomeColor } from '../../action/actionTypes';
 
 const Header = () => {
 	const imageRef = useRef(null);
-	const [averageColor, setAverageColor] = useState(null);
+	const dispatch = useDispatch();
 
-	console.log(averageColor);
 	const loadImageAndExtractColor = () => {
 		const img = document.getElementById('image');
 		if (!img.complete) {
 			img.onload = () => {
 				const color = start(img);
-				setAverageColor(color);
+				dispatch(SetHomeColor(color));
 			};
 		} else {
 			const color = start(img);

@@ -21,7 +21,7 @@ const getColors = function (c) {
 		b = data[i + 2];
 		a = data[i + 3];
 		if (a < 255 / 2 || isTooLight(r, g, b)) continue;
-		col = rgbToHex(r, g, b);
+		col = `${r}, ${g}, ${b}`;
 		if (!colors[col]) colors[col] = 0;
 		colors[col]++;
 	}
@@ -56,11 +56,6 @@ const rgbToHex = function (r, g, b) {
 	}
 };
 
-// inserisce degli '0' se necessario davanti al colore in esadecimale per renderlo di 6 caratteri
-const pad = function (hex) {
-	return ('000000' + hex).slice(-6);
-};
-
 export const start = (img) => {
 	// prendo il riferimento all'immagine del dom
 
@@ -74,8 +69,5 @@ export const start = (img) => {
 
 	// trovo colore più ricorrente in esadecimale
 	let mostRecurrent = findMostRecurrentColor(allColors);
-
-	// se necessario, aggiunge degli '0' per rendere il risultato un valido colore esadecimale
-	let mostRecurrentHex = pad(mostRecurrent);
 	return mostRecurrent;
 };

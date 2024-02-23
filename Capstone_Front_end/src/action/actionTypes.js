@@ -11,6 +11,7 @@ export const ActionTypes = {
 	GET_BLOG_POST_COMMENTS_DATA: 'GET_BLOG_POST_COMMENTS_DATA',
 	SET_BLOG_TOPIC_NUMBER: 'SET_BLOG_TOPIC_NUMBER',
 	GET_LIKES: 'GET_LIKES',
+	GET_HOME_COLOR: 'GET_HOME_COLOR',
 };
 
 export const setUserGoogleToken = (token) => ({
@@ -52,5 +53,10 @@ export const setTopicsNumber = (data) => ({
 });
 export const getLikes = (data) => ({
 	type: ActionTypes.GET_LIKES,
+	payload: data,
+});
+
+export const SetHomeColor = (data) => ({
+	type: ActionTypes.GET_HOME_COLOR,
 	payload: data,
 });
