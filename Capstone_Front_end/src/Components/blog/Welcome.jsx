@@ -1,4 +1,4 @@
-import { Col, ListGroup, Row } from 'react-bootstrap';
+import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import ListComponent from './ListComponent';
 import { TbEyeOff, TbEye } from 'react-icons/tb';
 import { useState } from 'react';
@@ -9,11 +9,13 @@ const Welcome = ({ data }) => {
 	return (
 		<ListGroup>
 			<ListGroup.Item className='p-0 align-items-center border-0 my-2'>
-				<Row className='d-flex px-2 align-items-center'>
-					<Col className='tag' md={6}>
-						<Row style={{ backgroundColor: '#F8F9FA' }}>
-							<Row className='d-flex align-items-center justify-content-center'>
-								<Col className='d-flex justify-content-between'>
+				<Container>
+					<Row className='d-flex align-items-center p-0'>
+						<Col className='tag' md={6}>
+							<Row
+								style={{ backgroundColor: '#F8F9FA' }}
+								className='d-flex align-items-center justify-content-center'>
+								<Col className='d-flex justify-content-between p-0'>
 									<div className='list-name d-flex align-items-center justify-content-start '>
 										<div
 											className=' text-white rounded-2 pb-1 px-1 fw-semibold'
@@ -40,11 +42,11 @@ const Welcome = ({ data }) => {
 									</div>
 								</Col>
 							</Row>
-						</Row>
-					</Col>
-					<Col md={4}></Col>
-					<Col md={3}></Col>
-				</Row>
+						</Col>
+						<Col md={4}></Col>
+						<Col md={3}></Col>
+					</Row>
+				</Container>
 			</ListGroup.Item>
 			{isListVisible && (
 				<ListGroup.Item className='border-top p-1'>

@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchTopicData } from '../../action/Topic';
 import TopicSection from './TopicSection';
-import NavBar from '../NavBar';
 import backgroundImage from '../../assets/img/concept-cutted.jpg';
 import SpinnerComponent from '../SpinnerComponent';
+import NavBar from '../home/NavBar';
 
 const TopicPage = (props) => {
 	const { topicId } = useParams();

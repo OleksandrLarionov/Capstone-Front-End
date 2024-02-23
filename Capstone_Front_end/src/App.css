@@ -1,7 +1,9 @@
 body {
-	background-image: url('../src/assets/img/painting-fantasy-art-knight-fantasy-city-magic-archer-34104-wallhere.com.jpg');
+	/* background-image: url('../src/assets/img/painting-fantasy-art-knight-fantasy-city-magic-archer-34104-wallhere.com.jpg');
 	background-size: contain;
 	background-repeat: no-repeat;
 	height: 100%;
-	font-family: 'Numans', sans-serif;
+	font-family: 'Numans', sans-serif; */
+	background: rgb(219, 187, 137);
+	background: linear-gradient(135deg, rgba(228, 183, 111, 0.872) 33%, rgba(86, 48, 48, 0.839) 62%);
 }

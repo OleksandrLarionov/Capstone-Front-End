@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Col, Container, Image, Pagination, Row, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import NavBar from '../NavBar';
 import backgroundImage from '../../assets/img/concept-cutted.jpg';
 import {
 	addLike,
@@ -15,6 +14,7 @@ import { FcLike } from 'react-icons/fc';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 import CommentArea from './CommentArea';
 import NewCommentArea from './NewCommentArea';
+import NavBar from '../home/NavBar';
 
 const SingleTopicArea = (props) => {
 	const { blogPostId } = useParams();

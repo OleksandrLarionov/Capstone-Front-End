@@ -1,11 +1,11 @@
 import { Button, Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../NavBar';
 import { useEffect } from 'react';
 import Header from './Header';
 import Welcome from '../blog/Welcome';
 import { fetchHomeData } from '../../action/homeAction';
+import NavBar from './NavBar';
 
 const HomeComponent = () => {
 	const navigate = useNavigate();
@@ -26,29 +26,23 @@ const HomeComponent = () => {
 		<>
 			<NavBar />
 			<Container fluid>
-				<Row className='my-5'>
-					<Col>
-						<Header />
-					</Col>
-				</Row>
-				<Row className=' flex-row flex-grow-1 h-100'>
-					<Col className='d-flex flex-column justify-content-start gap-4'>
+				<Header />
+				<Row>
+					<Col className='d-flex flex-column justify-content-start'>
 						{!isAuthenticated ? (
 							<h1 className='text-truncate text-center pb-3'>Effetua Il LogIn</h1>
 						) : (
-							<Container>
-								<Row className='d-flex justify-content-center'>
-									<Col md={9} className='p-0'>
-										<ListGroup>
-											<ListGroup.Item className='border-0 p-0'>
-												{homeData?.[0]?.content?.map((data, index) => {
-													return <Welcome key={index} data={data} />;
-												})}
-											</ListGroup.Item>
-										</ListGroup>
-									</Col>
-								</Row>
-							</Container>
+							<Row className='d-flex justify-content-center'>
+								<Col md={7} className='p-0'>
+									<ListGroup>
+										<ListGroup.Item className='border-0 p-0'>
+											{homeData?.[0]?.content?.map((data, index) => {
+												return <Welcome key={index} data={data} />;
+											})}
+										</ListGroup.Item>
+									</ListGroup>
+								</Col>
+							</Row>
 						)}
 						{isAuthenticated === null && (
 							<Button onClick={() => navigate('/login')}>Login</Button>
