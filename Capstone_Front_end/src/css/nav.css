@@ -9,7 +9,8 @@
 	margin: 0 20px 0 20px;
 }
 .dropdown-menu {
-	background: #03727d !important;
+	background: rgb(219, 187, 137);
+	background: linear-gradient(135deg, rgba(228, 183, 111, 0.398) 33%, rgba(86, 48, 48, 0.839) 62%);
 }
 a.dropdown-toggle {
 	color: #dfdfdf !important;

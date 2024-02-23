@@ -6,7 +6,7 @@ const ListComponent = ({ dataTopic }) => {
 
 	return (
 		<ListGroup.Item className='p-0 align-items-center my-1 border-0'>
-			<Container style={{ backgroundColor: '#F8F8aA' }}>
+			<Container fluid>
 				<Row className='d-flex px-2 align-items-center'>
 					<Col className='tag' md={6}>
 						<Row className='d-flex'>

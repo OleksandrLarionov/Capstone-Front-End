@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchTopicData } from '../../action/Topic';
 import TopicSection from './TopicSection';
-import backgroundImage from '../../assets/img/concept-cutted.jpg';
+import backgroundImage from '../../assets/img/pg2.jpg';
 import SpinnerComponent from '../SpinnerComponent';
 import NavBar from '../home/NavBar';
+import Logo from '../Logo';
 
 const TopicPage = (props) => {
 	const { topicId } = useParams();
@@ -38,23 +39,22 @@ const TopicPage = (props) => {
 			{isLoading ? (
 				<SpinnerComponent />
 			) : (
-				<Container>
-					<Row className='d-flex justify-content-center my-4'>
-						<Col>
+				<Container fluid style={{ marginTop: '12vh' }}>
+					<Row className='d-flex justify-content-center mb-5'>
+						<Col md={7} className='p-0'>
 							{' '}
 							<Image
 								variant='top'
 								src={backgroundImage}
-								alt='profileImage'
-								style={{ width: '35px', height: '35px' }}
+								alt='image'
 								className='w-100 h-100'
 							/>
 						</Col>
 					</Row>
 					<Row className='d-flex justify-content-center'>
-						<Col md={8}>
+						<Col md={7} className='p-0'>
 							<ListGroup>
-								<ListGroup.Item className='p-0 align-items-center border-0 my-2'>
+								<ListGroup.Item>
 									<Row className='d-flex px-2 align-items-center'>
 										<Col className='tag' md={6}>
 											<Row style={{ backgroundColor: '#F8F9FA' }}>
@@ -70,7 +70,7 @@ const TopicPage = (props) => {
 																className='ps-2 pe-3'
 																style={{ backgroundColor: '#c0e9f2' }}>
 																{' '}
-																D&D
+																<Logo />
 															</span>
 														</div>
 														<div></div>

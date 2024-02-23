@@ -1,17 +1,15 @@
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import '../../css/nav.css';
-import { SiDungeonsanddragons } from 'react-icons/si';
 import { Link } from 'react-router-dom';
 import UserNavCard from '../UserNavCard';
+import Logo from '../Logo';
 function NavBar() {
 	return (
 		<div id='mainNavigation'>
 			<Navbar expand='md'>
 				<Navbar.Brand className='py-3 text-center'>
 					{/* <img src='' alt='' className='invert' /> */}
-					<span className='pe-1 fw-semibold'>Dungeons</span>
-					<SiDungeonsanddragons />
-					<span className='fw-semibold'> Dragons</span>
+					<Logo />
 				</Navbar.Brand>
 				<Navbar.Toggle
 					className='navbar-dark text-center my-2 w-75'

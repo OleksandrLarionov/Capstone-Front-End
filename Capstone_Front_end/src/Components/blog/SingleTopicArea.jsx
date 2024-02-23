@@ -15,6 +15,7 @@ import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 import CommentArea from './CommentArea';
 import NewCommentArea from './NewCommentArea';
 import NavBar from '../home/NavBar';
+import Logo from '../Logo';
 
 const SingleTopicArea = (props) => {
 	const { blogPostId } = useParams();
@@ -50,104 +51,115 @@ const SingleTopicArea = (props) => {
 	return (
 		<>
 			<NavBar />
-			<Container>
-				<Row className='d-flex justify-content-center my-4'>
-					<Col>
+			<Container fluid style={{ marginTop: '12vh' }}>
+				<Row className='d-flex justify-content-center mb-5'>
+					<Col md={7}>
 						{' '}
 						<Image
 							variant='top'
 							src={backgroundImage}
 							alt='profileImage'
-							style={{ width: '35px', height: '35px' }}
 							className='w-100 h-100'
 						/>
 					</Col>
 				</Row>
-				<Row className='d-flex px-2 align-items-center'>
-					<Col className='tag' md={6}>
-						<Row style={{ backgroundColor: '#F8F9FA' }}>
-							<Row className='d-flex align-items-center justify-content-center'>
-								<Col className='d-flex justify-content-between'>
-									<div className='list-name d-flex align-items-center justify-content-start '>
-										<span
-											className='pointer text-white rounded-2 pb-1 px-1 '
-											style={{ backgroundColor: '#8abeff' }}>
-											{topicName}
-										</span>
-										<span className='ps-2 pe-3' style={{ backgroundColor: '#c0e9f2' }}>
-											{' '}
-											D&D
-										</span>
-									</div>
-									<div></div>
+				<Row className='d-flex justify-content-center'>
+					<Col md={7}>
+						<Row className='d-flex px-2 align-items-center'>
+							<Col className='tag' md={6}>
+								<Row style={{ backgroundColor: '#F8F9FA' }}>
+									<Row className='d-flex align-items-center justify-content-center'>
+										<Col className='d-flex justify-content-between'>
+											<div className='list-name d-flex align-items-center justify-content-start '>
+												<span
+													className='pointer text-white rounded-2 pb-1 px-1 '
+													style={{ backgroundColor: '#8abeff' }}>
+													{topicName}
+												</span>
+												<span
+													className='ps-2 pe-3'
+													style={{ backgroundColor: '#c0e9f2' }}>
+													{' '}
+													<Logo />
+												</span>
+											</div>
+											<div></div>
+										</Col>
+									</Row>
+								</Row>
+							</Col>
+						</Row>
+						{blogData && (
+							<Row className='d-flex'>
+								<Col md={2}>
+									<Image
+										variant='top'
+										src={blogData.user.profileImage}
+										alt='profileImage'
+										style={{ width: '35px', height: '35px' }}
+										className='w-100 h-100 py-5'
+									/>
+								</Col>
+								<Col md={10}>
+									<Row className='mb-2 mt-1'>
+										<Col className='d-flex align-items-center'>
+											<span className='bg-black text-white p-1 me-2  '>
+												{blogData.user.username}
+											</span>
+											<span>Postato il: {blogData.creationBlogDate}</span>
+											<span className='ms-3 d-flex align-items-center'>
+												<FcLike className='me-2' />
+												{blogData.likes ? blogData.likes.length : 0}
+											</span>
+											<span className='ms-2 d-flex'>
+												<div
+													style={{ cursor: 'pointer' }}
+													className='mx-3'
+													onClick={(e) => {
+														e.preventDefault();
+														dispatch(addLike(token, blogPostId));
+													}}>
+													<AiOutlineLike />
+												</div>
+												<div
+													style={{ cursor: 'pointer' }}
+													onClick={(e) => {
+														e.preventDefault();
+														dispatch(removeLike(token, blogPostId));
+													}}>
+													<AiOutlineDislike />
+												</div>
+											</span>
+										</Col>
+										<Col className='d-flex justify-content-end'>
+											<Button onClick={handlerHideCommentArea}>Commenta</Button>
+										</Col>
+									</Row>
+									<Row>
+										<Col>
+											<span>{blogData.category}</span>
+										</Col>
+									</Row>
+									<Row className='m-2'>
+										<Col>{blogData.content}</Col>
+									</Row>
 								</Col>
 							</Row>
+						)}
+
+						{hide && <NewCommentArea page={currentPage} />}
+						<Row>
+							{commentsData?.content.map((comment, index) => {
+								return (
+									<CommentArea
+										key={index}
+										commentsData={comment}
+										userData={comment.user}
+									/>
+								);
+							})}
 						</Row>
 					</Col>
-				</Row>
-				{blogData && (
-					<Row className='d-flex'>
-						<Col md={2}>
-							<Image
-								variant='top'
-								src={blogData.user.profileImage}
-								alt='profileImage'
-								style={{ width: '35px', height: '35px' }}
-								className='w-100 h-100 py-5'
-							/>
-						</Col>
-						<Col md={10}>
-							<Row className='mb-2 mt-1'>
-								<Col className='d-flex align-items-center'>
-									<span className='bg-black text-white p-1 me-2  '>
-										{blogData.user.username}
-									</span>
-									<span>Postato il: {blogData.creationBlogDate}</span>
-									<span className='ms-3 d-flex align-items-center'>
-										<FcLike className='me-2' />
-										{blogData.likes ? blogData.likes.length : 0}
-									</span>
-									<span className='ms-2 d-flex'>
-										<div
-											style={{ cursor: 'pointer' }}
-											className='mx-3'
-											onClick={(e) => {
-												e.preventDefault();
-												dispatch(addLike(token, blogPostId));
-											}}>
-											<AiOutlineLike />
-										</div>
-										<div
-											style={{ cursor: 'pointer' }}
-											onClick={(e) => {
-												e.preventDefault();
-												dispatch(removeLike(token, blogPostId));
-											}}>
-											<AiOutlineDislike />
-										</div>
-									</span>
-								</Col>
-								<Col className='d-flex justify-content-end'>
-									<Button onClick={handlerHideCommentArea}>Commenta</Button>
-								</Col>
-							</Row>
-							<Row>
-								<Col>
-									<span>{blogData.category}</span>
-								</Col>
-							</Row>
-							<Row className='m-2'>
-								<Col>{blogData.content}</Col>
-							</Row>
-						</Col>
-					</Row>
-				)}
-
-				{hide && <NewCommentArea page={currentPage} />}
-				<Row>
-					{commentsData?.content.map((comment, index) => {
-						return <CommentArea key={index} commentsData={comment} userData={comment.user} />;
-					})}
 				</Row>
 				<Pagination>
 					<Pagination.Prev
