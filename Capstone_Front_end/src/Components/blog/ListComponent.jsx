@@ -20,6 +20,7 @@ const ListComponent = ({ dataTopic }) => {
 									<span
 										className=' text-white rounded-bottom-2 p-1 fw-bold'
 										style={{
+											cursor: 'pointer',
 											background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
 										}}
 										onClick={(e) => {

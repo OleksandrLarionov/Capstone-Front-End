@@ -5,15 +5,21 @@ import { fetchHomeData } from '../../action/homeAction';
 import { useEffect } from 'react';
 
 const Home = () => {
-	const isLoading = useSelector((state) => state.home.isLoading);
 	const { token } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
-
+	const { homeColor, isLoading } = useSelector((state) => state.reducer);
 	useEffect(() => {
 		dispatch(fetchHomeData(token));
 	}, [token, dispatch]);
 
-	return <div>{isLoading ? <SpinnerComponent /> : <HomeComponent />}</div>;
+	return (
+		<div
+			style={{
+				background: `linear-gradient(135deg, rgba(${homeColor}, 0.70) 33%, rgba(${homeColor}, 0.839) 62%)`,
+			}}>
+			{isLoading ? <SpinnerComponent /> : <HomeComponent />}
+		</div>
+	);
 };
 
 export default Home;

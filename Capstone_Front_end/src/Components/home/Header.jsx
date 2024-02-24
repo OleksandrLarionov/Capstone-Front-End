@@ -2,7 +2,9 @@ import Carousel from 'react-bootstrap/Carousel';
 import { Row, Col, Image } from 'react-bootstrap';
 import '../../css/header.css';
 import backgroundImage from '../../assets/img/pg2.jpg';
-import { useEffect, useRef, useState } from 'react';
+import backgroundImage2Test from '../../assets/img/pg3.jpg';
+
+import { useEffect, useRef } from 'react';
 import { start } from '../../action/getColor';
 import { useDispatch } from 'react-redux';
 import { SetHomeColor } from '../../action/actionTypes';
@@ -12,7 +14,7 @@ const Header = () => {
 	const dispatch = useDispatch();
 
 	const loadImageAndExtractColor = () => {
-		const img = document.getElementById('image');
+		const img = imageRef.current;
 		if (!img.complete) {
 			img.onload = () => {
 				const color = start(img);
@@ -20,7 +22,7 @@ const Header = () => {
 			};
 		} else {
 			const color = start(img);
-			console.log(color);
+			dispatch(SetHomeColor(color));
 		}
 	};
 
@@ -40,7 +42,7 @@ const Header = () => {
 					<Carousel.Item>
 						<Image
 							className='d-block w-100 h-100'
-							src={backgroundImage}
+							src={backgroundImage2Test}
 							alt='First slide'
 							id='image'
 							ref={imageRef}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Col, Container, Image, ListGroup, Pagination, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -8,16 +8,36 @@ import backgroundImage from '../../assets/img/pg2.jpg';
 import SpinnerComponent from '../SpinnerComponent';
 import NavBar from '../home/NavBar';
 import Logo from '../Logo';
+import { SetHomeColor } from '../../action/actionTypes';
+import { start } from '../../action/getColor';
 
-const TopicPage = (props) => {
+const TopicPage = () => {
 	const { topicId } = useParams();
 	const { zoneName } = useParams();
 	const topicList = useSelector((state) => state.topic.topicListData);
-	const isLoading = useSelector((state) => state.reducer.isLoading);
 	const { token } = useSelector((state) => state.auth);
+	const { homeColor, isLoading } = useSelector((state) => state.reducer);
 	const dispatch = useDispatch();
 	const [currentPage, setCurrentPage] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
+	const imageRef = useRef(null);
+
+	const loadImageAndExtractColor = () => {
+		const img = imageRef.current;
+		if (!img.complete) {
+			img.onload = () => {
+				const color = start(img);
+				dispatch(SetHomeColor(color));
+			};
+		} else {
+			const color = start(img);
+			dispatch(SetHomeColor(color));
+		}
+	};
+
+	useEffect(() => {
+		loadImageAndExtractColor();
+	}, [imageRef]);
 
 	useEffect(() => {
 		if (topicList) {
@@ -39,7 +59,13 @@ const TopicPage = (props) => {
 			{isLoading ? (
 				<SpinnerComponent />
 			) : (
-				<Container fluid style={{ marginTop: '12vh' }} className='mb-5'>
+				<Container
+					className='pb-5'
+					fluid
+					style={{
+						paddingTop: '12vh',
+						background: `linear-gradient(135deg, rgba(${homeColor}, 0.70) 33%, rgba(${homeColor}, 0.839) 62%)`,
+					}}>
 					<Row className='d-flex justify-content-center mb-5'>
 						<Col md={7} className='p-0'>
 							{' '}
@@ -48,6 +74,7 @@ const TopicPage = (props) => {
 								src={backgroundImage}
 								alt='image'
 								className='w-100 h-100'
+								ref={imageRef}
 							/>
 						</Col>
 					</Row>
@@ -55,7 +82,7 @@ const TopicPage = (props) => {
 						<Col md={7} className='p-0'>
 							<Row>
 								<Col className='d-flex justify-content-end'>
-									<Pagination className='my-2'>
+									<Pagination className='my-2 ' size='sm'>
 										<Pagination.Prev
 											onClick={() => handlePageChange(currentPage - 1)}
 											disabled={currentPage === 0}
@@ -75,27 +102,32 @@ const TopicPage = (props) => {
 									</Pagination>
 								</Col>
 							</Row>
-							<ListGroup>
-								<ListGroup.Item>
+							<ListGroup className='border border-5'>
+								<ListGroup.Item style={{ background: `rgb(${homeColor})` }}>
 									<Row className='d-flex px-2 align-items-center'>
 										<Col className='tag' md={6}>
-											<Row style={{ backgroundColor: '#F8F9FA' }}>
-												<Row className='d-flex align-items-center justify-content-center'>
-													<Col className='d-flex justify-content-between'>
-														<div className='list-name d-flex align-items-center justify-content-start '>
-															<span
-																className='pointer text-white rounded-2 pb-1 px-1 '
-																style={{ backgroundColor: '#8abeff' }}>
-																{zoneName}
-															</span>
-															<span
-																className='ps-2 pe-3'
-																style={{ backgroundColor: '#c0e9f2' }}>
-																{' '}
-																<Logo />
-															</span>
-														</div>
-														<div></div>
+											<Row
+												style={{
+													background: `linear-gradient(0deg, rgba(${homeColor},0) 0%, rgba(186,186,186,0.6110819327731092) 23%)`,
+												}}>
+												<Row className='d-flex align-items-center justify-content-center '>
+													<Col className='d-flex  '>
+														<span
+															className='pointer text-white rounded-2 px-2'
+															style={{
+																whiteSpace: 'nowrap',
+																background: `radial-gradient(circle, rgba(107,107,107,0.947391456582633) 0%, rgba(${homeColor}) 85%)`,
+															}}>
+															{zoneName}
+														</span>
+														<span
+															className='ps-2 pe-3'
+															style={{
+																background: `linear-gradient(0deg, rgba(${homeColor},0.9051995798319328) 2%, rgba(186,186,186,0.6110819327731092) 52%)`,
+															}}>
+															{' '}
+															<Logo />
+														</span>
 													</Col>
 												</Row>
 											</Row>
@@ -103,7 +135,11 @@ const TopicPage = (props) => {
 									</Row>
 								</ListGroup.Item>
 								{topicList && (
-									<ListGroup.Item className='border-top'>
+									<ListGroup.Item
+										className='border-top '
+										style={{
+											background: `linear-gradient(180deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${homeColor}) 86%)`,
+										}}>
 										{topicList?.[0]?.content?.map((dataTopic, index) => {
 											return <TopicSection key={index} dataTopic={dataTopic} />;
 										})}

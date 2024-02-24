@@ -6,6 +6,7 @@ import { blogCommentsNumber } from '../../action/Topic';
 
 const TopicSection = ({ dataTopic }) => {
 	const { token } = useSelector((state) => state.auth);
+	const { homeColor } = useSelector((state) => state.reducer);
 	const [numberOfComments, setNumberOfComments] = useState(null);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -14,18 +15,21 @@ const TopicSection = ({ dataTopic }) => {
 	}, [navigate]);
 	return (
 		<ListGroup.Item className='p-0 align-items-center my-1 border-0'>
-			<Container style={{ backgroundColor: '#F8F9FA' }}>
+			<Container
+				style={{
+					background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${homeColor}) 86%)`,
+				}}>
 				<Row className='d-flex px-2 align-items-center'>
 					<Col className='tag' md={6}>
 						<Row>
-							<Col
-								className=' m-0 rounded-start-3'
-								style={{ backgroundColor: '#8abeff' }}></Col>
 							<Row className='d-flex flex-column'>
 								<Col className='list-name pe-0'>
 									<span
-										className=' text-white rounded-bottom-2 pb-1 px-2 d-flex'
-										style={{ backgroundColor: '#8abeff', cursor: 'pointer' }}
+										className=' text-white rounded-bottom-2  d-flex'
+										style={{
+											cursor: 'pointer',
+											background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${homeColor}) 86%)`,
+										}}
 										onClick={(e) => {
 											e.preventDefault();
 											navigate(

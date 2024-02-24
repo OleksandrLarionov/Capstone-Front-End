@@ -1,9 +1,47 @@
 body {
-	/* background-image: url('../src/assets/img/painting-fantasy-art-knight-fantasy-city-magic-archer-34104-wallhere.com.jpg');
+	/* background-image: url('../src/assets/img/pg3');
 	background-size: contain;
 	background-repeat: no-repeat;
 	height: 100%;
 	font-family: 'Numans', sans-serif; */
-	background: rgb(219, 187, 137);
-	background: linear-gradient(135deg, rgba(228, 183, 111, 0.872) 33%, rgba(86, 48, 48, 0.839) 62%);
+	/* background: rgb(219, 187, 137);
+	background: linear-gradient(135deg, rgba(228, 183, 111, 0.872) 33%, rgba(86, 48, 48, 0.839) 62%); */
+}
+
+#welcome {
+	/* style={{
+		background: `radial-gradient(circle, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 85%)`,
+	}} */
+
+	.welcome-row {
+		background-color: rgb(246, 245, 245);
+	}
+
+	.tag-name {
+		background-color: aliceblue;
+	}
+
+	.logo-bg {
+		background-color: white;
+	}
+	.list-bg {
+		/* style={{
+			background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
+		}} */
+	}
+}
+#home-list-component {
+	/* style={{
+		background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
+	}} */
+
+	.topic-name {
+		background-color: aqua;
+	}
+	.description-area {
+		/* style={{
+			background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
+		}} */
+		background-color: aqua;
+	}
 }
