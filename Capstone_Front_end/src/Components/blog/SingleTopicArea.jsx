@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 import backgroundImage from '../../assets/img/concept-cutted.jpg';
 import {
 	addLike,
-	blogCommentsData,
 	blogPostData,
+	fetchBlogCommentsData,
 	getLikesNumber,
 	removeLike,
 } from '../../action/Topic';
@@ -24,32 +24,30 @@ const SingleTopicArea = () => {
 	const [currentPage, setCurrentPage] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
 	const { token } = useSelector((state) => state.auth);
-	const blogData = useSelector((state) => state.topic.blogpostData?.[0]);
-	const commentsData = useSelector((state) => state.topic.blogCommentsData?.[0]);
+	const { blogpostData, blogCommentsData } = useSelector((state) => state.topic);
 	const [hide, setHide] = useState(false);
 	const dispatch = useDispatch();
 
+	console.log(blogpostData);
 	const imageRef = useRef(null);
 	const [averageColor, setAverageColor] = useState(null);
-	console.log('test libreria: ' + averageColor);
 
 	const loadImageAndExtractColor = () => {
-		const img = document.getElementById('image');
+		const img = imageRef.current;
 		if (!img.complete) {
 			img.onload = () => {
 				const color = start(img);
 				setAverageColor(color);
-				console.log(color);
 			};
 		} else {
 			const color = start(img);
-			console.log(color);
+			setAverageColor(color);
 		}
 	};
 
 	useEffect(() => {
 		loadImageAndExtractColor();
-	}, []);
+	}, [averageColor]);
 
 	const handlerHideCommentArea = (e) => {
 		e.preventDefault();
@@ -58,15 +56,15 @@ const SingleTopicArea = () => {
 
 	useEffect(() => {
 		dispatch(blogPostData(token, blogPostId));
-		dispatch(blogCommentsData(token, blogPostId, currentPage));
+		dispatch(fetchBlogCommentsData(token, blogPostId, currentPage));
 		dispatch(getLikesNumber(token, blogPostId));
 	}, [blogPostId, currentPage]);
 
 	useEffect(() => {
-		if (commentsData) {
-			setTotalPages(commentsData.totalPages);
+		if (blogCommentsData) {
+			setTotalPages(blogCommentsData.totalPages);
 		}
-	}, [commentsData]);
+	}, [blogCommentsData]);
 
 	const handlePageChange = (page) => {
 		setCurrentPage(Math.min(Math.max(page, 0), totalPages - 1));
@@ -74,7 +72,12 @@ const SingleTopicArea = () => {
 	return (
 		<>
 			<NavBar />
-			<Container fluid style={{ marginTop: '12vh' }}>
+			<Container
+				fluid
+				style={{
+					paddingTop: '12vh',
+					background: `linear-gradient(135deg, rgba(${averageColor}, 0.70) 33%, rgba(${averageColor}, 0.839) 62%)`,
+				}}>
 				<Row className='d-flex justify-content-center mb-5'>
 					<Col md={7}>
 						{' '}
@@ -90,33 +93,29 @@ const SingleTopicArea = () => {
 				</Row>
 				<Row className='d-flex justify-content-center'>
 					<Col md={7} className='border'>
-						<Row className='d-flex px-2 align-items-center'>
+						<Row className='d-flex align-items-center'>
 							<Col className='tag' md={10}>
-								<Row style={{ backgroundColor: '#F8F9FA' }}>
-									<Col className='py-2'>
-										<Row className='px-1'>
-											<Col
-												className='pointer text-white rounded-2 pb-1 px-1'
-												style={{ backgroundColor: `#${averageColor}` }}>
-												{topicName}
-											</Col>
-											<Col
-												className='d-flex justify-content-center align-items-center'
-												style={{ backgroundColor: '#c0e9f2' }}
-												md={4}>
-												<Logo />
-											</Col>
-										</Row>
+								<Row style={{ backgroundColor: `rgb(${averageColor})` }} className='mt-1'>
+									<Col
+										md={12}
+										className='pointer text-white rounded-2 p-2 px-1 d-flex'
+										style={{ backgroundColor: `#${averageColor}` }}>
+										<span className='mx-1'>{topicName}</span>
+										<span
+											className='d-flex justify-content-center align-items-center'
+											style={{ backgroundColor: '#c0e9f2' }}>
+											<Logo />
+										</span>
 									</Col>
 								</Row>
 							</Col>
 						</Row>
-						{blogData && (
+						{blogpostData && (
 							<Row className='d-flex'>
 								<Col md={2}>
 									<Image
 										variant='top'
-										src={blogData.user.profileImage}
+										src={blogpostData.user.profileImage}
 										alt='profileImage'
 										style={{ width: '35px', height: '35px' }}
 										className='w-100 h-100 py-5'
@@ -126,14 +125,14 @@ const SingleTopicArea = () => {
 									<Row className='mb-2 mt-1'>
 										<Col className='d-flex align-items-center'>
 											<span className='bg-black text-white p-1 me-2  '>
-												{blogData.user.username}
+												{blogpostData.user.username}
 											</span>
 											<span style={{ whiteSpace: 'nowrap' }}>
-												Postato il: {blogData.creationBlogDate}
+												Postato il: {blogpostData.creationBlogDate}
 											</span>
 											<span className='ms-3 d-flex align-items-center'>
 												<FcLike className='me-2' />
-												{blogData.likes ? blogData.likes.length : 0}
+												{blogpostData.likes ? blogpostData.likes.length : 0}
 											</span>
 											<span className='ms-2 d-flex'>
 												<div
@@ -161,11 +160,11 @@ const SingleTopicArea = () => {
 									</Row>
 									<Row>
 										<Col>
-											<span>{blogData.category}</span>
+											<span>{blogpostData.category}</span>
 										</Col>
 									</Row>
 									<Row className='m-2'>
-										<Col>{blogData.content}</Col>
+										<Col>{blogpostData.content}</Col>
 									</Row>
 								</Col>
 							</Row>
@@ -174,7 +173,7 @@ const SingleTopicArea = () => {
 						{hide && <NewCommentArea page={currentPage} />}
 						<Row>
 							<Col className='overflow-y-scroll' style={{ maxHeight: '500px' }}>
-								{commentsData?.content.map((comment, index) => {
+								{blogCommentsData?.content.map((comment, index) => {
 									return (
 										<CommentArea
 											key={index}
@@ -187,7 +186,7 @@ const SingleTopicArea = () => {
 						</Row>
 						<Row>
 							<Col className='d-flex justify-content-end'>
-								<Pagination>
+								<Pagination size='sm'>
 									<Pagination.Prev
 										onClick={() => handlePageChange(currentPage - 1)}
 										disabled={currentPage === 0} //

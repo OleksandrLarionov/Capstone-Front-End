@@ -43,7 +43,7 @@ export const blogPostData = (token, blogPostId) => async (dispatch) => {
 	}
 };
 
-export const blogCommentsData = (token, blogPostId, page) => async (dispatch) => {
+export const fetchBlogCommentsData = (token, blogPostId, page) => async (dispatch) => {
 	const URL = import.meta.env.VITE_URL + '/comments/blogPost/' + blogPostId + '?page=' + page;
 	const response = await fetch(URL, {
 		method: 'GET',
@@ -135,7 +135,7 @@ export const addANewComment = (token, blogPostId, comment, page) => async (dispa
 	if (response.ok) {
 		response &&
 			setTimeout(() => {
-				dispatch(blogCommentsData(token, blogPostId, page));
+				dispatch(fetchBlogCommentsData(token, blogPostId, page));
 			}, 200);
 	} else {
 		throw new Error('errore');

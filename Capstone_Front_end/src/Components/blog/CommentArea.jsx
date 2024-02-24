@@ -7,7 +7,7 @@ const CommentArea = ({ commentsData, userData }) => {
 	const formattedDate = format(new Date(commentsData.date), 'HH:mm:ss dd/MM/yyyy');
 	return (
 		<Container className='mt-4'>
-			<Row className='d-flex'>
+			<Row className='d-flex border'>
 				<Col md={2}>
 					<Image
 						variant='top'
@@ -19,8 +19,8 @@ const CommentArea = ({ commentsData, userData }) => {
 				</Col>
 				<Col md={10}>
 					<Row className='mb-2 mt-1'>
-						<Col className='d-flex align-items-center'>
-							<span className='bg-black text-white p-1 me-2  '>{userData.username}</span>
+						<Col className='d-flex align-items-center border me-1'>
+							<span className='fw-bold p-1 me-2  '>{userData.username}</span>
 							<span>Postato il: {formattedDate}</span>
 							<span className='ms-3 d-flex align-items-center'>
 								<FcLike className='me-2' />
