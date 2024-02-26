@@ -14,9 +14,7 @@ export const getTokenFromLogin = (email, password) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		setTimeout(() => {
-			dispatch(setToken({ token: data.token }));
-		}, 500);
+		dispatch(setToken({ token: data.token }));
 		return data.token;
 	} else {
 		throw new Error('errore');
@@ -35,10 +33,7 @@ export const fetchUserData = (token) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		setTimeout(() => {
-			dispatch(login({ user: data }));
-		}, 500);
-		dispatch(fetchHomeData(token));
+		dispatch(login({ user: data }));
 		dispatch(setLoading(false));
 		return data;
 	} else {

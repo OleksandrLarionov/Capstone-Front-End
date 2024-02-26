@@ -158,3 +158,23 @@ export const blogCommentsNumber = (token, blogPostId) => async (dispatch) => {
 		throw new Error('errore');
 	}
 };
+
+export const addNewBlog = (token, formData, topicId, page) => async (dispatch) => {
+	const URL = import.meta.env.VITE_URL + '/blogposts/topic/addNewPost';
+	const response = await fetch(URL, {
+		method: 'POST',
+		headers: {
+			Authorization: 'Bearer ' + token,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(formData),
+	});
+	if (response.ok) {
+		response &&
+			setTimeout(() => {
+				dispatch(fetchTopicData(token, topicId, page));
+			}, 200);
+	} else {
+		throw new Error('errore');
+	}
+};

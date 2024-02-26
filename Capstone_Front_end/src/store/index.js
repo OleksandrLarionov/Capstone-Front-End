@@ -21,10 +21,10 @@ const persistConfig = {
 };
 
 const allReducers = combineReducers({
-	home: homeDataReducer,
-	topic: topicDataReducer,
 	auth: authSlice,
 	reducer: reducer,
+	home: homeDataReducer,
+	topic: topicDataReducer,
 });
 const persistedReducer = persistReducer(persistConfig, allReducers);
 

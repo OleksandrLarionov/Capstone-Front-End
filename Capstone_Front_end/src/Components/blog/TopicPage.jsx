@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Col, Container, Image, ListGroup, Pagination, Row } from 'react-bootstrap';
+import { Button, Col, Container, Image, ListGroup, Pagination, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchTopicData } from '../../action/Topic';
@@ -10,17 +10,19 @@ import NavBar from '../home/NavBar';
 import Logo from '../Logo';
 import { SetHomeColor } from '../../action/actionTypes';
 import { start } from '../../action/getColor';
+import NewBlog from '../modals/NewBlog';
 
 const TopicPage = () => {
 	const { topicId } = useParams();
 	const { zoneName } = useParams();
-	const topicList = useSelector((state) => state.topic.topicListData);
+	const { topicListData } = useSelector((state) => state.topic);
 	const { token } = useSelector((state) => state.auth);
 	const { homeColor, isLoading } = useSelector((state) => state.reducer);
 	const dispatch = useDispatch();
 	const [currentPage, setCurrentPage] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
 	const imageRef = useRef(null);
+	const [modalShow, setModalShow] = useState(false);
 
 	const loadImageAndExtractColor = () => {
 		const img = imageRef.current;
@@ -40,10 +42,10 @@ const TopicPage = () => {
 	}, [imageRef]);
 
 	useEffect(() => {
-		if (topicList) {
-			setTotalPages(topicList.totalPages);
+		if (topicListData) {
+			setTotalPages(topicListData[0].totalPages);
 		}
-	}, [topicList]);
+	}, [topicListData]);
 
 	useEffect(() => {
 		dispatch(fetchTopicData(token, topicId, currentPage));
@@ -66,6 +68,12 @@ const TopicPage = () => {
 						paddingTop: '12vh',
 						background: `linear-gradient(135deg, rgba(${homeColor}, 0.70) 33%, rgba(${homeColor}, 0.839) 62%)`,
 					}}>
+					<NewBlog
+						show={modalShow}
+						onHide={() => setModalShow(false)}
+						topicId={topicId}
+						currentPage={currentPage}
+					/>
 					<Row className='d-flex justify-content-center mb-5'>
 						<Col md={7} className='p-0'>
 							{' '}
@@ -132,15 +140,23 @@ const TopicPage = () => {
 												</Row>
 											</Row>
 										</Col>
+										<Col>
+											<Button
+												size='sm'
+												variant='primary'
+												onClick={() => setModalShow(true)}>
+												new post
+											</Button>
+										</Col>
 									</Row>
 								</ListGroup.Item>
-								{topicList && (
+								{topicListData && (
 									<ListGroup.Item
 										className='border-top '
 										style={{
 											background: `linear-gradient(180deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${homeColor}) 86%)`,
 										}}>
-										{topicList?.[0]?.content?.map((dataTopic, index) => {
+										{topicListData?.[0]?.content.map((dataTopic, index) => {
 											return <TopicSection key={index} dataTopic={dataTopic} />;
 										})}
 									</ListGroup.Item>

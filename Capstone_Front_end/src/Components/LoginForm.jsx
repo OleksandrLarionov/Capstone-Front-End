@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Google from './google/Google';
 import Cookies from 'js-cookie';
+import { fetchHomeData } from '../action/homeAction';
 
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -28,11 +29,16 @@ const LoginForm = () => {
 	const login = async (e) => {
 		e.preventDefault();
 		dispatch(getTokenFromLogin(email, password))
-			.then((token) =>
-				dispatch(fetchUserData(token)).then(() => {
-					navigate('/home');
-				})
-			)
+			.then((token) => {
+				dispatch(fetchUserData(token))
+					.then(() => fetchHomeData(token))
+					.then(() => {
+						navigate('/home');
+					})
+					.catch((error) => {
+						console.error('Errore durante il recupero dei dati utente:', error);
+					});
+			})
 			.catch((error) => {
 				console.error('Errore durante il login:', error);
 			});

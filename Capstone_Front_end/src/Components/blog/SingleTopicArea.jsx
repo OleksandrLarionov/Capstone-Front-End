@@ -98,12 +98,10 @@ const SingleTopicArea = () => {
 								<Row style={{ backgroundColor: `rgb(${averageColor})` }} className='mt-1'>
 									<Col
 										md={12}
-										className='pointer text-white rounded-2 p-2 px-1 d-flex'
+										className='pointer text-white rounded-2 p-2 px-1 d-flex align-items-center'
 										style={{ backgroundColor: `#${averageColor}` }}>
 										<span className='mx-1'>{topicName}</span>
-										<span
-											className='d-flex justify-content-center align-items-center'
-											style={{ backgroundColor: '#c0e9f2' }}>
+										<span className='d-flex justify-content-center align-items-center border border-2 rounded p-1'>
 											<Logo />
 										</span>
 									</Col>
@@ -124,7 +122,7 @@ const SingleTopicArea = () => {
 								<Col md={10} className='mt-2'>
 									<Row className='mb-2 mt-1'>
 										<Col className='d-flex align-items-center'>
-											<span className='bg-black text-white p-1 me-2  '>
+											<span className='border  p-1 me-2  '>
 												{blogpostData.user.username}
 											</span>
 											<span style={{ whiteSpace: 'nowrap' }}>

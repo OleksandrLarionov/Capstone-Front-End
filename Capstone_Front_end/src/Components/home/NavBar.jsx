@@ -5,7 +5,7 @@ import UserNavCard from '../UserNavCard';
 import Logo from '../Logo';
 function NavBar() {
 	return (
-		<div id='mainNavigation'>
+		<div id='mainNavigation' className='p-0'>
 			<Navbar expand='md'>
 				<Navbar.Brand className='py-3 text-center'>
 					{/* <img src='' alt='' className='invert' /> */}
