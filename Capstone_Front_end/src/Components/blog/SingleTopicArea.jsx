@@ -17,6 +17,7 @@ import NewCommentArea from './NewCommentArea';
 import NavBar from '../home/NavBar';
 import Logo from '../Logo';
 import { start } from '../../action/getColor';
+import { format } from 'date-fns';
 
 const SingleTopicArea = () => {
 	const { blogPostId } = useParams();
@@ -27,8 +28,8 @@ const SingleTopicArea = () => {
 	const { blogpostData, blogCommentsData } = useSelector((state) => state.topic);
 	const [hide, setHide] = useState(false);
 	const dispatch = useDispatch();
+	const formattedDate = format(new Date(blogpostData.creationBlogDate), 'HH:mm:ss dd/MM/yyyy');
 
-	console.log(blogpostData);
 	const imageRef = useRef(null);
 	const [averageColor, setAverageColor] = useState(null);
 
@@ -126,7 +127,7 @@ const SingleTopicArea = () => {
 												{blogpostData.user.username}
 											</span>
 											<span style={{ whiteSpace: 'nowrap' }}>
-												Postato il: {blogpostData.creationBlogDate}
+												Postato il: {formattedDate}
 											</span>
 											<span className='ms-3 d-flex align-items-center'>
 												<FcLike className='me-2' />

@@ -10,9 +10,9 @@ const GoogleCallBack = () => {
 	useEffect(() => {
 		const authorizationCode = searchParams.get('code');
 		if (authorizationCode) {
-			dispatch(googleCallBack(authorizationCode))
-				.then(() => navigate('/home'))
-				.catch((error) => console.error('Error during Google callback:', error));
+			dispatch(googleCallBack(authorizationCode, navigate)).catch((error) =>
+				console.error('Error during Google callback:', error)
+			);
 		}
 	}, [dispatch, navigate, searchParams]);
 

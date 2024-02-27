@@ -3,13 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { blogCommentsNumber } from '../../action/Topic';
+import { format } from 'date-fns';
 
 const TopicSection = ({ dataTopic }) => {
 	const { token } = useSelector((state) => state.auth);
 	const { homeColor } = useSelector((state) => state.reducer);
 	const [numberOfComments, setNumberOfComments] = useState(null);
+	const formattedDate = format(new Date(dataTopic.creationBlogDate), 'HH:mm:ss dd/MM/yyyy');
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		dispatch(blogCommentsNumber(token, dataTopic.id)).then((data) => setNumberOfComments(data));
 	}, [navigate]);
@@ -53,7 +56,7 @@ const TopicSection = ({ dataTopic }) => {
 					</Col>
 					<Col md={3}>
 						<Row className='d-flex flex-column text-end '>
-							<Col>{dataTopic.creationBlogDate}</Col>
+							<Col>{formattedDate}</Col>
 							<Col>by {dataTopic.user.username}</Col>
 						</Row>
 					</Col>

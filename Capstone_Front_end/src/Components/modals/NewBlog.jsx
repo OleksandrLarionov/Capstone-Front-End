@@ -27,7 +27,6 @@ const NewBlog = ({ show, onHide, topicId, currentPage }) => {
 
 	const handleOfSubmit = (e) => {
 		e.preventDefault();
-		console.log(formData);
 		dispatch(addNewBlog(token, formData, topicId, currentPage));
 		setFormData({
 			category: '',

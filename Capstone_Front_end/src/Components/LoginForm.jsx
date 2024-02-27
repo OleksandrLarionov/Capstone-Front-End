@@ -7,10 +7,12 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '../css/LoginForm.css';
 import { fetchUserData, getTokenFromLogin } from '../action/user';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Google from './google/Google';
 import Cookies from 'js-cookie';
 import { fetchHomeData } from '../action/homeAction';
+import RegistrationPage from '../Components/RegistrationPage';
+import SwitchButton from './buttons/SwitchButton';
 
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -18,6 +20,14 @@ const LoginForm = () => {
 	const [password, setPassword] = useState('');
 	const [validated, setValidated] = useState(false);
 	const [rememberMe, setRememberMe] = useState(false);
+	// const { switchButton } = useSelector((state) => state.reducer);
+
+	const [switchButton, setSwitchButton] = useState(false);
+
+	const handleSwitchChange = (e) => {
+		e.preventDefault();
+		setSwitchButton(!switchButton);
+	};
 
 	const handleShowPassword = (e) => {
 		e.preventDefault();
@@ -83,106 +93,134 @@ const LoginForm = () => {
 		<Container fluid className='component-container'>
 			<Row className='f-flex justify-content-md-end  justify-content-sm-center' id='login'>
 				<Col xs={12} sm={9} md={7} xl={5} xxl={4} className=' p-5 '>
-					<Card>
-						<Card.Header>
-							<h3>Sign In</h3>
+					<div className='flip-card'>
+						<Card>
+							<div className={!switchButton ? 'flip-card-inner' : 'flip-card-inner rotate'}>
+								<div className='flip-card-front'>
+									<Card.Header>
+										<h3>Sign In</h3>
 
-							<div className='d-flex justify-content-end social_icon'>
-								<span>
-									<Google />
-								</span>
-								<span>
-									<FaFacebook />
-								</span>
-								<span>
-									<FaSquareInstagram />
-								</span>
+										<div className='d-flex justify-content-end social_icon'>
+											<span>
+												<Google />
+											</span>
+											<span>
+												<FaFacebook />
+											</span>
+											<span>
+												<FaSquareInstagram />
+											</span>
+										</div>
+									</Card.Header>
+									<Card.Body>
+										<Form
+											onSubmit={(e) => {
+												e.preventDefault();
+												handleSubmit(e);
+											}}
+											noValidate
+											validated={validated}>
+											<Form.Group controlId='formEmail'>
+												<Row>
+													<Col className='text-start'>
+														<Form.Label>Email</Form.Label>
+													</Col>
+												</Row>
+												<InputGroup hasValidation>
+													<InputGroup.Text id='inputGroupPrepend'>
+														<IoIosMail />
+													</InputGroup.Text>
+													<Form.Control
+														type='email'
+														placeholder='Email'
+														className='text-dark'
+														value={email}
+														onChange={(e) => setEmail(e.target.value)}
+														required
+														isInvalid={validated && !email}
+													/>
+													<Form.Control.Feedback type='invalid'>
+														Please enter a valid email address.
+													</Form.Control.Feedback>
+												</InputGroup>
+											</Form.Group>
+											<Form.Group controlId='formPassword'>
+												<Row>
+													<Col className='text-start'>
+														<Form.Label>Password</Form.Label>
+													</Col>
+												</Row>
+												<InputGroup hasValidation>
+													<InputGroup.Text id='inputGroupPrepend'>
+														<IoIosLock />
+													</InputGroup.Text>
+													<Form.Control
+														type={showPassword ? 'text' : 'password'}
+														placeholder='password'
+														value={password}
+														className='text-dark'
+														onChange={(e) => setPassword(e.target.value)}
+														isInvalid={validated && !password}
+														required
+													/>
+													<InputGroup.Text onClick={handleShowPassword} type='button'>
+														{showPassword ? <FaEyeSlash /> : <FaEye />}
+													</InputGroup.Text>
+													<Form.Control.Feedback type='invalid'>
+														Please enter password
+													</Form.Control.Feedback>
+												</InputGroup>
+											</Form.Group>
+											<Form.Group
+												controlId='formRememberMe'
+												className='d-flex align-items-center'>
+												<Form.Check
+													type='checkbox'
+													label='Remember Me'
+													checked={rememberMe}
+													onChange={handleRememberMeChange}
+												/>
+											</Form.Group>
+											<Row>
+												<Col className='d-flex justify-content-end'>
+													<Button
+														variant='primary'
+														type='submit'
+														className='login_btn'>
+														Login
+													</Button>
+												</Col>
+											</Row>
+										</Form>
+									</Card.Body>
+
+									<Card.Footer>
+										<Row className=' links d-flex flex-column'>
+											<Col className='text-center'>
+												<span>
+													Don't have an account?
+													<SwitchButton
+														handleSwitchChange={handleSwitchChange}
+														switchButton={switchButton}
+														name={'Sing In'}
+													/>
+												</span>
+											</Col>
+
+											<Col className='d-flex justify-content-center'>
+												<a href='#'>Forgot your password?</a>
+											</Col>
+										</Row>
+									</Card.Footer>
+								</div>
+
+								<RegistrationPage
+									handleSwitchChange={handleSwitchChange}
+									switchButton={switchButton}
+								/>
 							</div>
-						</Card.Header>
-						<Card.Body>
-							<Form
-								onSubmit={(e) => {
-									e.preventDefault();
-									handleSubmit(e);
-								}}
-								noValidate
-								validated={validated}>
-								<Form.Group controlId='formEmail'>
-									<Form.Label>Email</Form.Label>
-									<InputGroup hasValidation>
-										<InputGroup.Text id='inputGroupPrepend'>
-											<IoIosMail />
-										</InputGroup.Text>
-										<Form.Control
-											type='email'
-											placeholder='Email'
-											className='text-dark'
-											value={email}
-											onChange={(e) => setEmail(e.target.value)}
-											required
-											isInvalid={validated && !email}
-										/>
-										<Form.Control.Feedback type='invalid'>
-											Please enter a valid email address.
-										</Form.Control.Feedback>
-									</InputGroup>
-								</Form.Group>
-								<Form.Group controlId='formPassword'>
-									<Form.Label>Password</Form.Label>
-									<InputGroup hasValidation>
-										<InputGroup.Text id='inputGroupPrepend'>
-											<IoIosLock />
-										</InputGroup.Text>
-										<Form.Control
-											type={showPassword ? 'text' : 'password'}
-											placeholder='password'
-											value={password}
-											className='text-dark'
-											onChange={(e) => setPassword(e.target.value)}
-											isInvalid={validated && !password}
-											required
-										/>
-										<InputGroup.Text onClick={handleShowPassword} type='button'>
-											{showPassword ? <FaEyeSlash /> : <FaEye />}
-										</InputGroup.Text>
-										<Form.Control.Feedback type='invalid'>
-											Please enter password
-										</Form.Control.Feedback>
-									</InputGroup>
-								</Form.Group>
-								<Form.Group
-									controlId='formRememberMe'
-									className='d-flex align-items-center'>
-									<Form.Check
-										type='checkbox'
-										label='Remember Me'
-										checked={rememberMe}
-										onChange={handleRememberMeChange}
-									/>
-								</Form.Group>
-								<Row>
-									<Col className='d-flex justify-content-end'>
-										<Button variant='primary' type='submit' className='login_btn'>
-											Login
-										</Button>
-									</Col>
-								</Row>
-							</Form>
-						</Card.Body>
-						<Card.Footer>
-							<Row className=' links d-flex flex-column'>
-								<Col className='text-center'>
-									<span>
-										Don't have an account?<a href='/register'>Sign Up</a>
-									</span>
-								</Col>
-
-								<Col className='d-flex justify-content-center'>
-									<a href='#'>Forgot your password?</a>
-								</Col>
-							</Row>
-						</Card.Footer>
-					</Card>
+						</Card>
+					</div>
 				</Col>
 			</Row>
 		</Container>

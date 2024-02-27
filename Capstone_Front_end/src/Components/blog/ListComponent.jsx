@@ -1,10 +1,16 @@
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 const ListComponent = ({ dataTopic }) => {
 	const navigate = useNavigate();
 	const color = useSelector((state) => state.reducer.homeColor);
+	const formattedDate = format(
+		new Date(dataTopic.blogPostList.slice().reverse()[0].creationBlogDate),
+		'HH:mm:ss dd/MM/yyyy'
+	);
+
 	return (
 		<ListGroup.Item
 			className='p-0 align-items-center my-1 border-0'
@@ -47,8 +53,8 @@ const ListComponent = ({ dataTopic }) => {
 					</Col>
 					<Col md={3}>
 						<Row className='d-flex flex-column text-end '>
-							<Col> {dataTopic.blogPostList.slice().reverse()[0].creationBlogDate}</Col>
-							<Col>{dataTopic.blogPostList.slice().reverse()[0].category}</Col>
+							<Col> {formattedDate}</Col>
+							<Col>{dataTopic.blogPostList.slice().reverse()[0].title}</Col>
 							<Col>{dataTopic.blogPostList.slice().reverse()[0].user.username}</Col>
 						</Row>
 					</Col>
