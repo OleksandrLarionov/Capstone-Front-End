@@ -1,47 +1,55 @@
-body {
-	/* background-image: url('../src/assets/img/pg3');
-	background-size: contain;
-	background-repeat: no-repeat;
-	height: 100%;
-	font-family: 'Numans', sans-serif; */
-	/* background: rgb(219, 187, 137);
-	background: linear-gradient(135deg, rgba(228, 183, 111, 0.872) 33%, rgba(86, 48, 48, 0.839) 62%); */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+.navigation-container {
+	border: 2px solid black;
+	font-family: 'Bebas Neue', sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	margin: 0;
 }
 
-#welcome {
-	/* style={{
-		background: `radial-gradient(circle, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 85%)`,
-	}} */
+#site-logo {
+	font-family: 'Cabin', sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	text-shadow: 1px 3px 2px rgba(0, 0, 0, 0.4);
+}
 
-	.welcome-row {
-		background-color: rgb(246, 245, 245);
-	}
-
-	.tag-name {
-		background-color: aliceblue;
-	}
-
-	.logo-bg {
-		background-color: white;
-	}
-	.list-bg {
-		/* style={{
-			background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
-		}} */
+#about-game-container {
+	padding-top: 100px;
+	padding-bottom: 100px;
+	width: 80%;
+	margin: 0 auto;
+	.inner {
+		padding: 50px;
+		box-shadow: -25px 16px 48px -3px rgba(0, 0, 0, 0.1);
+		border-radius: 2rem;
+		font-family: 'Josefin Sans', sans-serif;
 	}
 }
-#home-list-component {
-	/* style={{
-		background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
-	}} */
 
-	.topic-name {
-		background-color: aqua;
+#custom-spinner {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.spinner-img {
+	width: 50px;
+	height: auto;
+	animation: spin 1s linear infinite;
+	transform-origin: center;
+}
+
+@keyframes spin {
+	from {
+		transform: rotateY(0deg);
 	}
-	.description-area {
-		/* style={{
-			background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
-		}} */
-		background-color: aqua;
+	to {
+		transform: rotateY(360deg);
 	}
 }

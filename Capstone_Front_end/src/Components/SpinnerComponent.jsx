@@ -1,13 +1,12 @@
-import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
+import { Image } from 'react-bootstrap';
+import dadoImage from '../assets/img/dado.png';
 
 const SpinnerComponent = (props) => {
 	return (
 		<>
-			<Button variant='primary' disabled>
-				<Spinner as='span' animation='border' size='sm' role='status' aria-hidden='true' />
-				<span className='visually-hidden'>Loading...</span>
-			</Button>{' '}
+			<div id='custom-spinner' role='status'>
+				<Image src={dadoImage} className='spinner-img' alt='Loading spinner' />
+			</div>
 		</>
 	);
 };

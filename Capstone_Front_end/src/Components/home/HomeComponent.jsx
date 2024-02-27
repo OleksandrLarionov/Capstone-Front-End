@@ -9,17 +9,9 @@ import NavBar from './NavBar';
 
 const HomeComponent = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 	const homeData = useSelector((state) => state.home.homeData);
-	const { isAuthenticated, token } = useSelector((state) => state.auth);
+	const { isAuthenticated } = useSelector((state) => state.auth);
 	const color = useSelector((state) => state.reducer.homeColor);
-	useEffect(() => {
-		if (isAuthenticated) {
-			dispatch(fetchHomeData(token));
-		} else {
-			navigate('/login');
-		}
-	}, [token, navigate, isAuthenticated]);
 
 	return (
 		<>

@@ -30,7 +30,7 @@ function App() {
 				)}
 				{isAuthenticated && (
 					<Route
-						path='/home/topic/:topicName/:topicId/:blogPostId'
+						path='/home/topic/:zoneName/:topicName/:topicId/:blogPostId'
 						element={<SingleTopicArea />}
 					/>
 				)}

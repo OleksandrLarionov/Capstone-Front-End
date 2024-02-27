@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaInstagram, FaEdit } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-
 import ProfileModal from './modals/ProfileModal';
+import '../css/profile.css';
+import drago from '../assets/img/dragon.png';
+
 import { deleteCurretUser } from '../action/user';
+import NavBar from './home/NavBar';
 
 const ProfileSection = () => {
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [modalShow, setModalShow] = useState(false);
 	const { isAuthenticated, user, token } = useSelector((state) => state.auth);
@@ -18,12 +19,17 @@ const ProfileSection = () => {
 			{!isAuthenticated ? (
 				'non sei autorizzato'
 			) : (
-				<section className='vh-100' style={{ backgroundColor: '#f4f5f7' }}>
+				<>
+					<NavBar />
 					<ProfileModal show={modalShow} onHide={() => setModalShow(false)} />
-					<Container className='py-5 h-100'>
+					<Container className='py-5'>
+						<div id='profile'>
+							{' '}
+							<Image className='d-block w-100 h-100' src={drago} alt='drago' id='image' />
+						</div>
 						<Row className='d-flex justify-content-center align-items-center h-100'>
 							<Col lg={8} className='mb-4 mb-lg-0'>
-								<Card className='mb-3'>
+								<Card className='mb-3' id='profile-data'>
 									<Row className='g-0'>
 										<Col md={4} className='gradient-custom text-center'>
 											<Image
@@ -85,13 +91,6 @@ const ProfileSection = () => {
 														}}>
 														Cancellami
 													</Button>
-													<Button
-														className='btn btn-sm'
-														onClick={() => {
-															navigate('/home');
-														}}>
-														Back to Home
-													</Button>
 												</div>
 											</Card.Body>
 										</Col>
@@ -100,7 +99,7 @@ const ProfileSection = () => {
 							</Col>
 						</Row>
 					</Container>
-				</section>
+				</>
 			)}
 		</>
 	);

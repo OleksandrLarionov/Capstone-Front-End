@@ -1,5 +1,5 @@
 import { Col, Container, ListGroup, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { blogCommentsNumber } from '../../action/Topic';
@@ -12,6 +12,7 @@ const TopicSection = ({ dataTopic }) => {
 	const formattedDate = format(new Date(dataTopic.creationBlogDate), 'HH:mm:ss dd/MM/yyyy');
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const { zoneName, topicId } = useParams();
 
 	useEffect(() => {
 		dispatch(blogCommentsNumber(token, dataTopic.id)).then((data) => setNumberOfComments(data));
@@ -36,7 +37,7 @@ const TopicSection = ({ dataTopic }) => {
 										onClick={(e) => {
 											e.preventDefault();
 											navigate(
-												`/home/topic/${dataTopic.title}/${dataTopic.id}/${dataTopic.id}`
+												`/home/topic/${zoneName}/${dataTopic.title}/${topicId}/${dataTopic.id}`
 											);
 										}}>
 										{dataTopic.title}

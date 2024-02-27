@@ -3,14 +3,21 @@ import HomeComponent from './HomeComponent';
 import SpinnerComponent from '../SpinnerComponent';
 import { fetchHomeData } from '../../action/homeAction';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-	const { token } = useSelector((state) => state.auth);
+	const { isAuthenticated, token } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const { homeColor, isLoading } = useSelector((state) => state.reducer);
+	const navigate = useNavigate();
+
 	useEffect(() => {
-		dispatch(fetchHomeData(token));
-	}, [token, dispatch]);
+		if (isAuthenticated) {
+			dispatch(fetchHomeData(token));
+		} else {
+			navigate('/login');
+		}
+	}, [navigate]);
 
 	return (
 		<div

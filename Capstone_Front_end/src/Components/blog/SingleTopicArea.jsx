@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Col, Container, Image, Pagination, Row, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import backgroundImage from '../../assets/img/concept-cutted.jpg';
+import { useNavigate, useParams } from 'react-router-dom';
+import backgroundImage from '../../assets/img/blog-story.jpg';
 import {
 	addLike,
 	blogPostData,
@@ -18,10 +18,11 @@ import NavBar from '../home/NavBar';
 import Logo from '../Logo';
 import { start } from '../../action/getColor';
 import { format } from 'date-fns';
+import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
 
 const SingleTopicArea = () => {
 	const { blogPostId } = useParams();
-	const { topicName } = useParams();
+	const { topicName, zoneName, topicId } = useParams();
 	const [currentPage, setCurrentPage] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
 	const { token } = useSelector((state) => state.auth);
@@ -29,6 +30,7 @@ const SingleTopicArea = () => {
 	const [hide, setHide] = useState(false);
 	const dispatch = useDispatch();
 	const formattedDate = format(new Date(blogpostData.creationBlogDate), 'HH:mm:ss dd/MM/yyyy');
+	const navigate = useNavigate();
 
 	const imageRef = useRef(null);
 	const [averageColor, setAverageColor] = useState(null);
@@ -95,19 +97,40 @@ const SingleTopicArea = () => {
 				<Row className='d-flex justify-content-center'>
 					<Col md={7} className='border'>
 						<Row className='d-flex align-items-center'>
-							<Col className='tag' md={10}>
-								<Row style={{ backgroundColor: `rgb(${averageColor})` }} className='mt-1'>
-									<Col
-										md={12}
-										className='pointer text-white rounded-2 p-2 px-1 d-flex align-items-center'
-										style={{ backgroundColor: `#${averageColor}` }}>
-										<span className='mx-1'>{topicName}</span>
-										<span className='d-flex justify-content-center align-items-center border border-2 rounded p-1'>
-											<Logo />
-										</span>
-									</Col>
-								</Row>
+							<Col
+								md={12}
+								style={{ backgroundColor: `rgb(${averageColor})` }}
+								className=' text-white rounded-2 p-2 px-1 d-flex align-items-center'>
+								<span className='mx-1'>{topicName}</span>
+								<span className='d-flex justify-content-center align-items-center border border-2 rounded p-1'>
+									<Logo />
+								</span>
 							</Col>
+
+							<Row className='navigation-container'>
+								<Col>
+									{' '}
+									<span
+										style={{ cursor: 'pointer', fontSize: '0.8rem' }}
+										onClick={(e) => {
+											e.preventDefault();
+											navigate('/home');
+										}}>
+										Home
+										<MdOutlineKeyboardDoubleArrowRight />
+									</span>{' '}
+									<span
+										onClick={(e) => {
+											e.preventDefault();
+											navigate(`/home/topic/${zoneName}/${topicId}`);
+										}}
+										style={{ fontSize: '0.8rem', cursor: 'pointer' }}>
+										{zoneName}
+										<MdOutlineKeyboardDoubleArrowRight />
+									</span>
+									<span style={{ fontSize: '0.8rem' }}>{topicName}</span>
+								</Col>
+							</Row>
 						</Row>
 						{blogpostData && (
 							<Row className='d-flex'>
@@ -121,41 +144,45 @@ const SingleTopicArea = () => {
 									/>
 								</Col>
 								<Col md={10} className='mt-2'>
-									<Row className='mb-2 mt-1'>
-										<Col className='d-flex align-items-center'>
-											<span className='border  p-1 me-2  '>
-												{blogpostData.user.username}
-											</span>
-											<span style={{ whiteSpace: 'nowrap' }}>
-												Postato il: {formattedDate}
-											</span>
-											<span className='ms-3 d-flex align-items-center'>
-												<FcLike className='me-2' />
+									<Row className='mb-2 mt-1 d-flex align-items-center'>
+										<Col className='border  p-1 me-2 '>{blogpostData.user.username}</Col>
+										<Col style={{ whiteSpace: 'nowrap' }}>
+											{' '}
+											Postato il: {formattedDate}
+										</Col>
+										<Col className='ms-3 d-flex align-items-center'>
+											{' '}
+											<FcLike />
+											<span className='mx-2'>
 												{blogpostData.likes ? blogpostData.likes.length : 0}
 											</span>
-											<span className='ms-2 d-flex'>
-												<div
-													style={{ cursor: 'pointer' }}
-													className='mx-3'
-													onClick={(e) => {
-														e.preventDefault();
-														dispatch(addLike(token, blogPostId));
-													}}>
-													<AiOutlineLike />
-												</div>
-												<div
-													style={{ cursor: 'pointer' }}
-													onClick={(e) => {
-														e.preventDefault();
-														dispatch(removeLike(token, blogPostId));
-													}}>
-													<AiOutlineDislike />
-												</div>
+											<span
+												className='mx-2'
+												style={{ cursor: 'pointer' }}
+												onClick={(e) => {
+													e.preventDefault();
+													dispatch(addLike(token, blogPostId));
+												}}>
+												<AiOutlineLike />
+											</span>
+											<span
+												className='mx-2'
+												style={{ cursor: 'pointer' }}
+												onClick={(e) => {
+													e.preventDefault();
+													dispatch(removeLike(token, blogPostId));
+												}}>
+												<AiOutlineDislike />
 											</span>
 										</Col>
-										<Col className='d-flex justify-content-end'>
-											<Button onClick={handlerHideCommentArea}>Commenta</Button>
-										</Col>
+
+										<Row>
+											<Col className='d-flex justify-content-end'>
+												<Button size='sm' onClick={handlerHideCommentArea}>
+													Commenta
+												</Button>
+											</Col>
+										</Row>
 									</Row>
 									<Row>
 										<Col>

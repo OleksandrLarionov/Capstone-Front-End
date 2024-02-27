@@ -1,6 +1,7 @@
-import { getHome } from './actionTypes';
+import { getHome, setLoading } from './actionTypes';
 
 export const fetchHomeData = (token) => async (dispatch) => {
+	dispatch(setLoading(true));
 	const URL = import.meta.env.VITE_URL + '/home';
 	const response = await fetch(URL, {
 		method: 'GET',
@@ -14,6 +15,7 @@ export const fetchHomeData = (token) => async (dispatch) => {
 		setTimeout(() => {
 			dispatch(getHome(data));
 		}, 500);
+		dispatch(setLoading(false));
 		return data;
 	} else {
 		throw new Error('errore');
