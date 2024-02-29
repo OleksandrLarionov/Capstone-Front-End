@@ -4,7 +4,7 @@ import { FaFacebookF, FaTwitter, FaInstagram, FaEdit } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileModal from './modals/ProfileModal';
 import '../css/profile.css';
-import drago from '../assets/img/dragon.png';
+import drago from '../assets/img/pgformatblog.webp';
 
 import { deleteCurretUser } from '../action/user';
 import NavBar from './home/NavBar';
@@ -22,15 +22,15 @@ const ProfileSection = () => {
 				<>
 					<NavBar />
 					<ProfileModal show={modalShow} onHide={() => setModalShow(false)} />
-					<Container className='py-5'>
-						<div id='profile'>
-							{' '}
-							<Image className='d-block w-100 h-100' src={drago} alt='drago' id='image' />
-						</div>
-						<Row className='d-flex justify-content-center align-items-center h-100'>
+					<Container id='profile'>
+						<Row className='d-flex justify-content-center align-items-center h-100 pt-5'>
 							<Col lg={8} className='mb-4 mb-lg-0'>
 								<Card className='mb-3' id='profile-data'>
 									<Row className='g-0'>
+										<div id='drago'>
+											{' '}
+											<Image src={drago} alt='drago' id='dragon-image' />
+										</div>
 										<Col md={4} className='gradient-custom text-center'>
 											<Image
 												src={user.profileImage}

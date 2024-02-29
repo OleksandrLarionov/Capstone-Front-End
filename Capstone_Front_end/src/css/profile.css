@@ -5,3 +5,29 @@
 		margin: 0;
 	}
 }
+
+body {
+	background-color: white;
+}
+#profile-data {
+	box-shadow: -23px 5px 23px 5px rgba(0, 0, 0, 0.2);
+}
+
+#profile {
+	position: relative;
+	padding-top: 10%;
+	/* background-image: url('../assets/img/dragon.png'); */
+	/* background-size: cover; */
+	/* background-repeat: no-repeat; */
+	/* font-family: 'Numans', sans-serif; */
+}
+
+#drago {
+	position: absolute;
+	top: 276px;
+	left: -97px;
+}
+
+#drago img {
+	width: 33%;
+}

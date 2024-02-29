@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchTopicData } from '../../action/Topic';
 import TopicSection from './TopicSection';
-import backgroundImage from '../../assets/img/pg2.jpg';
+import backgroundImage from '../../assets/img/pgformatblog.webp';
 import SpinnerComponent from '../SpinnerComponent';
 import NavBar from '../home/NavBar';
 import Logo from '../Logo';

@@ -1,6 +1,4 @@
 import { Col, Container, Image, Row } from 'react-bootstrap';
-import { FcLike } from 'react-icons/fc';
-import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 import { format } from 'date-fns';
 
 const CommentArea = ({ commentsData, userData }) => {
@@ -22,27 +20,6 @@ const CommentArea = ({ commentsData, userData }) => {
 						<Col className='d-flex align-items-center border me-1'>
 							<span className='fw-bold p-1 me-2  '>{userData.username}</span>
 							<span>Postato il: {formattedDate}</span>
-							<span className='ms-3 d-flex align-items-center'>
-								<FcLike className='me-2' />
-								{/* {blogData.likes ? blogData.likes.length : 0} */}likes?
-							</span>
-							<span className='ms-2 d-flex'>
-								<div
-									style={{ cursor: 'pointer' }}
-									className='mx-3'
-									onClick={(e) => {
-										e.preventDefault();
-									}}>
-									<AiOutlineLike />
-								</div>
-								<div
-									style={{ cursor: 'pointer' }}
-									onClick={(e) => {
-										e.preventDefault();
-									}}>
-									<AiOutlineDislike />
-								</div>
-							</span>
 						</Col>
 					</Row>
 

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 
 const ListComponent = ({ dataTopic }) => {
+	console.log(dataTopic);
 	const navigate = useNavigate();
 	const color = useSelector((state) => state.reducer.homeColor);
 	const formattedDate = format(

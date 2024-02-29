@@ -1,5 +1,5 @@
 import { Image } from 'react-bootstrap';
-import dadoImage from '../assets/img/dado.png';
+import dadoImage from '../assets/img/dado.webp';
 
 const SpinnerComponent = (props) => {
 	return (

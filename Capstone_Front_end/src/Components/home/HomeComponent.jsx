@@ -10,6 +10,7 @@ import NavBar from './NavBar';
 const HomeComponent = () => {
 	const navigate = useNavigate();
 	const homeData = useSelector((state) => state.home.homeData);
+	console.log(homeData + 'i dati della home component');
 	const { isAuthenticated } = useSelector((state) => state.auth);
 	const color = useSelector((state) => state.reducer.homeColor);
 

@@ -20,13 +20,16 @@ function UserNavCard() {
 				<Nav>
 					<Row>
 						<Col className='d-flex justify-content-center align-items-center'>
-							<Image
-								variant='top'
-								src={user && user.profileImage ? user.profileImage : 'fallback_image_url'}
-								alt='profileImage'
-								style={{ width: '35px', height: '35px' }}
-								className='mr-3 rounded-circle'
-							/>
+							<div style={{ width: '45px', height: '45px' }}>
+								<Image
+									variant='top'
+									src={
+										user && user.profileImage ? user.profileImage : 'fallback_image_url'
+									}
+									alt='profileImage'
+									className='mr-3 rounded-circle w-100 h-100'
+								/>
+							</div>
 							<NavDropdown
 								id='nav-dropdown-dark-example'
 								title={

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Col, Container, Image, Pagination, Row, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import backgroundImage from '../../assets/img/blog-story.jpg';
+import backgroundImage from '../../assets/img/pgformatblog.webp';
 import {
 	addLike,
 	blogPostData,
@@ -31,6 +31,7 @@ const SingleTopicArea = () => {
 	const dispatch = useDispatch();
 	const formattedDate = format(new Date(blogpostData.creationBlogDate), 'HH:mm:ss dd/MM/yyyy');
 	const navigate = useNavigate();
+	const { isLoading } = useSelector((state) => state.reducer);
 
 	const imageRef = useRef(null);
 	const [averageColor, setAverageColor] = useState(null);
@@ -75,6 +76,7 @@ const SingleTopicArea = () => {
 	return (
 		<>
 			<NavBar />
+			{}
 			<Container
 				fluid
 				style={{
@@ -198,7 +200,7 @@ const SingleTopicArea = () => {
 
 						{hide && <NewCommentArea page={currentPage} />}
 						<Row>
-							<Col className='overflow-y-scroll' style={{ maxHeight: '500px' }}>
+							<Col className='comment-area-component overflow-y-scroll'>
 								{blogCommentsData?.content.map((comment, index) => {
 									return (
 										<CommentArea

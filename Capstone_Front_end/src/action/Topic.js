@@ -23,6 +23,7 @@ export const fetchTopicData = (token, topicId, page) => async (dispatch) => {
 };
 
 export const blogPostData = (token, blogPostId) => async (dispatch) => {
+	dispatch(setLoading(true));
 	const URL = import.meta.env.VITE_URL + '/blogposts/' + blogPostId;
 	const response = await fetch(URL, {
 		method: 'GET',
@@ -35,8 +36,8 @@ export const blogPostData = (token, blogPostId) => async (dispatch) => {
 		const data = await response.json();
 		setTimeout(() => {
 			dispatch(getBlogPostData(data));
+			dispatch(setLoading(false));
 		}, 500);
-		dispatch(setLoading(false));
 		return data;
 	} else {
 		throw new Error('errore');
