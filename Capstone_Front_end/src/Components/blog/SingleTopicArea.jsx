@@ -117,7 +117,7 @@ const SingleTopicArea = () => {
 									<Col>
 										{' '}
 										<span
-											style={{ cursor: 'pointer', fontSize: '0.8rem' }}
+											style={{ cursor: 'pointer', fontSize: '1.2rem' }}
 											onClick={(e) => {
 												e.preventDefault();
 												navigate('/home');
@@ -130,11 +130,11 @@ const SingleTopicArea = () => {
 												e.preventDefault();
 												navigate(`/home/topic/${zoneName}/${topicId}`);
 											}}
-											style={{ fontSize: '0.8rem', cursor: 'pointer' }}>
+											style={{ fontSize: '1.2rem', cursor: 'pointer' }}>
 											{zoneName}
 											<MdOutlineKeyboardDoubleArrowRight />
 										</span>
-										<span style={{ fontSize: '0.8rem' }}>{topicName}</span>
+										<span style={{ fontSize: '1.2rem' }}>{topicName}</span>
 									</Col>
 								</Row>
 							</Row>
@@ -186,7 +186,10 @@ const SingleTopicArea = () => {
 
 											<Row>
 												<Col className='d-flex justify-content-end'>
-													<Button size='sm' onClick={handlerHideCommentArea}>
+													<Button
+														className='bg-transparent fw-bold border-black'
+														size='sm'
+														onClick={handlerHideCommentArea}>
 														Commenta
 													</Button>
 												</Col>

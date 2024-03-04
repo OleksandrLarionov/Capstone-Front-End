@@ -31,10 +31,10 @@ const TopicSection = ({ dataTopic }) => {
 							<Row className='d-flex flex-column'>
 								<Col className='list-name pe-0'>
 									<span
-										className=' text-white rounded-bottom-2  d-flex'
+										className=' text-white rounded-bottom-2  d-flex  topic-page'
 										style={{
 											cursor: 'pointer',
-											background: `linear-gradient(266deg, rgba(${homeColor}) 66%, rgba(255,255,255,0) 97%);`,
+											background: `linear-gradient(266deg, rgba(${homeColor}) 66%, rgba(255,255,255,0) 97%)`,
 										}}
 										onClick={(e) => {
 											e.preventDefault();

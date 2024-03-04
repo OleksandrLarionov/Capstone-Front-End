@@ -1,7 +1,7 @@
 import { SiDungeonsanddragons } from 'react-icons/si';
 import { useSelector } from 'react-redux';
 
-const Logo = (props) => {
+const Logo = () => {
 	const { isAuthenticated } = useSelector((state) => state.auth);
 	return (
 		<>

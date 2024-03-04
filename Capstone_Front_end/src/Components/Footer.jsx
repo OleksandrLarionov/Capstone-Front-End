@@ -6,6 +6,7 @@ import { IoLogoLinkedin } from 'react-icons/io5';
 import { FaSquareInstagram } from 'react-icons/fa6';
 import { FaFacebook } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 const Footer = ({ handleSwitchChange }) => {
 	const { isAuthenticated } = useSelector((state) => state.auth);
 	function annoCorrente() {
@@ -58,13 +59,26 @@ const Footer = ({ handleSwitchChange }) => {
 								<h3>Follow me</h3>
 								<ListGroup className='d-flex flex-row justify-content-center'>
 									<ListGroup.Item>
-										<FaGithub />
+										<Link to={'https://github.com/OleksandrLarionov'} target='_blank'>
+											<FaGithub />
+										</Link>
 									</ListGroup.Item>
 									<ListGroup.Item>
-										<IoLogoLinkedin />
+										<Link
+											to={'https://www.linkedin.com/in/oleksandrlarionov-developer'}
+											target='_blank'>
+											{' '}
+											<IoLogoLinkedin />
+										</Link>
 									</ListGroup.Item>
 									<ListGroup.Item>
-										<FaSquareInstagram />
+										<Link
+											to={
+												'https://www.instagram.com/alex.calisthenics?igsh=dTlndDRzczk3OGJ1'
+											}>
+											{' '}
+											<FaSquareInstagram />
+										</Link>
 									</ListGroup.Item>
 									<ListGroup.Item>
 										<FaFacebook />

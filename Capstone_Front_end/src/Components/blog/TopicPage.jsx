@@ -162,7 +162,7 @@ const TopicPage = () => {
 								<Col>
 									{' '}
 									<span
-										style={{ cursor: 'pointer', fontSize: '0.8rem' }}
+										style={{ cursor: 'pointer', fontSize: '1.2rem' }}
 										onClick={(e) => {
 											e.preventDefault();
 											navigate('/home');
@@ -170,14 +170,14 @@ const TopicPage = () => {
 										Home
 										<MdOutlineKeyboardDoubleArrowRight />
 									</span>{' '}
-									<span style={{ fontSize: '0.8rem' }}>{zoneName} </span>
+									<span style={{ fontSize: '1.2rem' }}>{zoneName} </span>
 								</Col>
 							</Row>
 							{isLoading ? (
 								<SpinnerComponent />
 							) : (
 								<ListGroup.Item
-									className='border-top topic-page pb-5'
+									className='border-top pb-5'
 									style={{
 										background: `linear-gradient(180deg, rgba(40,43,40,0.6699054621848739) 95%, rgba(${homeColor}) 86%)`,
 									}}>

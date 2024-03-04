@@ -79,7 +79,7 @@ export const addLike = (token, blogPostId) => async (dispatch) => {
 	if (response.ok) {
 		response &&
 			setTimeout(() => {
-				dispatch(blogPostData(token, blogPostId));
+				dispatch(fetchBlogPostData(token, blogPostId));
 			}, 200);
 		console.log('like aggiunto');
 	} else {
@@ -115,7 +115,7 @@ export const removeLike = (token, blogPostId) => async (dispatch) => {
 	});
 	if (response.ok) {
 		dispatch(getLikesNumber(token, blogPostId));
-		dispatch(blogPostData(token, blogPostId));
+		dispatch(fetchBlogPostData(token, blogPostId));
 		console.log('likeRimosso');
 	} else {
 		throw new Error('errore');
