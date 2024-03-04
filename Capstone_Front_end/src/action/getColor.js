@@ -1,9 +1,12 @@
 const draw = function (img) {
 	let canvas = document.createElement('canvas');
 	let c = canvas.getContext('2d');
+
 	c.width = canvas.width = img.clientWidth;
 	c.height = canvas.height = img.clientHeight;
+
 	c.clearRect(0, 0, c.width, c.height);
+	img.crossOrigin = 'anonymous'; // ricordarsi da acciungere per evitare l'errore di CROSS ORIGIN
 	c.drawImage(img, 0, 0, img.clientWidth, img.clientHeight);
 	return c;
 };
