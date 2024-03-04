@@ -1,32 +1,36 @@
-import Carousel from 'react-bootstrap/Carousel';
 import { Row, Col, Image } from 'react-bootstrap';
 import '../../css/header.css';
-import backgroundImage2Test from '../../assets/img/pgformatblog.webp';
-
-import { useEffect, useRef } from 'react';
-import { start } from '../../action/getColor';
+import backgroundImage2Test from '../../assets/img/pg2.jpg';
 import { useDispatch } from 'react-redux';
 import { SetHomeColor } from '../../action/actionTypes';
+import { FastAverageColor } from 'fast-average-color';
+import { useEffect } from 'react';
 
 const Header = () => {
-	const imageRef = useRef(null);
 	const dispatch = useDispatch();
 
-	const loadImageAndExtractColor = () => {
-		const img = imageRef.current;
-		if (!img.complete) {
-			img.onload = () => {
-				const color = start(img);
-				dispatch(SetHomeColor(color));
-			};
-		} else {
-			const color = start(img);
-			dispatch(SetHomeColor(color));
-		}
+	const getColor = () => {
+		const fac = new FastAverageColor();
+		fac.getColorAsync(document.querySelector('#image'))
+			.then((color) => {
+				const avColor = color.rgb;
+
+				let valoriRGBA = avColor.replace('rgb(', '').replace(')', '').split(',');
+				let valori = valoriRGBA.slice(0, 3);
+				const onlyRGB = valori.join(',');
+				dispatch(SetHomeColor(onlyRGB));
+				// if (container) {
+				// 	const isToDarkOrWhite = color.isDark ? '#fff' : '#000';
+				// 	container.style.color = isToDarkOrWhite;
+				// }
+			})
+			.catch((e) => {
+				console.log(e);
+			});
 	};
 
 	useEffect(() => {
-		loadImageAndExtractColor();
+		getColor();
 	}, []);
 
 	return (
@@ -37,7 +41,6 @@ const Header = () => {
 					src={backgroundImage2Test}
 					alt='First slide'
 					id='image'
-					ref={imageRef}
 				/>
 			</Col>
 		</Row>

@@ -1,7 +1,7 @@
 import { ActionTypes } from '../action/actionTypes';
 const initialState = {
 	topicListData: null,
-	blogpostData: null,
+	blogPostData: null,
 	blogCommentsData: null,
 	topicNumber: null,
 	like: null,
@@ -12,7 +12,7 @@ const topicDataReducer = (state = initialState, action) => {
 		case ActionTypes.GET_TOPIC_LIST:
 			return { ...state, topicListData: [action.payload] };
 		case ActionTypes.GET_BLOG_POST_DATA:
-			return { ...state, blogpostData: action.payload };
+			return { ...state, blogPostData: action.payload };
 		case ActionTypes.GET_BLOG_POST_COMMENTS_DATA:
 			return { ...state, blogCommentsData: action.payload };
 		case ActionTypes.SET_BLOG_TOPIC_NUMBER:

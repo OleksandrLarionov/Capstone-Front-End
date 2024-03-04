@@ -21,13 +21,3 @@ body {
 	/* background-repeat: no-repeat; */
 	/* font-family: 'Numans', sans-serif; */
 }
-
-#drago {
-	position: absolute;
-	top: 276px;
-	left: -97px;
-}
-
-#drago img {
-	width: 33%;
-}

@@ -20,9 +20,11 @@ const TopicSection = ({ dataTopic }) => {
 	return (
 		<ListGroup.Item className='p-0 align-items-center my-1 border-0'>
 			<Container
+				fluid
 				style={{
-					background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${homeColor}) 86%)`,
-				}}>
+					background: `linear-gradient(266deg, rgba(${homeColor}) 76%, rgba(15,15,15,0.7959558823529411) 100%)`,
+				}}
+				className='m-0'>
 				<Row className='d-flex px-2 align-items-center'>
 					<Col className='tag' md={6}>
 						<Row>
@@ -32,7 +34,7 @@ const TopicSection = ({ dataTopic }) => {
 										className=' text-white rounded-bottom-2  d-flex'
 										style={{
 											cursor: 'pointer',
-											background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${homeColor}) 86%)`,
+											background: `linear-gradient(266deg, rgba(${homeColor}) 66%, rgba(255,255,255,0) 97%);`,
 										}}
 										onClick={(e) => {
 											e.preventDefault();
@@ -43,20 +45,18 @@ const TopicSection = ({ dataTopic }) => {
 										{dataTopic.title}
 									</span>
 								</Col>
-								<Col
-									className='list-description  text-white my-1'
-									style={{ backgroundColor: '#c0e9f2' }}></Col>
+								<Col className='list-description  text-white my-1'></Col>
 							</Row>
 						</Row>
 					</Col>
 					<Col md={3}>
-						<Row className='d-flex flex-column text-end '>
+						<Row className='d-flex flex-column text-end ' style={{ color: '	#c0c0c0' }}>
 							<Col>Likes: {dataTopic.likes.length}</Col>
 							<Col>Commenti : {numberOfComments}</Col>
 						</Row>
 					</Col>
 					<Col md={3}>
-						<Row className='d-flex flex-column text-end '>
+						<Row className='d-flex flex-column text-end ' style={{ color: '	#c0c0c0' }}>
 							<Col>{formattedDate}</Col>
 							<Col>by {dataTopic.user.username}</Col>
 						</Row>

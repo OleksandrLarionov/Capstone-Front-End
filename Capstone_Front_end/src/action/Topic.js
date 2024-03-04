@@ -22,7 +22,7 @@ export const fetchTopicData = (token, topicId, page) => async (dispatch) => {
 	}
 };
 
-export const blogPostData = (token, blogPostId) => async (dispatch) => {
+export const fetchBlogPostData = (token, blogPostId) => async (dispatch) => {
 	dispatch(setLoading(true));
 	const URL = import.meta.env.VITE_URL + '/blogposts/' + blogPostId;
 	const response = await fetch(URL, {
@@ -36,8 +36,8 @@ export const blogPostData = (token, blogPostId) => async (dispatch) => {
 		const data = await response.json();
 		setTimeout(() => {
 			dispatch(getBlogPostData(data));
-			dispatch(setLoading(false));
 		}, 500);
+		dispatch(setLoading(false));
 		return data;
 	} else {
 		throw new Error('errore');
@@ -46,6 +46,7 @@ export const blogPostData = (token, blogPostId) => async (dispatch) => {
 
 export const fetchBlogCommentsData = (token, blogPostId, page) => async (dispatch) => {
 	const URL = import.meta.env.VITE_URL + '/comments/blogPost/' + blogPostId + '?page=' + page;
+	dispatch(setLoading(true));
 	const response = await fetch(URL, {
 		method: 'GET',
 		headers: {
@@ -58,6 +59,7 @@ export const fetchBlogCommentsData = (token, blogPostId, page) => async (dispatc
 		setTimeout(() => {
 			dispatch(getBlogCommets(data));
 		}, 500);
+		dispatch(setLoading(false));
 
 		return data;
 	} else {

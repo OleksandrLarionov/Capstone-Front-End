@@ -22,7 +22,7 @@ const Home = () => {
 	return (
 		<div
 			style={{
-				background: `linear-gradient(135deg, rgba(${homeColor}, 0.70) 33%, rgba(${homeColor}, 0.839) 62%)`,
+				background: `linear-gradient(135deg, rgba(${homeColor}) 33%, rgba(${homeColor}) 60%)`,
 			}}>
 			{isLoading ? <SpinnerComponent /> : <HomeComponent />}
 		</div>

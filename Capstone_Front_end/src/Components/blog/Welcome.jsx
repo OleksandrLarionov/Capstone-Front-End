@@ -7,18 +7,18 @@ import { useSelector } from 'react-redux';
 
 const Welcome = ({ data }) => {
 	const [isListVisible, setListVisibility] = useState(true);
-	const color = useSelector((state) => state.reducer.homeColor);
+	const { homeColor } = useSelector((state) => state.reducer);
 	return (
-		<ListGroup style={{ background: `rgb(${color})` }} className='m-1'>
+		<ListGroup style={{ background: `rgb(${homeColor})` }} className='m-1'>
 			<ListGroup.Item className='p-0 align-items-center border-0 my-2 '>
 				<Container fluid>
 					<Row
 						className='d-flex align-items-center p-0'
-						style={{ background: `rgb(${color})` }}>
+						style={{ background: `rgb(${homeColor})` }}>
 						<Col className='tag'>
 							<Row
 								style={{
-									background: `linear-gradient(0deg, rgba(${color},0) 0%, rgba(186,186,186,0.6110819327731092) 23%)`,
+									background: `linear-gradient(135deg, rgba(${homeColor},0) 39%, rgba(40,43,40,0.6699054621848739) 95%)`,
 								}}
 								className='d-flex align-items-center justify-content-center'>
 								<Col className='d-flex justify-content-between ps-1'>
@@ -27,14 +27,14 @@ const Welcome = ({ data }) => {
 											className=' text-white rounded-2 pb-1 px-1 fw-semibold'
 											style={{
 												whiteSpace: 'nowrap',
-												background: `radial-gradient(circle, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 85%)`,
+												background: `linear-gradient(0deg, rgba(${homeColor},0.9051995798319328) 2%, rgba(40,43,40,0.6699054621848739) 95%)`,
 											}}>
 											{data.name}
 										</div>
 										<div
 											className='ps-2 pe-3 d-flex align-items-center'
 											style={{
-												background: `linear-gradient(0deg, rgba(${color},0.9051995798319328) 2%, rgba(186,186,186,0.6110819327731092) 52%)`,
+												background: `linear-gradient(0deg, rgba(${homeColor},0.9051995798319328) 2%, rgba(40,43,40,0.6699054621848739) 95%)`,
 											}}>
 											{' '}
 											<Logo />
@@ -61,7 +61,7 @@ const Welcome = ({ data }) => {
 				<ListGroup.Item
 					className='border-top p-1'
 					style={{
-						background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
+						background: `linear-gradient(135deg, rgba(40,43,40,0.6699054621848739) 39%, rgba(${homeColor}) 86%)`,
 					}}>
 					{data.zoneTopicList?.map((dataTopic, index) => {
 						return <ListComponent key={index} dataTopic={dataTopic} topicZoneId={data.id} />;

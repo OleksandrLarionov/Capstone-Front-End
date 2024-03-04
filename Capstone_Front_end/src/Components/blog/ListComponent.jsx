@@ -4,9 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
 
 const ListComponent = ({ dataTopic }) => {
-	console.log(dataTopic);
 	const navigate = useNavigate();
-	const color = useSelector((state) => state.reducer.homeColor);
+	const { homeColor } = useSelector((state) => state.reducer);
 	const formattedDate = format(
 		new Date(dataTopic.blogPostList.slice().reverse()[0].creationBlogDate),
 		'HH:mm:ss dd/MM/yyyy'
@@ -16,7 +15,7 @@ const ListComponent = ({ dataTopic }) => {
 		<ListGroup.Item
 			className='p-0 align-items-center my-1 border-0'
 			style={{
-				background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
+				background: `linear-gradient(0deg, rgba(${homeColor},0.9051995798319328) 2%, rgba(40,43,40,0.6699054621848739) 95%)`,
 			}}>
 			<Container fluid>
 				<Row className='d-flex px-2 align-items-center'>
@@ -28,7 +27,7 @@ const ListComponent = ({ dataTopic }) => {
 										className=' text-white rounded-bottom-2 p-1 fw-bold'
 										style={{
 											cursor: 'pointer',
-											background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
+											background: `linear-gradient(0deg, rgba(${homeColor},0.9051995798319328) 2%, rgba(40,43,40,0.6699054621848739) 95%)`,
 										}}
 										onClick={(e) => {
 											e.preventDefault();
@@ -37,23 +36,19 @@ const ListComponent = ({ dataTopic }) => {
 										{dataTopic.name}
 									</span>
 								</Col>
-								<Col
-									className='list-description  text-white my-1'
-									style={{
-										background: `linear-gradient(304deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${color}) 86%)`,
-									}}>
+								<Col className='list-description  text-white my-1'>
 									{dataTopic.description}
 								</Col>
 							</Row>
 						</Row>
 					</Col>
 					<Col md={3}>
-						<Row className='d-flex flex-column text-end '>
+						<Row className='d-flex flex-column text-end ' style={{ color: '	#c0c0c0' }}>
 							<Col>Posts: {dataTopic.blogPostList.length}</Col>
 						</Row>
 					</Col>
 					<Col md={3}>
-						<Row className='d-flex flex-column text-end '>
+						<Row className='d-flex flex-column text-end ' style={{ color: '	#c0c0c0' }}>
 							<Col> {formattedDate}</Col>
 							<Col>{dataTopic.blogPostList.slice().reverse()[0].title}</Col>
 							<Col>{dataTopic.blogPostList.slice().reverse()[0].user.username}</Col>

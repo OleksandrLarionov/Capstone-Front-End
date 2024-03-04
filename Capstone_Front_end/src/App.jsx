@@ -17,7 +17,7 @@ function App() {
 	const { isAuthenticated } = useSelector((state) => state.auth);
 
 	return (
-		<Container fluid>
+		<Container fluid className='vh-100'>
 			<Routes>
 				<Route path='/login' element={<LoginForm />} />
 				<Route path='/google/callback' element={<GoogleCallBack />} />

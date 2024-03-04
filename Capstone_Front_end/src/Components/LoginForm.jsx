@@ -14,6 +14,7 @@ import RegistrationPage from '../Components/RegistrationPage';
 import SwitchButton from './buttons/SwitchButton';
 import LoginPageNav from './login/LoginPageNav';
 import AboutGame from './login/AboutGame';
+import Footer from './Footer';
 
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -98,7 +99,7 @@ const LoginForm = () => {
 								<div
 									className={!switchButton ? 'flip-card-inner' : 'flip-card-inner rotate'}>
 									<div className='flip-card-front'>
-										<Card.Header>
+										<Card.Header id='sign_in'>
 											<h3>Sign In</h3>
 
 											<div className='d-flex justify-content-end social_icon'>
@@ -228,6 +229,7 @@ const LoginForm = () => {
 				</Row>
 				<AboutGame />
 			</Container>
+			<Footer handleSwitchChange={handleSwitchChange} switchButton={switchButton} />
 		</>
 	);
 };

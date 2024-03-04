@@ -6,7 +6,7 @@ const initialState = {
 const homeDataReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ActionTypes.GET_HOME:
-			return { ...state, homeData: [action.payload] };
+			return { ...state, homeData: action.payload };
 		case ActionTypes.LOGOUT_USER:
 			return initialState;
 		default:

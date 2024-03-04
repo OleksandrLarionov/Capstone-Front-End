@@ -6,7 +6,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewBlog } from '../../action/Topic';
 
-const NewBlog = ({ show, onHide, topicId, currentPage }) => {
+const NewBlog = ({ show, onHide, topicId, currentPage, zoneName }) => {
 	const { user, token } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const [formData, setFormData] = useState({
@@ -45,14 +45,26 @@ const NewBlog = ({ show, onHide, topicId, currentPage }) => {
 			aria-labelledby='contained-modal-title-vcenter'
 			centered>
 			<Modal.Header closeButton>
-				<Modal.Title id='contained-modal-title-vcenter'>Your Campain</Modal.Title>
+				<Modal.Title id='contained-modal-title-vcenter'>{zoneName}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<Container>
 					<Row className='d-flex justify-content-end p-3'>
 						<Col md={9} className='ps-0'>
 							<Form>
-								<Form.Group controlId='validationCustom01'>
+								<Form.Group controlId='validationCustom01' className='pb-3'>
+									{/* <FloatingLabel label={zoneName}> */}
+									<Form.Control
+										required
+										name='category'
+										type='text'
+										placeholder='Category'
+										value={zoneName}
+									/>
+									<Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+									{/* </FloatingLabel> */}
+								</Form.Group>
+								<Form.Group controlId='validationCustom01' className='pb-3'>
 									<FloatingLabel label='Title'>
 										<Form.Control
 											required
@@ -60,19 +72,6 @@ const NewBlog = ({ show, onHide, topicId, currentPage }) => {
 											type='text'
 											placeholder='Title'
 											value={formData.title}
-											onChange={handleChange}
-										/>
-										<Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-									</FloatingLabel>
-								</Form.Group>
-								<Form.Group controlId='validationCustom01'>
-									<FloatingLabel label='Category'>
-										<Form.Control
-											required
-											name='category'
-											type='text'
-											placeholder='Category'
-											value={formData.category}
 											onChange={handleChange}
 										/>
 										<Form.Control.Feedback>Looks good!</Form.Control.Feedback>

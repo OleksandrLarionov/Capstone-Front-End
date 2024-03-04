@@ -1,7 +1,7 @@
 import { Col, Container, Image, Row } from 'react-bootstrap';
 import { format } from 'date-fns';
 
-const CommentArea = ({ commentsData, userData }) => {
+const CommentArea = ({ commentsData, userData, isToDarkOrWhite }) => {
 	const formattedDate = format(new Date(commentsData.date), 'HH:mm:ss dd/MM/yyyy');
 	return (
 		<Container className='mt-4'>
@@ -24,7 +24,7 @@ const CommentArea = ({ commentsData, userData }) => {
 					</Row>
 
 					<Row className='m-1'>
-						<Col>{commentsData.comment}</Col>
+						<Col style={{ color: `${isToDarkOrWhite}` }}>{commentsData.comment}</Col>
 					</Row>
 				</Col>
 			</Row>

@@ -9,9 +9,10 @@ import SpinnerComponent from '../SpinnerComponent';
 import NavBar from '../home/NavBar';
 import Logo from '../Logo';
 import { SetHomeColor } from '../../action/actionTypes';
-import { start } from '../../action/getColor';
 import NewBlog from '../modals/NewBlog';
 import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
+import Footer from '../Footer';
+import { FastAverageColor } from 'fast-average-color';
 
 const TopicPage = () => {
 	const { topicId } = useParams();
@@ -26,21 +27,28 @@ const TopicPage = () => {
 	const [modalShow, setModalShow] = useState(false);
 	const navigate = useNavigate();
 
-	const loadImageAndExtractColor = () => {
-		const img = imageRef.current;
-		if (!img.complete) {
-			img.onload = () => {
-				const color = start(img);
-				dispatch(SetHomeColor(color));
-			};
-		} else {
-			const color = start(img);
-			dispatch(SetHomeColor(color));
-		}
+	const getColor = () => {
+		const fac = new FastAverageColor();
+		fac.getColorAsync(document.querySelector('#image'))
+			.then((color) => {
+				const avColor = color.rgb;
+
+				let valoriRGBA = avColor.replace('rgb(', '').replace(')', '').split(',');
+				let valori = valoriRGBA.slice(0, 4);
+				const onlyRGBA = valori.join(',');
+				dispatch(SetHomeColor(onlyRGBA));
+				// if (container) {
+				// 	const isToDarkOrWhite = color.isDark ? '#fff' : '#000';
+				// 	container.style.color = isToDarkOrWhite;
+				// }
+			})
+			.catch((e) => {
+				console.log(e);
+			});
 	};
 
 	useEffect(() => {
-		loadImageAndExtractColor();
+		getColor();
 	}, [imageRef]);
 
 	useEffect(() => {
@@ -62,17 +70,17 @@ const TopicPage = () => {
 			<NavBar />
 
 			<Container
-				className='pb-5 h-100'
 				fluid
 				style={{
 					paddingTop: '12vh',
-					background: `linear-gradient(135deg, rgba(${homeColor}, 0.70) 33%, rgba(${homeColor}, 0.839) 62%)`,
+					background: `linear-gradient(135deg, rgba(${homeColor}) 33%, rgba(${homeColor}) 62%)`,
 				}}>
 				<NewBlog
 					show={modalShow}
 					onHide={() => setModalShow(false)}
 					topicId={topicId}
 					currentPage={currentPage}
+					zoneName={zoneName}
 				/>
 				<Row className='d-flex justify-content-center mb-5'>
 					<Col md={7} className='p-0'>
@@ -82,11 +90,11 @@ const TopicPage = () => {
 							src={backgroundImage}
 							alt='image'
 							className='w-100 h-100'
-							ref={imageRef}
+							id='image'
 						/>
 					</Col>
 				</Row>
-				<Row className='d-flex justify-content-center'>
+				<Row className='d-flex justify-content-center '>
 					<Col md={7} className='p-0'>
 						<Row>
 							<Col className='d-flex justify-content-end'>
@@ -111,12 +119,12 @@ const TopicPage = () => {
 							</Col>
 						</Row>
 						<ListGroup className='border border-5'>
-							<ListGroup.Item style={{ background: `rgb(${homeColor})` }}>
+							<ListGroup.Item style={{ background: `rgba(${homeColor})` }}>
 								<Row className='d-flex px-2 align-items-center'>
 									<Col className='tag' md={6}>
 										<Row
 											style={{
-												background: `linear-gradient(0deg, rgba(${homeColor},0) 0%, rgba(186,186,186,0.6110819327731092) 23%)`,
+												background: `linear-gradient(266deg, rgba(${homeColor}) 66%, rgba(255,255,255,0) 97%)`,
 											}}>
 											<Row className='d-flex align-items-center justify-content-center '>
 												<Col className='d-flex  '>
@@ -124,14 +132,14 @@ const TopicPage = () => {
 														className='pointer text-white rounded-2 px-2'
 														style={{
 															whiteSpace: 'nowrap',
-															background: `radial-gradient(circle, rgba(107,107,107,0.947391456582633) 0%, rgba(${homeColor}) 85%)`,
+															background: `radial-gradient(circle, rgba(40,43,40,0.6699054621848739) 95%, rgba(${homeColor}) 85%)`,
 														}}>
 														{zoneName}
 													</span>
 													<span
 														className='ps-2 pe-3'
 														style={{
-															background: `linear-gradient(0deg, rgba(${homeColor},0.9051995798319328) 2%, rgba(186,186,186,0.6110819327731092) 52%)`,
+															background: `linear-gradient(0deg, rgba(${homeColor}) 2%, rgba(40,43,40,0.6699054621848739) 95%`,
 														}}>
 														{' '}
 														<Logo />
@@ -140,10 +148,10 @@ const TopicPage = () => {
 											</Row>
 										</Row>
 									</Col>
-									<Col>
+									<Col className='d-flex justify-content-end'>
 										<Button
 											size='sm'
-											variant='primary'
+											className='bg-transparent border-white fw-bold'
 											onClick={() => setModalShow(true)}>
 											new post
 										</Button>
@@ -169,9 +177,9 @@ const TopicPage = () => {
 								<SpinnerComponent />
 							) : (
 								<ListGroup.Item
-									className='border-top'
+									className='border-top topic-page pb-5'
 									style={{
-										background: `linear-gradient(180deg, rgba(107,107,107,0.947391456582633) 0%, rgba(${homeColor}) 86%)`,
+										background: `linear-gradient(180deg, rgba(40,43,40,0.6699054621848739) 95%, rgba(${homeColor}) 86%)`,
 									}}>
 									{topicListData?.[0]?.content.map((dataTopic, index) => {
 										return <TopicSection key={index} dataTopic={dataTopic} />;
@@ -181,6 +189,7 @@ const TopicPage = () => {
 						</ListGroup>
 					</Col>
 				</Row>
+				<Footer />
 			</Container>
 		</>
 	);

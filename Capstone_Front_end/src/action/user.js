@@ -1,5 +1,6 @@
 import { login, logout, setToken } from '../reducers/authSlice';
 import { setLoading } from './actionTypes';
+import { fetchHomeData } from './homeAction';
 
 export const getTokenFromLogin = (email, password) => async (dispatch) => {
 	const URL = import.meta.env.VITE_LOGIN;
@@ -33,6 +34,8 @@ export const fetchUserData = (token) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(login({ user: data }));
+		dispatch(fetchHomeData(token));
+
 		dispatch(setLoading(false));
 		return data;
 	} else {
