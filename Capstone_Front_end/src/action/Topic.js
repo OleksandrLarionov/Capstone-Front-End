@@ -193,7 +193,6 @@ export const deleteComment = (token, commentId, blogPostId, page) => {
 				},
 			});
 			if (response.ok) {
-				console.log('commento cancellato');
 				dispatch(fetchBlogCommentsData(token, blogPostId, page));
 			}
 		} catch (error) {
@@ -214,7 +213,6 @@ export const deleteBlogPost = (token, blogPostId, navigate, zoneName, topicId) =
 				},
 			});
 			if (response.ok) {
-				console.log('blog cancellato');
 				navigate(`/home/topic/${zoneName}/${topicId}`);
 			}
 		} catch (error) {

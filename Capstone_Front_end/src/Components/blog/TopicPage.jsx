@@ -11,7 +11,7 @@ import Logo from '../Logo';
 import { SetHomeColor } from '../../action/actionTypes';
 import NewBlog from '../modals/NewBlog';
 import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
-import Footer from '../Footer';
+import Footer from '../home/Footer';
 import { FastAverageColor } from 'fast-average-color';
 
 const TopicPage = () => {

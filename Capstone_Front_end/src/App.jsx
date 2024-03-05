@@ -5,13 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import GoogleCallBack from './Components/google/GoogleCallback';
-import LoginForm from './Components/LoginForm';
-import RegistrationPage from './Components/RegistrationPage';
-import ProfileSection from './Components/ProfileSection';
+import RegistrationPage from './Components/login/RegistrationPage';
+import ProfileSection from './Components/user/ProfileSection';
 import TopicPage from './Components/blog/TopicPage';
 import SingleTopicArea from './Components/blog/SingleTopicArea';
 import NotFoundPage from './Components/NotFoundPage';
 import './App.css';
+import LoginForm from './Components/login/LoginForm';
 
 function App() {
 	const { isAuthenticated } = useSelector((state) => state.auth);

@@ -1,6 +1,6 @@
 import { Button, Col, Container, ListGroup, Row } from 'react-bootstrap';
-import '../css/footer.css';
-import Logo from './Logo';
+import '../../css/footer.css';
+import Logo from '../Logo';
 import { FaGithub } from 'react-icons/fa';
 import { IoLogoLinkedin } from 'react-icons/io5';
 import { FaSquareInstagram } from 'react-icons/fa6';

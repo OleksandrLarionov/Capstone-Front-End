@@ -4,18 +4,18 @@ import { FaFacebook } from 'react-icons/fa';
 import { FaSquareInstagram } from 'react-icons/fa6';
 import { IoIosMail, IoIosLock } from 'react-icons/io';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import '../css/LoginForm.css';
-import { check, fetchUserData, getTokenFromLogin } from '../action/user';
+import '../../css/LoginForm.css';
+import { check, fetchUserData, getTokenFromLogin } from '../../action/user';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import Google from './google/Google';
+import Google from '../google/Google';
 import Cookies from 'js-cookie';
-import RegistrationPage from '../Components/RegistrationPage';
-import SwitchButton from './buttons/SwitchButton';
-import LoginPageNav from './login/LoginPageNav';
-import AboutGame from './login/AboutGame';
-import Footer from './Footer';
-import { setRole } from '../reducers/authSlice';
+import RegistrationPage from './RegistrationPage';
+import SwitchButton from '../buttons/SwitchButton';
+import LoginPageNav from './LoginPageNav';
+import AboutGame from './AboutGame';
+import Footer from '../home/Footer';
+import { setRole } from '../../reducers/authSlice';
 
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState(false);

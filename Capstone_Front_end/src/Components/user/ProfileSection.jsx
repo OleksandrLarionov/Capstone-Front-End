@@ -2,18 +2,23 @@ import { useState } from 'react';
 import { Row, Col, Card, Image, Button } from 'react-bootstrap';
 import { FaFacebookF, FaTwitter, FaInstagram, FaEdit } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import ProfileModal from './modals/ProfileModal';
-import '../css/profile.css';
+import ProfileModal from '../modals/ProfileModal';
+import '../../css/profile.css';
 
-import { deleteCurretUser } from '../action/user';
-import NavBar from './home/NavBar';
+import { deleteCurretUser } from '../../action/user';
+import NavBar from '../home/NavBar';
+import ConfirmModal from '../modals/ConfirmModal';
 
 const ProfileSection = () => {
 	const dispatch = useDispatch();
 	const [modalShow, setModalShow] = useState(false);
 	const { isAuthenticated, user, token } = useSelector((state) => state.auth);
 	const { homeColor } = useSelector((state) => state.reducer);
-
+	const [modalShowConfirm, setModalShowConfirm] = useState(false);
+	const deleteUser = (e) => {
+		e.preventDefault();
+		dispatch(deleteCurretUser(token));
+	};
 	return (
 		<>
 			{!isAuthenticated ? (
@@ -22,11 +27,16 @@ const ProfileSection = () => {
 				<>
 					<NavBar />
 					<ProfileModal show={modalShow} onHide={() => setModalShow(false)} />
-
+					<ConfirmModal
+						show={modalShowConfirm}
+						onHide={() => setModalShowConfirm(false)}
+						name={'User'}
+						deleteUser={deleteUser}
+					/>
 					<Row
 						className='d-flex justify-content-center align-items-center h-100 pt-5'
 						style={{ backgroundColor: `rgb(${homeColor})` }}>
-						<Col lg={8} className='mb-4 mb-lg-0'>
+						<Col lg={7} className='mb-4 mb-lg-0'>
 							<Card className='mb-3' id='profile-data'>
 								<Row className='g-0'>
 									<div id='drago'> </div>
@@ -84,9 +94,11 @@ const ProfileSection = () => {
 													</a>
 												</div>
 												<Button
+													size='sm'
+													variant='danger'
 													onClick={(e) => {
 														e.preventDefault();
-														dispatch(deleteCurretUser(token));
+														setModalShowConfirm(true);
 													}}>
 													Cancellami
 												</Button>

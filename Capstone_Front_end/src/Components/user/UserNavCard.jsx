@@ -1,7 +1,7 @@
 import { Col, Image, Nav, NavDropdown, Row } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import LogoutButton from './LogoutButton';
+import LogoutButton from '../buttons/LogoutButton';
 import { useEffect } from 'react';
 
 function UserNavCard() {

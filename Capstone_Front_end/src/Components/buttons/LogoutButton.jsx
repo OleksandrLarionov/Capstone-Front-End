@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Col, Row } from 'react-bootstrap';
-import { logout } from '../reducers/authSlice';
+import { logout } from '../../reducers/authSlice';
 
 function LogoutButton() {
 	const dispatch = useDispatch();

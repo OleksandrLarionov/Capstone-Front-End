@@ -1,7 +1,7 @@
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import '../../css/nav.css';
 import { Link } from 'react-router-dom';
-import UserNavCard from '../UserNavCard';
+import UserNavCard from '../user/UserNavCard';
 import Logo from '../Logo';
 function NavBar() {
 	return (

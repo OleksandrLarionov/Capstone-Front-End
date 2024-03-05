@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Welcome from '../blog/Welcome';
 import NavBar from './NavBar';
-import Footer from '../Footer';
+import Footer from './Footer';
 
 const HomeComponent = () => {
 	const navigate = useNavigate();

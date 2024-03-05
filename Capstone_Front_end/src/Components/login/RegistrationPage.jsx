@@ -1,10 +1,10 @@
 import { Container, Row, Col, Form, Button, InputGroup, Card } from 'react-bootstrap';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { registration } from '../action/registration';
+import { registration } from '../../action/registration';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import SwitchButton from './buttons/SwitchButton';
+import SwitchButton from '../buttons/SwitchButton';
 
 const RegistrationPage = ({ switchButton, handleSwitchChange }) => {
 	const dispatch = useDispatch();

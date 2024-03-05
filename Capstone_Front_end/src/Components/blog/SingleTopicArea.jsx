@@ -20,7 +20,7 @@ import { format } from 'date-fns';
 import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
 import SpinnerComponent from '../SpinnerComponent';
 import { FastAverageColor } from 'fast-average-color';
-import Footer from '../Footer';
+import Footer from '../home/Footer';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ConfirmModal from '../modals/ConfirmModal';
