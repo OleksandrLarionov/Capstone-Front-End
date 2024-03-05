@@ -5,7 +5,7 @@ import { FaSquareInstagram } from 'react-icons/fa6';
 import { IoIosMail, IoIosLock } from 'react-icons/io';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import '../css/LoginForm.css';
-import { fetchUserData, getTokenFromLogin } from '../action/user';
+import { check, fetchUserData, getTokenFromLogin } from '../action/user';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Google from './google/Google';
@@ -40,7 +40,8 @@ const LoginForm = () => {
 		e.preventDefault();
 		dispatch(getTokenFromLogin(email, password))
 			.then((token) => {
-				dispatch(fetchUserData(token))
+				dispatch(fetchUserData(token));
+				dispatch(check(token, email))
 					.then(() => {
 						navigate('/home');
 					})

@@ -129,3 +129,26 @@ export const deleteCurretUser = (token, navigate) => {
 		}
 	};
 };
+
+export const check = (token, email) => async (dispatch) => {
+	const URL = import.meta.env.VITE_ME + '/check';
+	const response = await fetch(URL, {
+		method: 'POST',
+		headers: {
+			Authorization: 'Bearer ' + token,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			email,
+		}),
+	});
+	if (response.ok) {
+		const data = await response.json();
+		console.log(data, 'la fetch di controllo se user è admin o user');
+
+		dispatch(setLoading(false));
+		return data;
+	} else {
+		throw new Error('errore');
+	}
+};

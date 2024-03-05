@@ -1,7 +1,6 @@
-import { Navigate } from 'react-router-dom';
 import { login, setToken } from '../reducers/authSlice';
 import { fetchHomeData } from './homeAction';
-import { fetchUserData } from './user';
+import { check, fetchUserData } from './user';
 
 export const googleCallBack = (authorizationCode, navigate) => async (dispatch) => {
 	const URL = import.meta.env.VITE_GOOGLE_CALLBACK + `${authorizationCode}`;
@@ -13,10 +12,11 @@ export const googleCallBack = (authorizationCode, navigate) => async (dispatch) 
 		const token = data.accessToken;
 		dispatch(setToken({ token: token }));
 		dispatch(fetchUserData(token))
-			.then((data) => login({ user: data }))
+			.then((data) => login({ user: data }).then(dispatch(check(token, data.email))))
 			.then(() => fetchHomeData(token))
 			.then(() => {
 				navigate('/home');
+				console.log(data);
 			});
 
 		return data;
