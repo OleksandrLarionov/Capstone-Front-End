@@ -15,6 +15,7 @@ import SwitchButton from './buttons/SwitchButton';
 import LoginPageNav from './login/LoginPageNav';
 import AboutGame from './login/AboutGame';
 import Footer from './Footer';
+import { setRole } from '../reducers/authSlice';
 
 const LoginForm = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -42,6 +43,9 @@ const LoginForm = () => {
 			.then((token) => {
 				dispatch(fetchUserData(token));
 				dispatch(check(token, email))
+					.then((bool) => {
+						dispatch(setRole({ isAdmin: bool }));
+					})
 					.then(() => {
 						navigate('/home');
 					})

@@ -14,7 +14,6 @@ export const fetchHomeData = (token) => async (dispatch) => {
 		const data = await response.json();
 		setTimeout(() => {
 			dispatch(getHome(data));
-			console.log(data);
 		}, 500);
 		dispatch(setLoading(false));
 		return data;

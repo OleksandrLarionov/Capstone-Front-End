@@ -1,4 +1,4 @@
-import { login, setToken } from '../reducers/authSlice';
+import { login, setRole, setToken } from '../reducers/authSlice';
 import { fetchHomeData } from './homeAction';
 import { check, fetchUserData } from './user';
 
@@ -14,7 +14,9 @@ export const googleCallBack = (authorizationCode, navigate) => async (dispatch) 
 		dispatch(fetchUserData(token))
 			.then((userData) => {
 				login({ user: userData });
-				dispatch(check(token, userData.email));
+				dispatch(check(token, userData.email)).then((bool) => {
+					dispatch(setRole({ isAdmin: bool }));
+				});
 			})
 			.then(() => fetchHomeData(token))
 			.then(() => {

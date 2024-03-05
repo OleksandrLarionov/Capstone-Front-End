@@ -144,9 +144,6 @@ export const check = (token, email) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data, 'la fetch di controllo se user è admin o user');
-
-		dispatch(setLoading(false));
 		return data;
 	} else {
 		throw new Error('errore');
