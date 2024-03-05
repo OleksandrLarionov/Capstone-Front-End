@@ -14,7 +14,13 @@ function LogoutButton() {
 	};
 	return (
 		<Row>
-			<Col>{token !== null && <Button onClick={handleLogout}>Logout</Button>}</Col>
+			<Col>
+				{token !== null && (
+					<Button size='sm' className='bg-transparent border-warning' onClick={handleLogout}>
+						Logout
+					</Button>
+				)}
+			</Col>
 		</Row>
 	);
 }

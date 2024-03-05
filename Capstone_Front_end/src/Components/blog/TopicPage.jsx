@@ -23,7 +23,6 @@ const TopicPage = () => {
 	const dispatch = useDispatch();
 	const [currentPage, setCurrentPage] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
-	const imageRef = useRef(null);
 	const [modalShow, setModalShow] = useState(false);
 	const navigate = useNavigate();
 
@@ -49,7 +48,7 @@ const TopicPage = () => {
 
 	useEffect(() => {
 		getColor();
-	}, [imageRef]);
+	}, [homeColor]);
 
 	useEffect(() => {
 		if (topicListData) {

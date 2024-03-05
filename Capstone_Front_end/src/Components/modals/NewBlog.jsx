@@ -59,7 +59,7 @@ const NewBlog = ({ show, onHide, topicId, currentPage, zoneName }) => {
 										name='category'
 										type='text'
 										placeholder='Category'
-										value={zoneName}
+										defaultValue={zoneName}
 									/>
 									<Form.Control.Feedback>Looks good!</Form.Control.Feedback>
 									{/* </FloatingLabel> */}
@@ -79,7 +79,7 @@ const NewBlog = ({ show, onHide, topicId, currentPage, zoneName }) => {
 								</Form.Group>
 
 								<Form.Group controlId='floatingTextarea2'>
-									<FloatingLabel label='Story'>
+									<FloatingLabel label='write here'>
 										<Form.Control
 											as='textarea'
 											name='content'

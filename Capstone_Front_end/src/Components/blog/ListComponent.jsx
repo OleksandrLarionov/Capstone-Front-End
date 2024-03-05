@@ -6,9 +6,10 @@ import { format } from 'date-fns';
 const ListComponent = ({ dataTopic }) => {
 	const navigate = useNavigate();
 	const { homeColor } = useSelector((state) => state.reducer);
+
 	const formattedDate = format(
 		new Date(dataTopic.blogPostList.slice().reverse()[0].creationBlogDate),
-		'HH:mm:ss dd/MM/yyyy'
+		'HH:mm, dd/MM/yyyy'
 	);
 
 	return (

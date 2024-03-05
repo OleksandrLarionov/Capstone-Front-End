@@ -12,11 +12,13 @@ export const googleCallBack = (authorizationCode, navigate) => async (dispatch) 
 		const token = data.accessToken;
 		dispatch(setToken({ token: token }));
 		dispatch(fetchUserData(token))
-			.then((data) => login({ user: data }).then(dispatch(check(token, data.email))))
+			.then((userData) => {
+				login({ user: userData });
+				dispatch(check(token, userData.email));
+			})
 			.then(() => fetchHomeData(token))
 			.then(() => {
 				navigate('/home');
-				console.log(data);
 			});
 
 		return data;

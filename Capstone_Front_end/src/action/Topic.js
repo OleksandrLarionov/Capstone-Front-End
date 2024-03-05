@@ -46,7 +46,7 @@ export const fetchBlogPostData = (token, blogPostId) => async (dispatch) => {
 
 export const fetchBlogCommentsData = (token, blogPostId, page) => async (dispatch) => {
 	const URL = import.meta.env.VITE_URL + '/comments/blogPost/' + blogPostId + '?page=' + page;
-	dispatch(setLoading(true));
+
 	const response = await fetch(URL, {
 		method: 'GET',
 		headers: {
@@ -59,7 +59,6 @@ export const fetchBlogCommentsData = (token, blogPostId, page) => async (dispatc
 		setTimeout(() => {
 			dispatch(getBlogCommets(data));
 		}, 500);
-		dispatch(setLoading(false));
 
 		return data;
 	} else {
@@ -145,7 +144,7 @@ export const addANewComment = (token, blogPostId, comment, page) => async (dispa
 	}
 };
 
-export const blogCommentsNumber = (token, blogPostId) => async (dispatch) => {
+export const blogCommentsNumber = (token, blogPostId) => async () => {
 	const URL = import.meta.env.VITE_URL + '/comments/numberOfComments/' + blogPostId;
 	const response = await fetch(URL, {
 		method: 'GET',
@@ -180,4 +179,46 @@ export const addNewBlog = (token, formData, topicId, page) => async (dispatch) =
 	} else {
 		throw new Error('errore');
 	}
+};
+
+export const deleteComment = (token, commentId, blogPostId, page) => {
+	return async (dispatch) => {
+		const URL = import.meta.env.VITE_URL + '/comments/me/delete/' + commentId;
+
+		try {
+			const response = await fetch(URL, {
+				method: 'DELETE',
+				headers: {
+					Authorization: 'Bearer ' + token,
+				},
+			});
+			if (response.ok) {
+				console.log('commento cancellato');
+				dispatch(fetchBlogCommentsData(token, blogPostId, page));
+			}
+		} catch (error) {
+			console.log('Errore', error);
+		}
+	};
+};
+
+export const deleteBlogPost = (token, blogPostId, navigate, zoneName, topicId) => {
+	return async () => {
+		const URL = import.meta.env.VITE_URL + '/blogposts/me/delete/' + blogPostId;
+
+		try {
+			const response = await fetch(URL, {
+				method: 'DELETE',
+				headers: {
+					Authorization: 'Bearer ' + token,
+				},
+			});
+			if (response.ok) {
+				console.log('blog cancellato');
+				navigate(`/home/topic/${zoneName}/${topicId}`);
+			}
+		} catch (error) {
+			console.log('Errore', error);
+		}
+	};
 };

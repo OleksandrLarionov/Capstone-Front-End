@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
 	addLike,
+	deleteBlogPost,
 	fetchBlogCommentsData,
 	fetchBlogPostData,
 	getLikesNumber,
@@ -20,13 +21,16 @@ import { MdOutlineKeyboardDoubleArrowRight } from 'react-icons/md';
 import SpinnerComponent from '../SpinnerComponent';
 import { FastAverageColor } from 'fast-average-color';
 import Footer from '../Footer';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import ConfirmModal from '../modals/ConfirmModal';
 
 const SingleTopicArea = () => {
 	const { blogPostId } = useParams();
 	const { topicName, zoneName, topicId } = useParams();
 	const [currentPage, setCurrentPage] = useState(0);
 	const [totalPages, setTotalPages] = useState(0);
-	const { token } = useSelector((state) => state.auth);
+	const { token, user } = useSelector((state) => state.auth);
 	const { blogPostData, blogCommentsData } = useSelector((state) => state.topic);
 	const [hide, setHide] = useState(false);
 	const dispatch = useDispatch();
@@ -35,6 +39,7 @@ const SingleTopicArea = () => {
 	const [averageColor, setAverageColor] = useState(null);
 	const [contrast, setContrast] = useState('');
 	const formattedDate = format(new Date(blogPostData.creationBlogDate), 'HH:mm:ss dd/MM/yyyy');
+	const [modalShow, setModalShow] = useState(false);
 
 	const getColor = () => {
 		const fac = new FastAverageColor();
@@ -51,6 +56,10 @@ const SingleTopicArea = () => {
 			.catch((e) => {
 				console.log(e);
 			});
+	};
+
+	const sameUser = (blogPostUserId) => {
+		return blogPostUserId === user.id;
 	};
 
 	useEffect(() => {}, [blogPostData, averageColor]);
@@ -76,6 +85,11 @@ const SingleTopicArea = () => {
 	const handlePageChange = (page) => {
 		setCurrentPage(Math.min(Math.max(page, 0), totalPages - 1));
 	};
+
+	const handleDeleteBlog = (e) => {
+		e.preventDefault();
+		setModalShow(true);
+	};
 	return (
 		<>
 			<NavBar />
@@ -84,11 +98,20 @@ const SingleTopicArea = () => {
 			) : (
 				<Container
 					fluid
+					className='p-0'
 					style={{
-						paddingTop: '12vh',
 						background: `linear-gradient(135deg, ${averageColor} 33%, ${averageColor} 62%)`,
 					}}>
-					<Row className='d-flex justify-content-center mb-5'>
+					<ConfirmModal
+						show={modalShow}
+						onHide={() => setModalShow(false)}
+						name={'Blog'}
+						deleteBlog={() => {
+							dispatch(deleteBlogPost(token, blogPostId, navigate, zoneName, topicId));
+						}}
+					/>
+
+					<Row className='d-flex justify-content-center mb-5' style={{ paddingTop: '12vh' }}>
 						<Col md={7} className='p-0'>
 							{' '}
 							<BootstrapImage
@@ -135,6 +158,22 @@ const SingleTopicArea = () => {
 											<MdOutlineKeyboardDoubleArrowRight />
 										</span>
 										<span style={{ fontSize: '1.2rem' }}>{topicName}</span>
+									</Col>
+									<Col>
+										{sameUser(blogPostData.user.id) && (
+											<DropdownButton
+												size='sm'
+												id='dropdown-comment'
+												title='options'
+												className='my-1 d-flex justify-content-end'>
+												<Dropdown.Item href='#/action-1'>Modify</Dropdown.Item>
+												<Dropdown.Item
+													className=' text-danger '
+													onClick={handleDeleteBlog}>
+													Delete
+												</Dropdown.Item>
+											</DropdownButton>
+										)}
 									</Col>
 								</Row>
 							</Row>
@@ -216,6 +255,8 @@ const SingleTopicArea = () => {
 										return (
 											<CommentArea
 												key={index}
+												blogPostId={blogPostId}
+												currentPage={currentPage}
 												commentsData={comment}
 												userData={comment.user}
 												isToDarkOrWhite={contrast}

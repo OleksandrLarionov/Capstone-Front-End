@@ -82,3 +82,10 @@
 		transform: rotateY(360deg);
 	}
 }
+
+#dropdown-comment:first-child {
+	background: transparent;
+	border: 1px solid black;
+	padding: 3px;
+	text-align: center;
+}

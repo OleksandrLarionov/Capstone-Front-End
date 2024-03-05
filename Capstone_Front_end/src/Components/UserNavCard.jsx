@@ -38,13 +38,11 @@ function UserNavCard() {
 								menuVariant='dark'
 								className='mx-2 pe-2'
 								align='end'>
-								<NavDropdown.Item href='#action/3.1'>Action</NavDropdown.Item>
-								<NavDropdown.Item href='#action/3.2'>Another action</NavDropdown.Item>
 								<NavDropdown.Item as={Link} to='/home/profile'>
 									Profile
 								</NavDropdown.Item>
 								<NavDropdown.Divider />
-								<NavDropdown.Item className='d-flex justify-content-end'>
+								<NavDropdown.Item className='d-flex justify-content-end py-0 px-1'>
 									<LogoutButton />
 								</NavDropdown.Item>
 							</NavDropdown>
