@@ -1,5 +1,5 @@
 import { login, logout, setToken } from '../reducers/authSlice';
-import { setLoading } from './actionTypes';
+import { getAllUsers, setLoading } from './actionTypes';
 import { fetchHomeData } from './homeAction';
 
 export const getTokenFromLogin = (email, password) => async (dispatch) => {
@@ -36,6 +36,33 @@ export const fetchUserData = (token) => async (dispatch) => {
 		dispatch(login({ user: data }));
 		dispatch(fetchHomeData(token));
 
+		dispatch(setLoading(false));
+		return data;
+	} else {
+		throw new Error('errore');
+	}
+};
+export const fetchAllUsersData = (token, page, size, orderBy) => async (dispatch) => {
+	dispatch(setLoading(true));
+	const URL =
+		import.meta.env.VITE_ME +
+		'/getUsers' +
+		'?page=' +
+		page +
+		'&size=' +
+		size +
+		'&orderBy=' +
+		orderBy;
+	const response = await fetch(URL, {
+		method: 'GET',
+		headers: {
+			Authorization: 'Bearer ' + token,
+			'Content-Type': 'application/json',
+		},
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(getAllUsers(data));
 		dispatch(setLoading(false));
 		return data;
 	} else {
@@ -148,4 +175,20 @@ export const check = (token, email) => async (dispatch) => {
 	} else {
 		throw new Error('errore');
 	}
+};
+export const deleteUserByAdmin = (token, idUser) => {
+	return async (dispatch) => {
+		const URL = import.meta.env.VITE_URL + '/users/' + idUser;
+
+		try {
+			const response = await fetch(URL, {
+				method: 'DELETE',
+				headers: {
+					Authorization: 'Bearer ' + token,
+				},
+			});
+		} catch (error) {
+			console.log('Errore', error);
+		}
+	};
 };

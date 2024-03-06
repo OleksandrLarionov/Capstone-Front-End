@@ -6,6 +6,7 @@ import homeDataReducer from '../reducers/home';
 import topicDataReducer from '../reducers/topic';
 import authSlice from '../reducers/authSlice';
 import reducer from '../reducers/reducer';
+import adminReducer from '../reducers/admin';
 
 const persistConfig = {
 	key: 'root',
@@ -25,6 +26,7 @@ const allReducers = combineReducers({
 	reducer: reducer,
 	home: homeDataReducer,
 	topic: topicDataReducer,
+	admin: adminReducer,
 });
 const persistedReducer = persistReducer(persistConfig, allReducers);
 

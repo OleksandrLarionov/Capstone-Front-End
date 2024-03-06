@@ -44,7 +44,7 @@ const LoginForm = () => {
 				dispatch(fetchUserData(token));
 				dispatch(check(token, email))
 					.then((bool) => {
-						dispatch(setRole({ isAdmin: bool }));
+						dispatch(setRole({ isAdmin: bool.bool }));
 					})
 					.then(() => {
 						navigate('/home');

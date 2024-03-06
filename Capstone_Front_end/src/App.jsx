@@ -12,9 +12,10 @@ import SingleTopicArea from './Components/blog/SingleTopicArea';
 import NotFoundPage from './Components/NotFoundPage';
 import './App.css';
 import LoginForm from './Components/login/LoginForm';
+import AdminPage from './Components/user/AdminPage';
 
 function App() {
-	const { isAuthenticated } = useSelector((state) => state.auth);
+	const { isAuthenticated, isAdmin } = useSelector((state) => state.auth);
 
 	return (
 		<Container fluid className='vh-100'>
@@ -33,6 +34,9 @@ function App() {
 						path='/home/topic/:zoneName/:topicName/:topicId/:blogPostId'
 						element={<SingleTopicArea />}
 					/>
+				)}
+				{isAuthenticated && isAdmin && (
+					<Route path='/home/back/office' element={<AdminPage />} />
 				)}
 				<Route path='*' element={<NotFoundPage />} />
 			</Routes>

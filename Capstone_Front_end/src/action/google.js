@@ -15,7 +15,7 @@ export const googleCallBack = (authorizationCode, navigate) => async (dispatch) 
 			.then((userData) => {
 				login({ user: userData });
 				dispatch(check(token, userData.email)).then((bool) => {
-					dispatch(setRole({ isAdmin: bool }));
+					dispatch(setRole({ isAdmin: bool.bool }));
 				});
 			})
 			.then(() => fetchHomeData(token))

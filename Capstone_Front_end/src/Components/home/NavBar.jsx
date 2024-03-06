@@ -1,9 +1,11 @@
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import '../../css/nav.css';
 import { Link } from 'react-router-dom';
 import UserNavCard from '../user/UserNavCard';
 import Logo from '../Logo';
 function NavBar() {
+	const { isAuthenticated, isAdmin } = useSelector((state) => state.auth);
 	return (
 		<div id='mainNavigation' className='p-0'>
 			<Navbar expand='md'>
@@ -41,6 +43,11 @@ function NavBar() {
 							<NavDropdown.Item href='#'>Blog</NavDropdown.Item>
 							<NavDropdown.Item href='#'>About Us</NavDropdown.Item>
 							<NavDropdown.Item href='#'>Contact us</NavDropdown.Item>
+							{isAuthenticated && isAdmin && (
+								<NavDropdown.Item as={Link} to='/home/back/office'>
+									Back Office
+								</NavDropdown.Item>
+							)}
 						</NavDropdown>
 						<UserNavCard />
 					</Nav>
