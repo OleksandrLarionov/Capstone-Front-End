@@ -31,7 +31,7 @@ const Footer = ({ handleSwitchChange }) => {
 							<Button
 								onClick={(e) => {
 									handleSwitchChange(e);
-									window.location.href = '#sign_in';
+									window.location.href = '#login-page-nav';
 								}}>
 								Sing in
 							</Button>

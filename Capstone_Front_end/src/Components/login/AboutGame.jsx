@@ -46,7 +46,7 @@ const AboutGame = (props) => {
 							<footer id='about'>
 								<h3>Something About Us...</h3>
 								<p>
-									Qui, tra le pagine virtuali del nostro blog, esploriamo mondi infiniti,
+									Qui, tra le pagine virtuali del nostro forun, esploriamo mondi infiniti,
 									popolati da eroi coraggiosi, malvagi signori delle tenebre e creature
 									misteriose. Guidati dalla luce delle candele e dalla saggezza dei nostri
 									esperti, viaggiamo attraverso il labirinto delle regole, scoprendo

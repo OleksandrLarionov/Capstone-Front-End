@@ -1,8 +1,10 @@
 import { Navbar, Nav } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import '../../css/nav.css';
 import { Link } from 'react-router-dom';
 import Logo from '../Logo';
 function LoginPageNav() {
+	const { isAuthenticated } = useSelector((state) => state.auth);
 	return (
 		<Navbar expand='md' id='login-page-nav'>
 			<Navbar.Brand className='py-3 text-center'>
@@ -16,12 +18,14 @@ function LoginPageNav() {
 			<Navbar.Collapse id='navbarNavDropdown'>
 				<Nav className='navbar-nav mx-auto'>
 					<Nav.Item>
-						<Nav.Link as={Link} to='/home' aria-current='page'>
-							Home
-						</Nav.Link>
+						{isAuthenticated && (
+							<Nav.Link as={Link} to='/home' aria-current='page'>
+								Home
+							</Nav.Link>
+						)}
 					</Nav.Item>
 					<Nav.Item>
-						<Nav.Link href='#' className='nav-link'>
+						<Nav.Link href='#' className='nav-link invisible'>
 							News
 						</Nav.Link>
 					</Nav.Item>
